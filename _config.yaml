@@ -3,13 +3,19 @@ remote_theme: mmistakes/minimal-mistakes@4.24.0
 plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
+  - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-feed
+  - jemoji
+  - jekyll-include-cache
 
 minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 title: Gianmarco Aversano
 subtitle: Ph.D., Data Scientist and A.I. Engineer.
 name: Gianmarco Aversano
-description: Personal website
+description: Personal website and blog of Gianmarco Aversano.
 # email: Gianmarco.Aversano1990@gmail.com
 
 search: true
@@ -22,20 +28,7 @@ markdown: kramdown
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
-# timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
-pagination:
-  enabled: true
-  per_page: 3
-  permalink: "/page/:num/"
-  title: " - page :num"
-  limit: 1
-  sort_field: "date"
-  sort_reverse: true
-  plugins:
-    - jekyll-paginate-v2
-  whitelist:
-    - jekyll-paginate-v2
+timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 github:
   owner_url: https://github.com/svnv-svsv-jm
@@ -103,3 +96,10 @@ defaults:
     values:
       layout: single
       author_profile: true
+
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
