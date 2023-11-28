@@ -3,21 +3,16 @@ plugins:
   - jekyll-remote-theme
   - jekyll-include-cache
 
-minimal_mistakes_skin: "contrast" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 title: Gianmarco Aversano
 subtitle: Ph.D., Data Scientist and A.I. Engineer.
 name: Gianmarco Aversano
 description: Professional website
-logo: pics/me.jpg # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+logo: pics/me.jpg
+layout: single
 github:
   owner_url: https://github.com/svnv-svsv-jm
-
-sidebar:
-  - title: "Gianmarco"
-    image: pics/me.jpg
-    image_alt: "me"
-    text: "Me."
 
 # Site Author
 author:
