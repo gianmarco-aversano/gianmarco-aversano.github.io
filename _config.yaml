@@ -9,8 +9,8 @@ minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark",
 title: Gianmarco Aversano
 subtitle: Ph.D., Data Scientist and A.I. Engineer.
 name: Gianmarco Aversano
-description: Professional website
-email: Gianmarco.Aversano1990@gmail.com
+description: Personal website
+# email: Gianmarco.Aversano1990@gmail.com
 
 # Build settings
 markdown: kramdown
