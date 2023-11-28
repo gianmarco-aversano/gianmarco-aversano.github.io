@@ -3,9 +3,9 @@ title: "Happy Birthday!"
 categories:
   - Blog
 tags:
-  - Post Formats
-  - readability
-  - standard
+  - test
 ---
 
-Text.
+July 25 is my birthday.
+
+This page has been created as a test.
