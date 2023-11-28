@@ -2,6 +2,7 @@ title: Gianmarco Aversano
 subtitle: Ph.D., Data Scientist and A.I. Engineer.
 email: Gianmarco.Aversano1990@gmail.com
 description: Personal website and blog of Gianmarco Aversano.
+
 minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 search: true
 
@@ -43,6 +44,9 @@ author:
   avatar: "/assets/images/me.jpg"
   bio: "Ph.D., Data Scientist and A.I. Engineer."
   links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:Gianmarco.Aversano1990@gmail.com"
     - label: "LinkedIn"
       icon: "fas fa-fw fa-link"
       url: "https://www.linkedin.com/in/gianmarco-aversano/"
