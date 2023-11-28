@@ -22,7 +22,7 @@ paginate_path: /page:num/
 
 search: true
 
-logo: pics/me.jpg
+logo: assets/images/me.jpg
 
 github:
   owner_url: https://github.com/svnv-svsv-jm
@@ -33,7 +33,7 @@ include:
 # Side bar
 sidebar:
   - title: "Gianmarco"
-    image: pics/me.jpg
+    image: assets/images/me.jpg
     image_alt: "me"
     text: "Me."
   - title: "Gianmarco Aversano"
@@ -42,7 +42,7 @@ sidebar:
 # Site Author
 author:
   name: "Gianmarco Aversano"
-  avatar: pics/me.jpg
+  avatar: assets/images/me.jpg
   bio: "Ph.D., Data Scientist and A.I. Engineer."
   location: "Berlin, Germany."
   email: Gianmarco.Aversano1990@gmail.com
