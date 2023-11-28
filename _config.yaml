@@ -12,23 +12,37 @@ name: Gianmarco Aversano
 description: Personal website
 # email: Gianmarco.Aversano1990@gmail.com
 
+search: true
+# logo: assets/images/me.jpg
+
 # Build settings
 markdown: kramdown
+
 # Outputting
 permalink: /:categories/:title/
 paginate: 5 # amount of posts to show
 paginate_path: /page:num/
 # timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
-search: true
-
-# logo: assets/images/me.jpg
+pagination:
+  enabled: true
+  per_page: 3
+  permalink: "/page/:num/"
+  title: " - page :num"
+  limit: 1
+  sort_field: "date"
+  sort_reverse: true
+  plugins:
+    - jekyll-paginate-v2
+  whitelist:
+    - jekyll-paginate-v2
 
 github:
   owner_url: https://github.com/svnv-svsv-jm
 
 include:
   - _pages
+  - _post
 
 # Side bar
 sidebar:
