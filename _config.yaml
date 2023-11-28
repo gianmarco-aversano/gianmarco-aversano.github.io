@@ -14,6 +14,15 @@ layout: single
 github:
   owner_url: https://github.com/svnv-svsv-jm
 
+# Side bar
+sidebar:
+  - title: "Gianmarco"
+    image: pics/me.jpg
+    image_alt: "me"
+    text: "Me."
+  - title: "Gianmarco Aversano"
+    text: "Ph.D., Data Scientist and A.I. Engineer."
+
 # Site Author
 author:
   name: "Gianmarco Aversano"
