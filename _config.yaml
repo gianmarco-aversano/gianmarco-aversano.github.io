@@ -22,7 +22,7 @@ paginate_path: /page:num/
 
 search: true
 
-logo: assets/images/me.jpg
+# logo: assets/images/me.jpg
 
 github:
   owner_url: https://github.com/svnv-svsv-jm
