@@ -11,6 +11,7 @@ name: Gianmarco Aversano
 description: Professional website
 logo: pics/me.jpg
 layout: single
+author_profile: true
 github:
   owner_url: https://github.com/svnv-svsv-jm
 
