@@ -1,1 +1,3 @@
-# gianmarco-aversano.github.io
+# Gianmarco Aversano
+
+_Ph.D., Data Scientist and A.I. Engineer._
