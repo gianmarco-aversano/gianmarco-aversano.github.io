@@ -1,3 +1,1 @@
-# Gianmarco
-
-_Ph.D., Data Scientist and A.I. Engineer._
+# Gianmarco Aversano

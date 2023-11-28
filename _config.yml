@@ -1,8 +1,36 @@
-# remote_theme: pages-themes/minimal@v0.2.0
-remote_theme: mmistakes/minimal-mistakes@4.24.0
+title: Gianmarco Aversano
+subtitle: Ph.D., Data Scientist and A.I. Engineer.
+email: Gianmarco.Aversano1990@gmail.com
+description: Personal website and blog of Gianmarco Aversano.
+minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+search: true
+
+# Build settings
+markdown: kramdown
+remote_theme: mmistakes/minimal-mistakes
+# Outputting
+permalink: /:categories/:title/
+paginate: 5 # amount of posts to show
+paginate_path: /page:num/
+timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+include:
+  - _pages
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
+
+# Plugins (previously gems:)
 plugins:
-  - jekyll-remote-theme
-  - jekyll-include-cache
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-gist
@@ -10,53 +38,11 @@ plugins:
   - jemoji
   - jekyll-include-cache
 
-minimal_mistakes_skin: "default" # "default", "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
-
-title: Gianmarco Aversano
-subtitle: Ph.D., Data Scientist and A.I. Engineer.
-name: Gianmarco Aversano
-description: Personal website and blog of Gianmarco Aversano.
-# email: Gianmarco.Aversano1990@gmail.com
-
-search: true
-# logo: assets/images/me.jpg
-
-# Build settings
-markdown: kramdown
-
-# Outputting
-permalink: /:categories/:title/
-paginate: 5 # amount of posts to show
-paginate_path: /page:num/
-timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-
-github:
-  owner_url: https://github.com/svnv-svsv-jm
-
-include:
-  - _pages
-  - _post
-
-# Side bar
-sidebar:
-  - title: "Gianmarco"
-    image: assets/images/me.jpg
-    image_alt: "me"
-    text: "Me."
-  - title: "Gianmarco Aversano"
-    text: "Ph.D., Data Scientist and A.I. Engineer."
-
-# Site Author
 author:
   name: "Gianmarco Aversano"
-  avatar: assets/images/me.jpg
+  avatar: "/assets/images/me.jpg"
   bio: "Ph.D., Data Scientist and A.I. Engineer."
-  location: "Berlin, Germany."
-  email: Gianmarco.Aversano1990@gmail.com
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:Gianmarco.Aversano1990@gmail.com"
     - label: "LinkedIn"
       icon: "fas fa-fw fa-link"
       url: "https://www.linkedin.com/in/gianmarco-aversano/"
@@ -64,7 +50,6 @@ author:
       icon: "fab fa-fw fa-github"
       url: "https://github.com/svnv-svsv-jm"
 
-# Site Footer
 footer:
   links:
     - label: "Email"
