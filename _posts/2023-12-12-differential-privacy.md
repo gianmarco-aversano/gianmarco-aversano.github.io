@@ -356,5 +356,3 @@ trainer.fit(model=model, datamodule=datamodule)
 ```
 
 The nice thing about this is that the same `Callback` _should_ work with any `lightning.pytorch` model. It is model agnostic. So you do not need to re-implement the same model twice, the normal one and the private one. You can just code any model once, then leverage this `Callback` to make them private.
-
-Thanks for making it this far.
