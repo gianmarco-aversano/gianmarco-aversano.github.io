@@ -37,7 +37,7 @@ Is there a solution? Differential Privacy (DP) is one, but it comes with its cos
 
 Very simply, a mechanism is ($\epsilon,\delta$)-DP if the following is true:
 
-$$ \frac{P(M(X \sim D))}{P(M(X \sim D'))} \le \exp(\epsilon) + \delta$$
+$$ \frac{P(M(X \sim D))}{P(M(X \sim D'))} \le \exp(\epsilon) + \delta $$
 
 where:
 
@@ -61,13 +61,13 @@ We need to make SGD private. How? Inject noise.
 
 The SGD algorithm defines the following parameter update rule for one sample:
 
-$$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} = w + \eta \Delta w$$
+$$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} = w + \eta \Delta w $$
 
 where $x$ is the sample over which we are evaluating the loss $L(\cdot)$, and $\eta$ is the learning rate. We need to obfuscate the contribution of $x$ to the update $\Delta w$ by injecting some noise.
 
 So instead of $\Delta w = \frac{\delta L(x)}{\delta w}$, we can have:
 
-$$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} + z \sim \mathcal{N}(0,\sigma)$$
+$$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} + z \sim \mathcal{N}(0,\sigma) $$
 
 where $z \sim \mathcal{N}(0,\sigma)$ is some random noise. We can actually choose the normal or Laplace distribution. See [here](https://en.wikipedia.org/wiki/Additive_noise_differential_privacy_mechanisms).
 
@@ -75,7 +75,7 @@ How much noise should I inject to get a model that is exactly ($\epsilon,\delta$
 
 The value of $\sigma$ depends on the maximum possible sensitivity of our mechanism to any sample $x$. Now, in our case our mechanism is the SGD, so we should consider the worst possible case for this term:
 
-$$|\Delta w| = |\frac{\delta L(x)}{\delta w}|$$
+$$ |\Delta w| = |\frac{\delta L(x)}{\delta w}| $$
 
 Unfortunately, this term is usually unbounded but it is actually not if we use gradient clipping. If we do, then our worst possible case (maximun value for $\Delta w$) is the clip value $C$.
 
