@@ -8,6 +8,8 @@ tags:
   - privacy
 ---
 
+{%- include mathjax.html -%}
+
 ## Introduction
 
 What is differential privacy? Why is important? How can we implement that in PyTorch?
