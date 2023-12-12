@@ -152,7 +152,7 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
         default_alphas: ty.Sequence[ty.Union[float, int]] = None,
         **gsm_kwargs: ty.Any,
     ) -> None:
-        """Enables differential privacy using Opacus. Converts optimizers to instances of the :class:`~opacus.optimizers.DPOptimizer` class. This callback inherits from `EarlyStopping`, thus it is also able to stop the training when enough privacy budget has been spent.
+        """
         Args:
             budget (float, optional): Defaults to 1.0.
                 Maximun privacy budget to spend.
@@ -161,15 +161,24 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
             max_grad_norm (float, optional): Defaults to 1.0.
                 Max grad norm used for gradient clipping.
             delta (float, optional): Defaults to None.
-                The target δ of the (ϵ,δ)-differential privacy guarantee. Generally, it should be set to be less than the inverse of the size of the training dataset. If `None`, this will be set to the inverse of the size of the training dataset `N`: `1/N`.
+                The target δ of the (ϵ,δ)-differential privacy guarantee.
+                Generally, it should be set to be less than the inverse of the size of the training dataset.
+                If `None`, this will be set to the inverse of the size of the training dataset `N`: `1/N`.
             use_target_values (bool, optional):
-                Whether to call `privacy_engine.make_private_with_epsilon()` or `privacy_engine.make_private`. If `True`, the value of `noise_multiplier` will be calibrated automatically so that the desired privacy budget will be reached only at the end of the training.
+                Whether to call `privacy_engine.make_private_with_epsilon()` or `privacy_engine.make_private`.
+                If `True`, the value of `noise_multiplier` will be calibrated automatically so that the desired privacy budget will be reached only at the end of the training.
             idx (ty.Sequence[int]):
-                List of optimizer ID's to make private. Useful when a model may have more than one optimizer. By default, all optimizers are made private.
+                List of optimizer ID's to make private.
+                Useful when a model may have more than one optimizer.
+                By default, all optimizers are made private.
             log_spent_budget_as (str, optional):
-                How to log and expose the spent budget value. Although this callback already allows you to stop the training when enough privacy budget has been spent (see argument `stop_on_budget`), this keyword argument can be used in combination with an `EarlyStopping` callback, so that the latter may use this value to stop the training when enough budget has been spent.
+                How to log and expose the spent budget value.
+                Although this callback already allows you to stop the training when enough privacy budget has been spent (see argument `stop_on_budget`), this keyword argument can be used in combination with an `EarlyStopping` callback, so that the latter may use this value to stop the training when enough budget has been spent.
             param_group_names (ty.List[str]):
-                List of parameter group names you want to apply DP to. This allows you to choose to apply DP only to specific parameter groups. Of course, this will work only if the optimizer has named parameter groups. If it doesn't, then this argument will be ignored and DP will be applied to all parameter groups.
+                List of parameter group names you want to apply DP to.
+                This allows you to choose to apply DP only to specific parameter groups.
+                Of course, this will work only if the optimizer has named parameter groups.
+                If it doesn't, then this argument will be ignored and DP will be applied to all parameter groups.
             private_dataloader (bool, optional):
                 Whether to make the dataloader private. Defaults to False.
             **gsm_kwargs:
@@ -272,7 +281,9 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
                     noise_multiplier=self.noise_multiplier,
                     max_grad_norm=self.max_grad_norm,
                     expected_batch_size=expected_batch_size,
-                    param_group_names=self.param_group_names,
+                    # NOTE: this param is not supported in Opacus DPOptimizer, but only in an
+                    # upgrade I implemented, which I am not importing in this snippet
+                    # param_group_names=self.param_group_names,
                 )
                 dp_optimizer.attach_step_hook(self.accountant.get_optimizer_hook_fn(sample_rate=sample_rate))
             else:
