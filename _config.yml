@@ -38,6 +38,7 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-mathjax-1
 
 author:
   name: "Gianmarco Aversano"
