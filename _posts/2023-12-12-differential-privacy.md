@@ -12,7 +12,7 @@ tags:
 
 ## Introduction
 
-What is differential privacy? Why is important? How can we implement that in PyTorch?
+What is differential privacy? Why is it important? How can we implement that in PyTorch?
 
 Differential privacy (DP) is a mathematical framework for ensuring the privacy of individuals in datasets. The concept was first introduced in 2006 by [Cynthia Dwork and Frank McSherry, et al.](https://link.springer.com/chapter/10.1007/11681878_14).
 
@@ -105,6 +105,7 @@ Here, I proivide a code snippet to create a PyTorch Lightning callback that impl
 from loguru import logger
 import typing as ty
 
+from copy import deepcopy
 import lightning.pytorch as pl
 import torch
 from torch.utils.data import DataLoader
@@ -115,6 +116,37 @@ from opacus.data_loader import DPDataLoader
 from opacus import GradSampleModule
 from opacus.layers.dp_rnn import DPGRUCell
 from opacus.optimizers import DPOptimizer
+
+def copy_gru(grucell: torch.nn.GRUCell) -> DPGRUCell:
+    """Creates a DP-GRUCell from a non-DP one."""
+    input_size: int = grucell.input_size
+    hidden_size: int = grucell.hidden_size
+    bias: bool = grucell.bias
+    dpgrucell = DPGRUCell(input_size, hidden_size, bias)
+    for name, param in grucell.named_parameters():
+        if "ih" in name:
+            _set_layer_param(dpgrucell, name, param, "ih")
+        elif "hh" in name:
+            _set_layer_param(dpgrucell, name, param, "hh")
+        else:
+            raise AttributeError(f"Unknown parameter {name}")
+    return dpgrucell
+
+def _set_layer_param(
+    dpgrucell: DPGRUCell,
+    name: str,
+    param: torch.Tensor,
+    layer_name: str,
+) -> None:
+    """Helper"""
+    layer = getattr(dpgrucell, layer_name)
+    if "weight" in name:
+        layer.weight = torch.nn.Parameter(deepcopy(param))
+    elif "bias" in name:
+        layer.bias = torch.nn.Parameter(deepcopy(param))
+    else:
+        raise AttributeError(f"Unknown parameter {name}")
+    setattr(dpgrucell, layer_name, layer)
 
 def replace_grucell(module: torch.nn.Module) -> None:
     """Replaces GRUCell modules with DP-counterparts."""
