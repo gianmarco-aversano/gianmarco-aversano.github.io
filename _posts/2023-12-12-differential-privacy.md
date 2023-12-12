@@ -8,7 +8,7 @@ tags:
   - privacy
 ---
 
-{%- include mathjax.html -%}
+<!-- {%- include mathjax.html -%} -->
 
 ## Introduction
 
