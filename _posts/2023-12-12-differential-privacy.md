@@ -179,7 +179,6 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
         use_target_values: bool = False,
         idx: ty.Sequence[int] = None,
         log_spent_budget_as: str = "DP/spent-budget",
-        param_group_names: ty.List[str] = None,
         private_dataloader: bool = False,
         default_alphas: ty.Sequence[ty.Union[float, int]] = None,
         **gsm_kwargs: ty.Any,
@@ -205,12 +204,7 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
                 By default, all optimizers are made private.
             log_spent_budget_as (str, optional):
                 How to log and expose the spent budget value.
-                Although this callback already allows you to stop the training when enough privacy budget has been spent (see argument `stop_on_budget`), this keyword argument can be used in combination with an `EarlyStopping` callback, so that the latter may use this value to stop the training when enough budget has been spent.
-            param_group_names (ty.List[str]):
-                List of parameter group names you want to apply DP to.
-                This allows you to choose to apply DP only to specific parameter groups.
-                Of course, this will work only if the optimizer has named parameter groups.
-                If it doesn't, then this argument will be ignored and DP will be applied to all parameter groups.
+                An `EarlyStopping` callback may use this value to stop the training when enough budget has been spent.
             private_dataloader (bool, optional):
                 Whether to make the dataloader private. Defaults to False.
             **gsm_kwargs:
@@ -223,7 +217,6 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
         self.max_grad_norm = max_grad_norm
         self.use_target_values = use_target_values
         self.log_spent_budget_as = log_spent_budget_as
-        self.param_group_names = param_group_names
         self.private_dataloader = private_dataloader
         self.gsm_kwargs = gsm_kwargs
         if default_alphas is None:
@@ -313,9 +306,6 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
                     noise_multiplier=self.noise_multiplier,
                     max_grad_norm=self.max_grad_norm,
                     expected_batch_size=expected_batch_size,
-                    # NOTE: this param is not supported in Opacus DPOptimizer, but only in an
-                    # upgrade I implemented, which I am not importing in this snippet
-                    # param_group_names=self.param_group_names,
                 )
                 dp_optimizer.attach_step_hook(self.accountant.get_optimizer_hook_fn(sample_rate=sample_rate))
             else:
@@ -372,6 +362,7 @@ class DifferentialPrivacy(pl.callbacks.EarlyStopping):
             logger.info(
                 f"The training will stop at epoch {trainer.current_epoch} and step {trainer.global_step} because all the allowed privacy budget ({self.budget}) has been spent: {self.epsilon}."
             )
+            # Set this flat to True in the Trainer and the training will stop
             trainer.should_stop = True
 ```
 
