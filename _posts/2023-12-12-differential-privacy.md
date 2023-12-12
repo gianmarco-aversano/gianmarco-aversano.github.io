@@ -75,7 +75,7 @@ The value of $\sigma$ depends on the maximum possible sensitivity of our mechani
 
 $$|\Delta w| = |\frac{\delta L(x)}{\delta w}|$$
 
-Unfortunately, this term is usually unbounded but it is actually not if we use gradient clipping. If we do, then our worst possible case (maximun value for $|\Delta w|$) is the clip value $C$.
+Unfortunately, this term is usually unbounded but it is actually not if we use gradient clipping. If we do, then our worst possible case (maximun value for $\Delta w$) is the clip value $C$.
 
 In the end, the value of the noise $z$ is:
 
