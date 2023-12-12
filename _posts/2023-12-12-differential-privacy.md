@@ -75,7 +75,7 @@ How much noise should I inject to get a model that is exactly ($\epsilon,\delta$
 
 The value of $\sigma$ depends on the maximum possible sensitivity of our mechanism to any sample $x$. Now, in our case our mechanism is the SGD, so we should consider the worst possible case for this term:
 
-$ |\Delta w| = |\frac{\delta L(x)}{\delta w}| $
+$ \Delta w = \frac{\delta L(x)}{\delta w} $
 
 Unfortunately, this term is usually unbounded but it is actually not if we use gradient clipping. If we do, then our worst possible case (maximun value for $\Delta w$) is the clip value $C$.
 
