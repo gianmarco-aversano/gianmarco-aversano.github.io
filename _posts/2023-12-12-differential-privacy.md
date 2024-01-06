@@ -99,7 +99,7 @@ How to keep track of it? See [Abadi et al.](https://arxiv.org/abs/1607.00133).
 
 See [Opacus](https://opacus.ai/). They already do an excellent job.
 
-Here, I proivide a code snippet to create a PyTorch Lightning callback that implements DP.
+Here, I provide a code snippet to create a PyTorch Lightning callback that implements DP.
 
 ```python
 from loguru import logger
