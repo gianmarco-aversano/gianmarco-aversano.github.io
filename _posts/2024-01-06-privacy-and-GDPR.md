@@ -77,7 +77,7 @@ Remember, when producing fake data, we divide the original private data into two
 
 To answer this question, this method checks if the synthetic data has some relationship with the train data that is not equal to the relationship it has with the test data.
 
-<img src="https://raw.githubusercontent.com/gianmarco-aversano/gianmarco-aversano.github.io/main/assets/images/mace.png" class="img-responsive" alt="mace" width="500"> </img>
+<img src="https://raw.githubusercontent.com/gianmarco-aversano/gianmarco-aversano.github.io/main/assets/images/mace.png" class="img-responsive" alt="mace" width="500">
 
 In the picture here, we see that the name _query_ is used. This can be a broad term, that we need to define.
 
