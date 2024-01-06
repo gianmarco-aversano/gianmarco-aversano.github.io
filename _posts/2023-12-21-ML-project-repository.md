@@ -17,7 +17,7 @@ You may want to check out Cookiecutter, which comes with templates to set up new
 
 Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, sorry. Maybe next time.
 
-Most of the code here can be found at: [my-template](github.com:svnv-svsv-jm/init-new-project).
+Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
 
 <!-- By the end, your project will look something like:
 
