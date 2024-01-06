@@ -611,3 +611,5 @@ class Classifier(pl.LightningModule):
 We may also define a `validation_step()` and a `test_step()`.
 
 Now, this `Classifier` class not only defined our `MLP` architecture, but also how to train it. To a certain extent, while plain PyTorch is for tensor operations and neural netowrks (in terms of plain achitecture), Lightning allows us to create tasks.
+
+> TO BE CONTINUED
