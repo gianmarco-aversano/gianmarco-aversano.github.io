@@ -223,7 +223,7 @@ priority = "explicit" # means this URL will be checked for only for the packages
 
 What happens here is that we install `tensorflow-io-gcs-filesystem<0.32.0` if we are on Windows (Tensorflow's higher versions do not support Windows at the time of writing), otherwise we install any (`"*"`) version.
 
-Now PyTorch. This package can be painful to install. This is what usually work: install the desired version from PyPi if we are on Mac, install it from `"https://download.pytorch.org"` if we are on Linux. In our example, we chose the GPU version for CUDA 12.1 (see `"/whl/cu121"`).
+Now PyTorch. This package can be painful to install. This is what usually works: install the desired version from PyPi if we are on Mac, install it from `"https://download.pytorch.org"` if we are on Linux. In our example, we chose the GPU version for CUDA 12.1 (see `"/whl/cu121"`).
 
 Now that we have declared our desired dependencies, we need to resolve them. For this, run:
 
