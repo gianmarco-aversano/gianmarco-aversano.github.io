@@ -192,7 +192,9 @@ pytest-xdist = "*"
 nbmake = "*"
 ```
 
-And now let me show you why we need Poetry and not plain `pip`. Poetry lets you specify different depndency versions, and different sources (the flag `--extra-url` rings a bell?) for each dependency. Image we want to install Keras and PyTorch, but we have a Mac, and our friends have Windows and/or Linux. Some of us have a GPU, others don't. These things mean each person will need a different version of these two popular ML packages, from different sources.
+And now let me show you why we need Poetry and not plain `pip`. Poetry lets you specify different depndency versions, and different sources (the flag `--extra-url` rings a bell?) for each dependency.
+
+Imagine we want to install Keras and PyTorch, but we have a Mac, and our friends have Windows and/or Linux. Some of us have a GPU, others don't. These things mean each person will need a different version of these two popular ML packages, from different sources.
 
 How to solve this? As follows:
 
