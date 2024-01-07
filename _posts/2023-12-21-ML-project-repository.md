@@ -337,7 +337,7 @@ def fc_block(
 
 class MLP(torch.nn.Module):
     """MLP network. Avoid hardcoding and create a general network.
-    By having generalized constructor,
+    Have generalized constructor.
     """
 
     def __init__(
