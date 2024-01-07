@@ -128,7 +128,7 @@ Rather self-explicative. Now create the following files:
 - `src/project_name/__init__.py` (package creation file);
 - `src/README.md` (you can place any guidelines for how other developers can contribute to your project here).
 
-At this point, your repository still does not look anything like this:
+At this point, your repository looks something like this:
 
 ```bash
 >> tree .

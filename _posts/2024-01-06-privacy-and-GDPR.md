@@ -103,6 +103,6 @@ You also need to think of meaningful interactions that they can have with the fa
 
 ## Conclusions
 
-Protecting our privacy is still an open and important discussion. This post's objective is to shed light and on the matter and enable you to do now your own research about it.
+Protecting our privacy is still an open and important discussion. This post's objective is to shed light on the matter and enable you to do now your own research about it.
 
 It is true that current approaches have their shortcomings, but it is still the best we can do, until something better comes out.
