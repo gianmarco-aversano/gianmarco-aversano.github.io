@@ -1,5 +1,5 @@
 ---
-title: "Ultimate guide for a Machine Learning repository."
+title: "Ultimate guide for a Machine Learning repository"
 categories:
   - blog
 tags:
@@ -27,6 +27,7 @@ Most of the code here can be found at: [my-template](https://github.com/svnv-svs
 ├── Dockerfile
 ├── LICENSE
 ├── Makefile
+├── contributing.md
 ├── README.md
 ├── docker-compose.yml
 ├── examples
@@ -42,7 +43,6 @@ Most of the code here can be found at: [my-template](https://github.com/svnv-svs
 │   ├── git-clean.sh
 │   └── pytest.sh
 ├── src
-│   ├── README.md
 │   └── project_name
 │       ├── __init__.py
 │       └── config.py
@@ -126,7 +126,7 @@ build-backend = "poetry.core.masonry.api"
 Rather self-explicative. Now create the following files:
 
 - `src/project_name/__init__.py` (package creation file);
-- `src/README.md` (you can place any guidelines for how other developers can contribute to your project here).
+- `contributing.md` (you can place any guidelines for how other developers can contribute to your project here).
 
 At this point, your repository looks something like this:
 
@@ -135,9 +135,9 @@ At this point, your repository looks something like this:
 .
 ├── LICENSE
 ├── README.md
+├── contributing.md
 ├── pyproject.toml
 ├── src
-    ├── README.md
     └── project_name
         └── __init__.py
 ```
