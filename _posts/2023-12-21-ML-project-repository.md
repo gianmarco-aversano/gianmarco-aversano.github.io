@@ -280,9 +280,17 @@ root = pyrootutils.setup_root(
 def data_path() -> str:
     """Path where to find data. Reading this value from an environment variable if defined."""
     return os.environ.get("DATA_LOC", ".data")
+
+# Example of a fixture, which are values we can pass to all tests
+@pytest.fixture(scope="session")
+def resources_path() -> str:
+    """Path where to resources for the tests."""
+    return os.environ.get("RESOURCES_LOC", "tests/res")
 ```
 
 PyTest will load this file before running the tests. We have also called `pyrootutils.setup_root`, which helps us find the root directory of this project, and set that as current working directory.
+
+In this file, you can create "fixture", that is variables that can be automatically passed to any test you want. Here, we defined a `data_path` fixture, telling our tests where they can find data, and a `resources_path`, telling our tests where to find resources that can be needed for the tests (text file, images, etc.). You will see later that now we can create tests and if they request an input argument with the same name, PyTest will give it to them (e.g. `def test_blala(data_path: str)`).
 
 Now we need to create the tests. The structure of the `tests/` directory should mimic the structure of the `src/` directory. So it is easy to find the test of a specific file in `src/`. Let's create a function, then test it.
 
@@ -650,7 +658,8 @@ import torchvision.transforms as tfs
 
 from project_name.models import Classifier
 
-
+# Remember the "data_path" fixture? Here we use it
+# PyTest will pass it to any test that requests it
 def test_mnist_classifier(data_path: str) -> None:
     """Test Classifier model can be trained."""
     transforms: tfs.Compose = tfs.Compose(
