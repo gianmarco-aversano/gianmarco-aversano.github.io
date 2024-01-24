@@ -239,7 +239,13 @@ Now that we have declared our desired dependencies, we need to resolve them. For
 poetry lock
 ```
 
-which will produce a `poetry.lock` file.
+which will produce a `poetry.lock` file. This file is our dependency solution. Now, to install the dependencies, run:
+
+```bash
+poetry install
+```
+
+You will see stuff being installed, but also upgrade or downgraded or uninstalled. This is cool and this command will always sync the dependencies you have currently installed in your virtual environment with the ones declared in the `pyproject.toml` file. This is not supported by plain `pip install -r requirements.txt`.
 
 ### requirements.txt
 
