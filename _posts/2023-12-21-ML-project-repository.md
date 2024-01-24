@@ -11,11 +11,11 @@ tags:
 
 Alright so if you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
 
-As Python is the most popular programming language for ML, we'll use that, which also menas that we need to set up everything in a way that also respects the Python development best practices. So if you see a `setup.py` file, that's bad. It's 2023 at the time of writing. Evolve.
+As Python is the most popular programming language for ML, we'll use that, which also means that we need to set up everything in a way that also respects Python development best practices.
 
 You may want to check out Cookiecutter, which comes with templates to set up new Python projects. You can even create your own. But let's start from zero here.
 
-Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, sorry. Maybe next time.
+Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, just install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install): check out [this guide](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10), too.
 
 Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
 
@@ -31,12 +31,10 @@ Most of the code here can be found at: [my-template](https://github.com/svnv-svs
 ├── README.md
 ├── docker-compose.yml
 ├── examples
+│   └──notebook.ipynb
 ├── experiments
 │   └── README.md
-├── mypy.ini
-├── pylintrc
 ├── pyproject.toml
-├── pytest.ini
 ├── scripts
 │   ├── docker-installation-steps.sh
 │   ├── entrypoint.sh
@@ -68,11 +66,21 @@ cd new-cool-ml-prok
 
 Neat.
 
-Now open this folder with VSCode. We don't use PyCharm over here.
+Now open this folder with [VSCode](https://code.visualstudio.com/), which is recommended over PyCharm.
+
+You may also want to install the following VSCode extensions:
+
+- [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python): pretty mandatory. This should also automatically install Pylance.
+- [Black formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter): prettu much needed, install it then on VSCode, in Settings, check the box "Editor: Format On Save".
+- [Mypy](https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker): not only this will force you to code in a readable way, but will often spot bugs early while you're still coding.
+- [Pylint](https://marketplace.visualstudio.com/items?itemName=ms-python.pylint): it will spot, while coding, violations of Python coding best practices. It will help you improve your code quality.
+- [TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml): in order to have well-colored `.toml` files while editing them (not really needed).
+
+Also, in VSCoce settings, activate the "Editor: Word Wrap" option, and other similar ones. This will allow you to visualize correctly even long lines of code.
 
 ## Virtual environment
 
-We now need a virtual environment. Check out Pyenv and never go back to anything else. Make sure that it is correctly installed and that you have the following lines:
+We now need a virtual environment. Check out [Pyenv](https://github.com/pyenv/pyenv) and never go back to anything else. Make sure that it is correctly installed and that you have the following lines:
 
 ```bash
 export PYENV_ROOT="$HOME/.pyenv"
@@ -467,8 +475,8 @@ from project_name.nn import MLP
 @pytest.mark.parametrize(
     "in_features, out_features, hidden_dims",
     [
-        (100, 2, [25, 25, 10]),
-        (25, 5, [100]),
+        (100, 2, [25, 25, 10]), # Run number 0
+        (25, 5, [100]), # Run number 1
     ]
 )
 def test_mlp_module() -> None:
@@ -610,8 +618,196 @@ class Classifier(pl.LightningModule):
         return loss
 ```
 
-We may also define a `validation_step()` and a `test_step()`.
+We may also define a `validation_step()` and a `test_step()`, which will be the same but with `loss/train` replaced by `loss/val` and `loss/test`. Same for `acc/train`.
 
-Now, this `Classifier` class not only defined our `MLP` architecture, but also how to train it. To a certain extent, while plain PyTorch is for tensor operations and neural netowrks (in terms of plain achitecture), Lightning allows us to create tasks.
+Now, this `Classifier` class not only defines our `MLP` architecture, but also shows how to train it. To a certain extent, while plain PyTorch is for tensor operations and neural netowrks (in terms of plain achitecture), Lightning allows us to create tasks: the training procedure and inference step of a neural network.
+
+### Testing the training procedure of a neural network
+
+Of course, we can also test that our `Classifier` trains correctly. Here, we will not check that we train the best classifier ever, we will just make sure that the code runs fine, both for training and for inference, and that the loss decreases during training.
+
+Create this file:
+
+```python
+# tests/project_name/test_classifier.py
+import pytest, sys
+from loguru import logger
+import typing as ty  # pylint: disable=unused-import
+
+import torch  # pylint: disable=unused-import
+import lightning.pytorch as pl
+from lightning.pytorch.tuner import Tuner
+
+from project_name.datasets import MNISTDataModule
+from torchvision.datasets import MNIST
+import torchvision.transforms as tfs
+
+from project_name.models import Classifier
+
+
+def test_mnist_classifier(data_path: str) -> None:
+    """Test Classifier model can be trained."""
+    transforms: tfs.Compose = tfs.Compose(
+            [
+                tfs.ToTensor(),
+                tfs.Normalize((0.1307,), (0.3081,)),
+            ]
+        )
+    dataset = MNIST(self.data_dir, train=True, transform=transforms)
+    # datamodule
+    datamodule = MNISTDataModule(data_path)
+    # model
+    model = Classifier()
+    # check code runs ok
+    pl.Trainer(fast_dev_run=True).fit(model, datamodule)
+    # trainer
+    trainer = pl.Trainer()
+    # metrics before training
+    outputs = trainer.validate(model, loader)[0]
+    logger.info(outputs)
+    loss_start = outputs["loss/val"]
+    # find best learning rate
+    Tuner(trainer).lr_find(
+        model,
+        datamodule=datamodule,
+        max_lr=1.0,
+        min_lr=1e-12,
+        update_attr=True,
+    )
+    # train
+    trainer.fit(model, datamodule)
+    # metrics after training
+    outputs = trainer.validate(model, loader)[0]
+    logger.info(outputs)
+    loss_end = outputs["loss/val"]
+    # test metrics have improved
+    logger.info(f"Loss: {loss_end:.3f} < {loss_start:.3f}")
+    assert loss_end < loss_start
+
+if __name__ == "__main__":
+    logger.remove()
+    logger.add(sys.stderr, level="DEBUG")
+    pytest.main([__file__, "-x", "-s", "--pylint", "--mypy"])
+```
+
+Of course, you can test for more, you can also try to overfit one batch. For now, let's keep it like this.
+
+## Running experiments: training models, evaluate them, etc.
+
+Now that we have at least one model available, we can actually train it on a dataset, save it, then load it again and evaluate it. All of these steps can be further developed with little effort now that our model is also tested.
+
+Of course, we could write a notebook and/or a script that imports our model and trains it on some dataset. The problem with this is repoducibility and experiment tracking:
+
+- We want to make sure that the same script runs for different combinations of hyper-parameters, while still remembering what values we chose for them in each run.
+- Do hyper-parameter optimization (HPO) out of the box.
+- If we can also visualize what's going on while the model is training, that'd be nice.
+
+While I think everyone should learn how to use [MLFlow](https://mlflow.org/docs/latest/index.html) and what it does, I think there is another tool and complements it, which is [Hydra](https://hydra.cc/docs/intro/).
+
+Hydra allows you to create configuration files for your ML experiments. For example, you can create the following file that configures the hyper-parameters for a specific Python class (in our case, it will be ethe `Classifier` class):
+
+```yaml
+_target_: project_name.models.Classifier
+in_features: 15
+num_classes: 2
+hidden_dims: [256, 256, 256, 256]
+```
+
+We chose some default values. The values are random, we'd need to change them according to whatever we need to run. They can also be overriden on the fly when we run an experiment, or you can manually edit them and run the experiment again.
+
+Either way, Hydra will automatically the configuration being used by the current experiment in a log folder, so you can always go back to it and find it (and run the same experiment again if you want).
+
+For example, take a look at this:
+
+```bash
+experiments_logs/GCN/Cora/fit/multiruns/2023-03-22/09-27-28/0
+├── .hydra
+│   ├── config.yaml
+│   ├── hydra.yaml
+│   └── overrides.yaml
+├── mlflow
+│   ├── 0
+│   │   └── meta.yaml
+│   └── 1
+│       ├── 481411259582403785c073586554050d
+│       │   ├── meta.yaml
+│       │   ├── metrics
+│       │   │   ├── accuracy
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── auroc
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── epoch
+│       │   │   ├── loss
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── lr-Adam
+│       │   │   └── recall
+│       │   │       ├── train
+│       │   │       └── val
+│ # ... The MLFlow stuff is huge, cutting it here
+└── tensorboard
+    ├── checkpoints
+    │   ├── epoch=32-step=3432.ckpt
+    │   ├── epoch=34-step=3640.ckpt
+    │   ├── epoch=35-step=3744.ckpt
+    │   └── last.ckpt
+    ├── events.out.tfevents.1679477262.machine.1.0
+    └── hparams.yaml
+```
+
+With the correct Hydra configuration, I was able to have Hydra creating all of this for each experiment that I ran. Let's break it down.
+
+- `experiments_logs/GCN/Cora/fit/multiruns/2023-03-22/09-27-28/0`: I was able to save my experiments in an `experiments_logs` folder, where then I would go: `<model-name>/<dataset-name>/<fit-or-evaluate>/multiruns/<date>/<time>/<run-id>`, which helped me log as much as I could about each experiment. Why the "multiruns"? You'll see below.
+- `.hydra/`: this folder contains the configuration that we used for the run in `config.yaml`, some Hydra-specific configuraiton only in `hydra.yaml`, and any overriden parameter information in `overrides.yaml`.
+- `mlflow/`: MLFlow collects a lot of stuff, that it then needs to visualize everything correctly. Many of the things it contains is redundant.
+- `tensorboard/`: I was also using [Tensorboard](https://www.tensorflow.org/tensorboard), too. And I was saving my `checkpoints/` in that folder.
+
+As said, Hydra lets you do HPO. Which means that you can set up your config as follows:
+
+```yaml
+# @package _global_
+
+defaults: # You can load config from other files, too.
+  - extras: default.yaml
+  - paths: default.yaml
+  - hydra: default.yaml
+  - callbacks: default.yaml
+  - logger: default.yaml
+  - datamodule: mnist.yaml
+  - model: classifier.yaml
+  - trainer: auto.yaml
+  - override hydra/sweeper: optuna
+  - override hydra/sweeper/sampler: tpe
+  # - override hydra/launcher: ray
+  - _self_
+
+hydra:
+  mode: MULTIRUN
+  sweeper:
+    direction: minimize
+    n_trials: 30
+    n_jobs: 1
+    params:
+      model.latent_dim: interval(4, 64)
+      model.weight_decay: interval(0.001, 0.5)
+      model.num_layers: interval(1, 8)
+      model.hidden_size: interval(32, 256)
+      model.heads: interval(2, 8)
+optimize_metric: loss/train
+
+stage: fit
+tag: classifier/${get_data_name:${datamodule}}/${stage}
+```
+
+Here, you tell Hydra to go `mode: MULTIRUN`, which means it has to create multiple runs of the same experiment, but each time try a different combination of values for the parameters listed under `params:`.
+Besides, with the line `- override hydra/sweeper: optuna`, we tell Hydra to use [Optuna](https://optuna.org/), which means that Hydra won't try HP values randomly or do a Cartesian exploration, but will perform Bayesian Optimization (BO).
+
+As you can see, we also indicate `direction: minimize`, meaning that BO will choose the next HP config based on an estimation of where it thinks it will find a better value of the metric we want to optimizer for.
+
+In my config, I indicate this metric as `optimize_metric: loss/train`, but this was a custom keyworkd that I created.
+
+So what this configuraion does, is to train the `Classifier` multiple times, each time with a different set of HP values, trying to minimize the final training loss. And it will save and log each run, so that you can re-run it. It will also then tell you which run was the best one.
 
 > TO BE CONTINUED
