@@ -54,6 +54,9 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/svnv-svsv-jm"
+    - label: "GitLab"
+      icon: "fab fa-fw fa-github"
+      url: https://gitlab.com/GianmarcoAversano1
 
 footer:
   links:
@@ -66,6 +69,9 @@ footer:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/svnv-svsv-jm"
+    - label: "GitLab"
+      icon: "fab fa-fw fa-github"
+      url: https://gitlab.com/GianmarcoAversano1
 
 defaults:
   # _posts
