@@ -7,6 +7,8 @@ tags:
   - ml
   - python
   - repository
+  - docker
+  - hydra
 ---
 
 Alright so if you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
@@ -24,6 +26,8 @@ You may want to check out Cookiecutter, which comes with templates to set up new
 Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, just install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install): check out [this guide](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10), too.
 
 Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
+
+The target audience for this post is a little all over the place, you'll find things that are easier and things that are less. Hopefully, I've been clear enough, but you should have at least some familiarity with Python, and know what a YAML file is, what Docker (roughly) is, etc.
 
 <!-- By the end, your project will look something like:
 
