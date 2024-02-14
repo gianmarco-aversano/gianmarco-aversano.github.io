@@ -735,7 +735,7 @@ Either way, Hydra will automatically the configuration being used by the current
 For example, take a look at this:
 
 ```bash
-experiments_logs/GCN/Cora/fit/multiruns/2023-03-22/09-27-28/0
+experiments_logs/<model-name>/<dataset-name>/fit/multiruns/2023-03-22/09-27-28/0
 ├── .hydra
 │   ├── config.yaml
 │   ├── hydra.yaml
@@ -774,7 +774,7 @@ experiments_logs/GCN/Cora/fit/multiruns/2023-03-22/09-27-28/0
 
 With the correct Hydra configuration, I was able to have Hydra creating all of this for each experiment that I ran. Let's break it down.
 
-- `experiments_logs/GCN/Cora/fit/multiruns/2023-03-22/09-27-28/0`: I was able to save my experiments in an `experiments_logs` folder, where then I would go: `<model-name>/<dataset-name>/<fit-or-evaluate>/multiruns/<date>/<time>/<run-id>`, which helped me log as much as I could about each experiment. Why the "multiruns"? You'll see below.
+- `experiments_logs/<model-name>/<dataset-name>/fit/multiruns/2023-03-22/09-27-28/0`: I was able to save my experiments in an `experiments_logs` folder, where then I would go: `<model-name>/<dataset-name>/<fit-or-evaluate>/multiruns/<date>/<time>/<run-id>`, which helped me log as much as I could about each experiment. Why the "multiruns"? You'll see below.
 - `.hydra/`: this folder contains the configuration that we used for the run in `config.yaml`, some Hydra-specific configuraiton only in `hydra.yaml`, and any overriden parameter information in `overrides.yaml`.
 - `mlflow/`: MLFlow collects a lot of stuff, that it then needs to visualize everything correctly. Many of the things it contains is redundant.
 - `tensorboard/`: I was also using [Tensorboard](https://www.tensorflow.org/tensorboard), too. And I was saving my `checkpoints/` in that folder.
@@ -823,6 +823,374 @@ As you can see, we also indicate `direction: minimize`, meaning that BO will cho
 
 In my config, I indicate this metric as `optimize_metric: loss/train`, but this was a custom keyworkd that I created.
 
-So what this configuraion does, is to train the `Classifier` multiple times, each time with a different set of HP values, trying to minimize the final training loss. And it will save and log each run, so that you can re-run it. It will also then tell you which run was the best one.
+All in all, what this configuraion does is to train the `Classifier` multiple times, each time with a different set of HP values, with the objective of minimizing the final training loss. It will also save and log each run, so that you can re-run it, and tell you which run was the best one.
 
-> TO BE CONTINUED
+### The experiment scripts
+
+The above configuration needs to be tied to a Python script, that can consume the configuration and start the training. Place this script in a `experiments/` folder. This script can be something like:
+
+```python
+import typing as ty
+import pyrootutils
+import os
+import hydra
+from omegaconf import OmegaConf, DictConfig
+
+# Module that contains a basic PyTorch Lightning training loop
+from my_project.pipeline import runner
+# Hydra/OmegaConf resolvers, see below
+from my_project.resolvers import get_data_name, get_model_name, to_int
+
+ROOT = pyrootutils.setup_root(
+    search_from=__file__,
+    indicator=[".git", "pyproject.toml"],
+    pythonpath=True,
+    dotenv=True,
+)
+
+# I install Hydra/OmegaConf resolvers to create experiment tags
+# based on the model I train and the dataset I choose
+OmegaConf.register_new_resolver("get_data_name", get_data_name)
+OmegaConf.register_new_resolver("get_model_name", get_model_name)
+OmegaConf.register_new_resolver("to_int", to_int)
+
+@hydra.main(
+    version_base=None,
+    config_path=os.path.join(ROOT, "configs"),
+    config_name="test",  # change using the flag `--config-name`
+)
+def main(cfg: DictConfig = None) -> ty.Optional[float]:
+    """Train model. You can pass a different configuration from the command line as follows:
+    >>> python main.py --config-name <name>
+    """
+    assert cfg is not None
+    # The runner reads the configuration, runs the training and returns
+    # a "pipeline" object, just a wrapper around what the runner does
+    # so that I can then grab the logged metrics and return the one
+    # we want to run HPO for
+    pipeline = runner.run(cfg)
+    # Grab the metric (e.g. "optimize_metric: loss/train", see above)
+    output = pipeline.get_metric_to_optimize()
+    return output
+
+if __name__ == "__main__":
+    """You can pass a different configuration from the command line as follows:
+    >>> python main.py --config-name <name>
+    """
+    main()
+```
+
+The training script (the content of that `runner` module) can look like anything you want, as long as you're able to read the configuration and return the HPO metric.
+
+## Examples and tutorials
+
+As your project grows bigger, you may want to create an `examples/` or `tutorials/` folder some notebooks inside, showcasing the important functionalities of your code.
+
+You should then paste a link to this folder in the repo's `README.md`. (As general guideline, your `README.md` should mention everything (directly or linking to it). Everything that is not somehow mentioned there, does not exist.)
+
+You can also test these notebooks! So you're sure that they run smoothly, as they will probably be the first thing people landing on your repository will try out.
+
+To test them, make sure you have installed `pytest` and `pytest-testmon`, then run:
+
+```bash
+pytest --testmon --nbmake --overwrite "./examples"
+```
+
+## CI/CD
+
+You may want to use a CI/CD pipeline to automate important steps such as: testing, lint checkcs, creating releases, creating documentation, publishing your project to Pypi, etc.
+
+This is different depending on whether you're using Gitlab or Github.
+
+On Gitlab, all you have to do is to create a `..gitlab-ci.yml` file at the root directory of your project, then populate this file with keywords that Gitlab understands.
+
+For example:
+
+```yaml
+pytest:
+  parallel:
+    matrix:
+      - IMAGE: ["python:3.10", "python:3.9"]
+  image: $IMAGE
+  stage: test
+  only:
+    - merge_requests
+  before_script:
+    - apt-get update -qy # Update package lists
+    - apt-get install -y <anything-you-may-need>
+    - pip install --upgrade pip virtualenv
+    - virtualenv .venv
+    - source .venv/bin/activate
+    - make install
+  script:
+    - make test
+```
+
+As you can see, this job will run our tests for two Python versions.
+
+But actually, you cannot really see it as the most important commands are hidden behind `make` recipes:
+
+- `make install` to install the project's in the virtual environment;
+- `make test` to run the tests.
+
+Using a `Makefile` is not strictly mandatory, but it does simplify things, as these installation and test commands may be long and tedious. You'd rather avoid having to write them multiple times. Plus, if for example the installation process changes, you have to remember all the places where it is coded and update them all.
+
+By writing these processes under a `make` recipe, and then calling these recipes rather than those long commands, you can code faster and are less error prone.
+
+For the sake of this example, the following `Makefile` is needed:
+
+```Makefile
+help:
+    @cat Makefile
+
+.EXPORT_ALL_VARIABLES:
+
+# create an .env file to override the default settings
+-include .env
+export $(shell sed 's/=.*//' .env)
+
+# Variables
+PYTHON_EXEC?=python -m
+EXAMPLE_DIR:=./examples
+
+# Installation
+install-init:
+    $(PYTHON_EXEC) pip install --upgrade pip
+    $(PYTHON_EXEC) pip install --upgrade poetry
+    $(PYTHON_EXEC) poetry self update
+
+install: install-init
+    $(PYTHON_EXEC) poetry install --no-cache
+
+# Tests
+mypy:
+    $(PYTHON_EXEC) mypy tests
+
+pytest:
+    $(PYTHON_EXEC) pytest -x --testmon --pylint --cov-fail-under 95
+
+pytest-nbmake:
+    $(PYTHON_EXEC) pytest -x --testmon --nbmake --overwrite "$(EXAMPLE_DIR)"
+
+test: mypy pytest pytest-nbmake
+```
+
+A couple of useful things are happing in this `Makefile`: the use of `.EXPORT_ALL_VARIABLES:`, which makes sure that all variables are inherited by any commands/recipes we run; the `-include .env` line(s), which potentially reads a `.env` file so that if any of those variable is also declared also there, the value in the `.env` file will take precedence. Actually, this will work only for variables declared with the `?=` sign.
+
+> The `.env` file should not be committed.
+
+This is useful when the `Makefile` may need different values for those variables, depending on which user or on which machine you're onto. By having different `.env` files, you can customize the `make` recipes without having to change the `Makefile` itself.
+
+For example, someone may want to replace the `PYTHON_EXEC` variable's value with `poetry run` or `pyenv exec` or `python3 -m`. Whatever floats their boat.
+
+## Docker
+
+> TODO
+
+Docker is also an important element in a ML repo. Providing a Docker container to run your experiments further helps faciliate reproducibility.
+
+A good enough Docker image for a ML repository may look like this:
+
+```Dockerfile
+# Dockerfile
+FROM python:3.10.10
+
+ARG PROJECT_NAME
+
+# Create workdir and copy dependency files
+RUN mkdir -p /workdir
+COPY . /workdir
+
+# Change shell to be able to easily activate virtualenv
+SHELL ["/bin/bash", "-c"]
+WORKDIR /workdir
+
+# Install project
+RUN apt-get update -qy  &&\
+    apt-get install -y apt-utils gosu make
+RUN pip install --upgrade pip virtualenv &&\
+    virtualenv .venv &&\
+    source .venv/bin/activate &&\
+    make install
+
+# TensorBoard
+EXPOSE 6006
+# Jupyter Notebook
+EXPOSE 8888
+
+# Set entrypoint and default container command
+ENTRYPOINT ["/workdir/scripts/entrypoint.sh"]
+```
+
+It basically does the same steps as in the CI/CD. Plus, the following:
+
+- exposes some ports that we may use (see below);
+- uses a script as entrypoint.
+
+Let's see why.
+
+### docker-compose
+
+We can leverage `docker-compose` to create useful services/containers for your project:
+
+```yaml
+# docker-compose.yaml
+version: "3.8"
+
+x-common-variables: &common-variables
+  LOCAL_USER_ID: ${LOCAL_USER_ID}
+  LOCAL_USER: ${LOCAL_USER}
+
+services:
+  dev-container:
+    image: ${IMAGE}
+    container_name: dev-${UNIQUE-0}
+    entrypoint: /workdir/scripts/entrypoint.sh
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    volumes:
+      - ./:/workdir
+    environment:
+      <<: *common-variables
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              device_ids: ["1"]
+        limits:
+          cpus: 1
+          memory: 32G
+
+  notebook:
+    image: ${IMAGE}
+    container_name: notebook-${UNIQUE-0}
+    entrypoint: /workdir/scripts/entrypoint.sh
+    command: /${PROJECT_NAME}/bin/python -m jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''
+    ports: #server:container
+      - ${PORT_JUPY-8888}:8888
+    volumes:
+      - ./:/workdir
+    environment:
+      <<: *common-variables
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+              device_ids: ["1"]
+        limits:
+          cpus: 1
+          memory: 8G
+
+  tensorboard:
+    image: ${IMAGE}
+    container_name: tensorboard-${UNIQUE-0}
+    command: /${PROJECT_NAME}/bin/tensorboard --logdir=. --port=6006 --host 0.0.0.0
+    ports:
+      - ${PORT_TB-6007}:6006 #server:container
+    volumes:
+      - ./:/workdir
+    environment: *common-variables
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 8G
+
+  mlflow:
+    image: ${IMAGE}
+    container_name: mlflow-${UNIQUE-0}
+    command: bash -c "source /${PROJECT_NAME}/bin/activate && mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri ${MLFLOW_BACKEND_STORE_URI-file://workdir/lightning_logs}"
+    ports:
+      - ${PORT_MLFLOW-5002}:5000 #server:container
+    volumes:
+      - ./:/workdir
+    environment: *common-variables
+    deploy:
+      resources:
+        limits:
+          cpus: 1
+          memory: 8G
+```
+
+This long `docker-compose.yaml` file creates:
+
+- A dev container: [see here](https://code.visualstudio.com/docs/devcontainers/containers).
+- A Jupyter notebook container, to run code directly on the project's Docker image.
+- A Tensorboard and MLFlow container, for ML experiment tracking. These two needs access to a port, which is why we exposed some ports in the `Dockerfile`.
+
+The `docker-compose.yaml` file also gives approriate resources to the containers, and access to GPU (assuming you have one).
+
+Now, what is that entrypoint script?
+
+As you want to run code inside the container, while being able to edit the code and have it updated instantly, in the container, we may want to mount the project's folder on the contaier (at `/workdir`). This is useful also because as we run scripts in the container, those scripts will produce some output files.
+
+This has an issue though. A permission-related one. The container does not have yourself as user. And it should not. It may run as `root` or any other user. When files are created from inside the container, they will not belong to you, but to the container's user.
+
+This will cause painful issues. There are some solutions, but none is as elegant and truly efficient as the following.
+
+You may have noticed that in the `Dockerfile` we `apt-get install -y gosu`. What our entrypoint script does, is to create a new user on the fly, when the container is run. The user that it creates will be the user running the container. Then, it will execute whatever it has to, using `gosu`, under your user ID.
+
+Let's take a look at the entrypoint script:
+
+```bash
+#!/bin/bash
+# This script is supposed to be run in the Docker image of the project
+set -ex
+# Add local user: either use the LOCAL_USER_ID if passed in at runtime or fallback
+# export $(grep -v '^#' .env | xargs)
+DEFAULT_USER=$(whoami)
+DEFAULT_ID=$(id -u)
+echo "DEFAULT_USER=${DEFAULT_USER}"
+USER="${LOCAL_USER:${DEFAULT_USER}}"
+USER_ID="${LOCAL_USER_ID:${DEFAULT_ID}}"
+
+echo "USER: $USER -- UID: $USER_ID"
+# umask 022 # by default, all newly created files have open permissions
+VENV=/venv
+ACTIVATE="source $VENV/bin/activate"
+
+# If $USER is empty, pretend to be root
+if [[ $USER = "" ]] || [[ -z $USER ]]; then
+    USER="$DEFAULT_USER"
+    USER_ID="$DEFAULT_ID"
+fi
+
+# Check who we are and based on that decide what to do
+if [[ $USER = "root" ]]; then
+    # If root, just install
+    bash -c "$ACTIVATE || echo 'Something went wrong.'"
+else
+    # If not root, create user (and give them root powers?)
+    useradd --shell /bin/bash -u $USER_ID -o -c "" -m $USER
+    # echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+    # echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/$USER
+    sudo -H -u $USER bash -c 'echo "Running as USER=$USER, with UID=$UID"'
+    sudo -H -u $USER bash -c "echo \"$ACTIVATE\" >> \$HOME/.bashrc"
+fi
+
+exec gosu $USER "$@"
+```
+
+Now, when running docker commands, you can do something like:
+
+```bash
+export LOCAL_USER=$(whoami)
+export LOCAL_USER_ID=$(id -u)
+docker run --rm --network=host --volume $(PWD):/workdir \
+    -e LOCAL_USER -e LOCAL_USER_ID \
+    -t <image-name> bash <my-command>
+```
+
+We pass our username and user ID to the container (the flags `-e LOCAL_USER_ID -e LOCAL_USER`), which will be consumed by the entrypoint script to create this user (ourselves) in the container.
+
+## Conclusions
+
+With this set up, you should now know enough to properly set up your Machine Learning project and have a fruitful collaboration with your fellows.
+
+As this is just a guide, with probably no code part that runs out of the box, I also recommend you to take a look at [my working template](https://github.com/svnv-svsv-jm/init-new-project).
