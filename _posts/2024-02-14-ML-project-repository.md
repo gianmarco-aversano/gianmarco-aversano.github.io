@@ -11,6 +11,12 @@ tags:
 
 Alright so if you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
 
+During my career years, I've had to chance to learn different tools. Nothing too crazy, I try to follow basic conventions and best practices.
+
+But I've realized that, for many, none of this is evident.
+
+And I don't want them to struggle like I did, so here I am sharing the solutions I've learned.
+
 As Python is the most popular programming language for ML, we'll use that, which also means that we need to set up everything in a way that also respects Python development best practices.
 
 You may want to check out Cookiecutter, which comes with templates to set up new Python projects. You can even create your own. But let's start from zero here.
