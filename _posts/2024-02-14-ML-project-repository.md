@@ -7,8 +7,6 @@ tags:
   - ml
   - python
   - repository
-  - docker
-  - hydra
 ---
 
 Alright so if you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
