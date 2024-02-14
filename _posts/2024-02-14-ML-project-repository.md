@@ -993,8 +993,6 @@ For example, someone may want to replace the `PYTHON_EXEC` variable's value with
 
 ## Docker
 
-> TODO
-
 Docker is also an important element in a ML repo. Providing a Docker container to run your experiments further helps faciliate reproducibility.
 
 A good enough Docker image for a ML repository may look like this:
@@ -1199,6 +1197,6 @@ We pass our username and user ID to the container (the flags `-e LOCAL_USER_ID -
 
 ## Conclusions
 
-With this set up, you should now know enough to properly set up your Machine Learning project and have a fruitful collaboration with your fellows.
+With this set up, you should now know enough to be able to properly set up your Machine Learning project and have a fruitful collaboration with your fellows.
 
-As this is just a guide, with probably no code part that runs out of the box, I also recommend you to take a look at [my working template](https://github.com/svnv-svsv-jm/init-new-project).
+As this is just a guide, with probably no code snippet that runs out of the box, I also recommend you to take a look at [my working template](https://github.com/svnv-svsv-jm/init-new-project).
