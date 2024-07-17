@@ -90,4 +90,44 @@ Data with compromised veracity could, for instance, be lacking in proper data li
 
 ## Programming languages
 
+Python and SQL. Yes, R is "popular" and I myslef used MATLAB (a lot) during my Ph.D., but I will focus on Python and SQL. Simply because they are even more popular and demanded.
+
+### SQL
+
+SQL (Structured Query Language) is a standardized programming language specifically designed for managing and manipulating relational databases. It is widely used for querying, updating, and managing data in a relational database management system (RDBMS).
+
+SQL is a powerful, versatile, and widely used language for managing relational databases. Its standardized nature ensures consistency and compatibility across different database systems, making it an essential tool for data management, manipulation, and analysis.
+
+SQL is a declarative language, meaning users specify what they want to do with the data rather than how to do it. The underlying database system handles the execution details. SQL _queries_ are usually executed against a database that carries out the calculations.
+
+Example:
+
+```SQL
+SELECT * FROM employees WHERE department = 'Sales';
+```
+
+This line of code asks the database to select all rows from the `employees` table, where the column `department` is equal to `Sales`.
+
+As you can see, with SQL you can (quickly) get useful information from a database. Of course, more complicated commands also exist. You can create tables, insert/delete rows, etc.
+
+A very important concept here is a database **schema**. A schema defines what columns exist, their names, their data type, any constraints on it (e.g. a column may have numbers only between 0 and 1). SQL also allows you to manage a database's schema.
+
+For example:
+
+```sql
+CREATE TABLE employees (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50)
+);
+```
+
+In the `employees` table, `id`, `name`, and `department` are columns.
+
+For more, you can visit websites such as [this](https://www.w3schools.com/sql/).
+
+### Python
+
+Python
+
 [TO BE CONTINUED]
