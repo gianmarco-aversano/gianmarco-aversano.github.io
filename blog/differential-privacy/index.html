@@ -1,0 +1,1050 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Differential Privacy - Gianmarco Aversano</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="Gianmarco Aversano">
+  
+  <meta property="article:author" content="Gianmarco Aversano">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Gianmarco Aversano">
+<meta property="og:title" content="Differential Privacy">
+<meta property="og:url" content="/blog/differential-privacy/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2023-12-12T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="/blog/differential-privacy/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Gianmarco Aversano Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<!-- Mathjax Support -->
+<!-- <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+    }
+  });
+</script>
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Gianmarco Aversano
+          <span class="site-subtitle">Ph.D., Data Scientist and A.I. Engineer.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/categories/"
+                
+                
+              >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/tags/"
+                
+                
+              >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/about/"
+                
+                
+              >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="/">
+        <img src="/assets/images/me.jpg" alt="Gianmarco Aversano" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="/" itemprop="url">Gianmarco Aversano</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Ph.D., Data Scientist and A.I. Engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitLab</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Differential Privacy">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2023-12-12T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="/blog/differential-privacy/" itemprop="url">Differential Privacy
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+        }
+    });
+</script>-->
+
+<h2 id="introduction">Introduction</h2>
+
+<p>What is differential privacy? Why is it important? How can we implement that in PyTorch?</p>
+
+<p>Differential privacy (DP) is a mathematical framework for ensuring the privacy of individuals in datasets. The concept was first introduced in 2006 by <a href="https://link.springer.com/chapter/10.1007/11681878_14">Cynthia Dwork and Frank McSherry, et al.</a>.</p>
+
+<p>According to DP, the presence or absence of any individual record in the dataset should not significantly affect the outcome of the mechanism.</p>
+
+<p>We call “<em>mechanism</em>” any computation that can be performed on the data. Thus, a mechanism is considered differentially private if the probability of any outcome occurring is nearly the same for any two datasets that differ in only one record.</p>
+
+<p>The <strong>training of a Machine Learning (ML) model</strong> is a mechanism. The outcome of this mechanism is the model’s weights distribution or, perhaps more in general, the model’s behavior. Thus, we may say that a ML model is DP if the behavior of the trained model does not depend too much on a specific sample.</p>
+
+<h3 id="why-care">Why care?</h3>
+
+<p>(Un)Surprisingly, privacy attacks exist:</p>
+
+<ul>
+  <li>anonymized data can be deanonymized;</li>
+  <li>ML models can be attacked, and their training data can be recovered.</li>
+</ul>
+
+<p>As a consequence, simply publishing a ML model (even as black-box) puts its training data at risk of being inferred. This is important if your ML model was trained on sensitive data, e.g. banking, health care, etc.</p>
+
+<p>Is there a solution? Differential Privacy (DP) is one, but it comes with its costs.</p>
+
+<h2 id="differential-privacy">Differential Privacy</h2>
+
+<p>Very simply, a mechanism is ($\epsilon,\delta$)-DP if the following is true:</p>
+
+<p>$ \frac{P(M(X \sim D))}{P(M(X \sim D’))} \le \exp(\epsilon) + \delta $</p>
+
+<p>where:</p>
+
+<ul>
+  <li>$M(X \sim D)$ is the mechanism’s output when using the dataset $D$;</li>
+  <li>$M(X \sim D’)$ is the mechanism’s output when using the dataset $D’$, which is a dataset which differs from $D$ only by one sample;</li>
+  <li>$\epsilon \in R^+$ and $\delta \in R^+$ are some constants.</li>
+</ul>
+
+<p><strong>Simplified</strong>: the probability of observing the same output from the mechanism is very high, whether or not any sample is included in it.</p>
+
+<p>So the smaller $\epsilon$ and $\delta$, the more private your mechanism is. No one will be able to tell whether a specific sample was used or not, protecting that sample’s privacy.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<blockquote>
+  <p>Code implementation below.</p>
+</blockquote>
+
+<p>So how to make a ML model ($\epsilon,\delta$)-DP?</p>
+
+<p>As said before, a mechanism can be the training procedure of a ML model, e.g. the SGD (stochastic gradient descent) algorithm. Whether we use or not any specific sample in our training, the resulting ML model will be/behave the same.</p>
+
+<p>We need to make SGD private. How? Inject noise.</p>
+
+<p>The SGD algorithm defines the following parameter update rule for one sample:</p>
+
+<p>$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} = w + \eta \Delta w $</p>
+
+<p>where $x$ is the sample over which we are evaluating the loss $L(\cdot)$, and $\eta$ is the learning rate. We need to obfuscate the contribution of $x$ to the update $\Delta w$ by injecting some noise.</p>
+
+<p>So instead of $\Delta w = \frac{\delta L(x)}{\delta w}$, we can have:</p>
+
+<p>$ w \leftarrow w + \eta\frac{\delta L(x)}{\delta w} + z \sim \mathcal{N}(0,\sigma) $</p>
+
+<p>where $z \sim \mathcal{N}(0,\sigma)$ is some random noise. We can actually choose the normal or Laplace distribution. See <a href="https://en.wikipedia.org/wiki/Additive_noise_differential_privacy_mechanisms">here</a>.</p>
+
+<p>How much noise should I inject to get a model that is exactly ($\epsilon,\delta$)-DP? How to choose $\sigma$?</p>
+
+<p>The value of $\sigma$ depends on the maximum possible sensitivity of our mechanism to any sample $x$. Now, in our case our mechanism is the SGD, so we should consider the worst possible case for this term:</p>
+
+<p>$ \Delta w = \frac{\delta L(x)}{\delta w} $</p>
+
+<p>Unfortunately, this term is usually unbounded but it is actually not if we use gradient clipping. If we do, then our worst possible case (maximun value for $\Delta w$) is the clip value $C$.</p>
+
+<p>In the end, the value of the noise $z$ is:</p>
+
+<p>$ (\mathrm{Gaussian}) \quad z \sim \mathcal{N}(0, \frac{2 \ln(1.25/\delta) \cdot C^2}{\epsilon^2}) $</p>
+
+<p>$ (\mathrm{Laplace}) \quad z \sim \mathrm{Lap}(0, \frac{C}{\epsilon}) $</p>
+
+<p>Cool.</p>
+
+<h3 id="privacy-budget">Privacy budget</h3>
+
+<p>While training, each time you perform SGD (for each sample), you inject some noise. You now need to keep track of the noise you’re injecting during training, so you can stop when enough noise has been injected.</p>
+
+<p>Given $\epsilon$, the total amount of noise you have to inject is $\frac{1}{\epsilon}$. When you reach that, you have to stop.</p>
+
+<p>How to keep track of it? See <a href="https://arxiv.org/abs/1607.00133">Abadi et al.</a>.</p>
+
+<h3 id="code-implementation-python">Code implementation (python)</h3>
+
+<p>See <a href="https://opacus.ai/">Opacus</a>. They already do an excellent job.</p>
+
+<p>Here, I provide a code snippet to create a PyTorch Lightning callback that implements DP.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">lightning.pytorch</span> <span class="k">as</span> <span class="n">pl</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span>
+<span class="kn">from</span> <span class="nn">torch.optim.optimizer</span> <span class="kn">import</span> <span class="n">Optimizer</span>
+<span class="kn">from</span> <span class="nn">opacus.accountants</span> <span class="kn">import</span> <span class="n">RDPAccountant</span>
+<span class="kn">from</span> <span class="nn">opacus.accountants.utils</span> <span class="kn">import</span> <span class="n">get_noise_multiplier</span>
+<span class="kn">from</span> <span class="nn">opacus.data_loader</span> <span class="kn">import</span> <span class="n">DPDataLoader</span>
+<span class="kn">from</span> <span class="nn">opacus</span> <span class="kn">import</span> <span class="n">GradSampleModule</span>
+<span class="kn">from</span> <span class="nn">opacus.layers.dp_rnn</span> <span class="kn">import</span> <span class="n">DPGRUCell</span>
+<span class="kn">from</span> <span class="nn">opacus.optimizers</span> <span class="kn">import</span> <span class="n">DPOptimizer</span>
+
+<span class="k">def</span> <span class="nf">copy_gru</span><span class="p">(</span><span class="n">grucell</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">GRUCell</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DPGRUCell</span><span class="p">:</span>
+    <span class="s">"""Creates a DP-GRUCell from a non-DP one."""</span>
+    <span class="n">input_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">grucell</span><span class="p">.</span><span class="n">input_size</span>
+    <span class="n">hidden_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">grucell</span><span class="p">.</span><span class="n">hidden_size</span>
+    <span class="n">bias</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">grucell</span><span class="p">.</span><span class="n">bias</span>
+    <span class="n">dpgrucell</span> <span class="o">=</span> <span class="n">DPGRUCell</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">,</span> <span class="n">bias</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">grucell</span><span class="p">.</span><span class="n">named_parameters</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s">"ih"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">_set_layer_param</span><span class="p">(</span><span class="n">dpgrucell</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s">"ih"</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s">"hh"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+            <span class="n">_set_layer_param</span><span class="p">(</span><span class="n">dpgrucell</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="s">"hh"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s">"Unknown parameter </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dpgrucell</span>
+
+<span class="k">def</span> <span class="nf">_set_layer_param</span><span class="p">(</span>
+    <span class="n">dpgrucell</span><span class="p">:</span> <span class="n">DPGRUCell</span><span class="p">,</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">param</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">layer_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s">"""Helper"""</span>
+    <span class="n">layer</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dpgrucell</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s">"weight"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">layer</span><span class="p">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="s">"bias"</span> <span class="ow">in</span> <span class="n">name</span><span class="p">:</span>
+        <span class="n">layer</span><span class="p">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">param</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nb">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s">"Unknown parameter </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">dpgrucell</span><span class="p">,</span> <span class="n">layer_name</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">replace_grucell</span><span class="p">(</span><span class="n">module</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s">"""Replaces GRUCell modules with DP-counterparts."""</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="p">.</span><span class="n">named_children</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">GRUCell</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">DPGRUCell</span><span class="p">):</span>
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s">"Replacing </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s"> with </span><span class="si">{</span><span class="n">DPGRUCell</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+            <span class="n">replacement</span> <span class="o">=</span> <span class="n">copy_gru</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">replacement</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">module</span><span class="p">.</span><span class="n">named_children</span><span class="p">():</span>
+        <span class="n">replace_grucell</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">DifferentialPrivacy</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">callbacks</span><span class="p">.</span><span class="n">EarlyStopping</span><span class="p">):</span>
+    <span class="s">"""Enables differential privacy using Opacus.
+
+    Converts optimizers to instances of the :class:`~opacus.optimizers.DPOptimizer` class.
+    This callback inherits from `EarlyStopping`, thus it is also able to stop the training when enough privacy budget has been spent.
+    Please beware that Opacus does not support multi-optimizer training.
+
+    For more info, check the following links:
+    * https://opacus.ai/tutorials/
+    * https://blog.openmined.org/differentially-private-deep-learning-using-opacus-in-20-lines-of-code/
+    """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">budget</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">noise_multiplier</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">max_grad_norm</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">delta</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">use_target_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="n">idx</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">log_spent_budget_as</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"DP/spent-budget"</span><span class="p">,</span>
+        <span class="n">private_dataloader</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+        <span class="n">default_alphas</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Sequence</span><span class="p">[</span><span class="n">ty</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">gsm_kwargs</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        Args:
+            budget (float, optional): Defaults to 1.0.
+                Maximun privacy budget to spend.
+            noise_multiplier (float, optional): Defaults to 1.0.
+                Noise multiplier.
+            max_grad_norm (float, optional): Defaults to 1.0.
+                Max grad norm used for gradient clipping.
+            delta (float, optional): Defaults to None.
+                The target δ of the (ϵ,δ)-differential privacy guarantee.
+                Generally, it should be set to be less than the inverse of the size of the training dataset.
+                If `None`, this will be set to the inverse of the size of the training dataset `N`: `1/N`.
+            use_target_values (bool, optional):
+                Whether to call `privacy_engine.make_private_with_epsilon()` or `privacy_engine.make_private`.
+                If `True`, the value of `noise_multiplier` will be calibrated automatically so that the desired privacy budget will be reached only at the end of the training.
+            idx (ty.Sequence[int]):
+                List of optimizer ID's to make private.
+                Useful when a model may have more than one optimizer.
+                By default, all optimizers are made private.
+            log_spent_budget_as (str, optional):
+                How to log and expose the spent budget value.
+                An `EarlyStopping` callback may use this value to stop the training when enough budget has been spent.
+            private_dataloader (bool, optional):
+                Whether to make the dataloader private. Defaults to False.
+            **gsm_kwargs:
+                Input arguments for the :class:`~opacus.GradSampleModule` class.
+        """</span>
+        <span class="c1"># inputs
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">budget</span> <span class="o">=</span> <span class="n">budget</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">delta</span> <span class="o">=</span> <span class="n">delta</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">noise_multiplier</span> <span class="o">=</span> <span class="n">noise_multiplier</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">max_grad_norm</span> <span class="o">=</span> <span class="n">max_grad_norm</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">use_target_values</span> <span class="o">=</span> <span class="n">use_target_values</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">log_spent_budget_as</span> <span class="o">=</span> <span class="n">log_spent_budget_as</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">private_dataloader</span> <span class="o">=</span> <span class="n">private_dataloader</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">gsm_kwargs</span> <span class="o">=</span> <span class="n">gsm_kwargs</span>
+        <span class="k">if</span> <span class="n">default_alphas</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">default_alphas</span> <span class="o">=</span> <span class="n">RDPAccountant</span><span class="p">.</span><span class="n">DEFAULT_ALPHAS</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">150</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">default_alphas</span> <span class="o">=</span> <span class="n">default_alphas</span>
+        <span class="c1"># init early stopping callback
+</span>        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span>
+            <span class="n">monitor</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">log_spent_budget_as</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s">"max"</span><span class="p">,</span>
+            <span class="n">stopping_threshold</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">budget</span><span class="p">,</span>
+            <span class="n">check_on_train_epoch_end</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="c1"># we do not want to stop if spent budget does not increase. this may even be desirable
+</span>            <span class="n">min_delta</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">patience</span><span class="o">=</span><span class="mi">1000000</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># attributes
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">best_alpha</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">accountant</span> <span class="o">=</span> <span class="n">RDPAccountant</span><span class="p">()</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">idx</span> <span class="o">=</span> <span class="n">idx</span>  <span class="c1"># optims to privatize
+</span>
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">,</span>
+        <span class="n">stage</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""Call the GradSampleModule() wrapper to add attributes to pl_module."""</span>
+        <span class="k">if</span> <span class="n">stage</span> <span class="o">==</span> <span class="s">"fit"</span><span class="p">:</span>
+            <span class="n">replace_grucell</span><span class="p">(</span><span class="n">pl_module</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">pl_module</span> <span class="o">=</span> <span class="n">GradSampleModule</span><span class="p">(</span><span class="n">pl_module</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="p">.</span><span class="n">gsm_kwargs</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">ImportError</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nb">ImportError</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s">"</span><span class="si">{</span><span class="n">ex</span><span class="si">}</span><span class="s">. This may be due to a mismatch between Opacus and PyTorch version."</span>
+                <span class="p">)</span> <span class="k">from</span> <span class="n">ex</span>
+
+    <span class="k">def</span> <span class="nf">on_train_epoch_start</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""Called when the training epoch begins. Use this to make optimizers private."""</span>
+        <span class="c1"># idx
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">idx</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">idx</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">trainer</span><span class="p">.</span><span class="n">optimizers</span><span class="p">))</span>
+        <span class="c1"># dp dataloader
+</span>        <span class="n">dp_dataloader</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">private_dataloader</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">):</span>
+                <span class="n">dataloader</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span>
+                <span class="n">dp_dataloader</span> <span class="o">=</span> <span class="n">DPDataLoader</span><span class="p">.</span><span class="n">from_data_loader</span><span class="p">(</span><span class="n">dataloader</span><span class="p">,</span> <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span> <span class="o">=</span> <span class="n">dp_dataloader</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span><span class="p">.</span><span class="n">loaders</span><span class="p">,</span> <span class="n">DataLoader</span><span class="p">):</span>  <span class="c1"># type: ignore
+</span>                <span class="n">dataloader</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span><span class="p">.</span><span class="n">loaders</span>  <span class="c1"># type: ignore
+</span>                <span class="n">dp_dataloader</span> <span class="o">=</span> <span class="n">DPDataLoader</span><span class="p">.</span><span class="n">from_data_loader</span><span class="p">(</span><span class="n">dataloader</span><span class="p">,</span> <span class="n">distributed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+                <span class="n">trainer</span><span class="p">.</span><span class="n">train_dataloader</span><span class="p">.</span><span class="n">loaders</span> <span class="o">=</span> <span class="n">dp_dataloader</span>  <span class="c1"># type: ignore
+</span>            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">"No dataloader found."</span><span class="p">)</span>
+        <span class="c1"># get dataloader
+</span>        <span class="k">if</span> <span class="n">dp_dataloader</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">data_loader</span> <span class="o">=</span> <span class="n">dp_dataloader</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data_loader</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="n">_data_connector</span><span class="p">.</span><span class="n">_train_dataloader_source</span><span class="p">.</span><span class="n">dataloader</span><span class="p">()</span>
+        <span class="n">sample_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+        <span class="n">dataset_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">.</span><span class="n">dataset</span><span class="p">)</span>  <span class="c1"># type: ignore
+</span>        <span class="n">expected_batch_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dataset_size</span> <span class="o">*</span> <span class="n">sample_rate</span><span class="p">)</span>
+        <span class="c1"># delta
+</span>        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">delta</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">delta</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dataset_size</span>
+        <span class="c1"># make optimizers private
+</span>        <span class="n">optimizers</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="n">Optimizer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">dp_optimizer</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">DPOptimizer</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">optimizer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainer</span><span class="p">.</span><span class="n">optimizers</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">DPOptimizer</span><span class="p">)</span> <span class="ow">and</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">idx</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">use_target_values</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="p">.</span><span class="n">noise_multiplier</span> <span class="o">=</span> <span class="n">get_noise_multiplier</span><span class="p">(</span>
+                        <span class="n">target_epsilon</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">budget</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                        <span class="n">target_delta</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">delta</span><span class="p">,</span>
+                        <span class="n">sample_rate</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span>
+                        <span class="n">epochs</span><span class="o">=</span><span class="n">trainer</span><span class="p">.</span><span class="n">max_epochs</span><span class="p">,</span>
+                        <span class="n">accountant</span><span class="o">=</span><span class="s">"rdp"</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="n">dp_optimizer</span> <span class="o">=</span> <span class="n">DPOptimizer</span><span class="p">(</span>
+                    <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+                    <span class="n">noise_multiplier</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">noise_multiplier</span><span class="p">,</span>
+                    <span class="n">max_grad_norm</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">max_grad_norm</span><span class="p">,</span>
+                    <span class="n">expected_batch_size</span><span class="o">=</span><span class="n">expected_batch_size</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">dp_optimizer</span><span class="p">.</span><span class="n">attach_step_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">accountant</span><span class="p">.</span><span class="n">get_optimizer_hook_fn</span><span class="p">(</span><span class="n">sample_rate</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">dp_optimizer</span> <span class="o">=</span> <span class="n">optimizer</span>
+            <span class="n">optimizers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">dp_optimizer</span><span class="p">)</span>
+        <span class="n">trainer</span><span class="p">.</span><span class="n">optimizers</span> <span class="o">=</span> <span class="n">optimizers</span>
+
+    <span class="k">def</span> <span class="nf">on_train_batch_end</span><span class="p">(</span>  <span class="c1"># pylint: disable=unused-argument # type: ignore
+</span>        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">,</span>
+        <span class="n">outputs</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">,</span>
+        <span class="n">batch</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">,</span>
+        <span class="n">batch_idx</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""Called after the batched has been digested. Use this to understand whether to stop or not."""</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">_log_and_stop_criterion</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">pl_module</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">on_train_epoch_end</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""Run at the end of the training epoch."""</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s">"Spent budget (epoch=</span><span class="si">{</span><span class="n">trainer</span><span class="p">.</span><span class="n">current_epoch</span><span class="si">}</span><span class="s">): </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span><span class="si">}</span><span class="s">. Max budget: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">budget</span><span class="si">}</span><span class="s">."</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_privacy_spent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ty</span><span class="p">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="s">"""Estimate spent budget."""</span>
+        <span class="c1"># get privacy budget spent so far
+</span>        <span class="n">epsilon</span><span class="p">,</span> <span class="n">best_alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">accountant</span><span class="p">.</span><span class="n">get_privacy_spent</span><span class="p">(</span>
+            <span class="n">delta</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">delta</span><span class="p">,</span>
+            <span class="n">alphas</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">default_alphas</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">epsilon</span><span class="p">),</span> <span class="nb">float</span><span class="p">(</span><span class="n">best_alpha</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_log_and_stop_criterion</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">trainer</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">,</span>
+        <span class="n">pl_module</span><span class="p">:</span> <span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""Logging privacy spent: (epsilon, delta) and stopping if necessary."""</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">best_alpha</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_privacy_spent</span><span class="p">()</span>
+        <span class="c1"># log: expose the spent budget, an EarlyStopping callback may use this value to stop the training when enough budget has been spent
+</span>        <span class="n">pl_module</span><span class="p">.</span><span class="n">log</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">log_spent_budget_as</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span><span class="p">,</span>
+            <span class="n">on_epoch</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">prog_bar</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="p">.</span><span class="n">budget</span><span class="p">:</span>
+            <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s">"The training will stop at epoch </span><span class="si">{</span><span class="n">trainer</span><span class="p">.</span><span class="n">current_epoch</span><span class="si">}</span><span class="s"> and step </span><span class="si">{</span><span class="n">trainer</span><span class="p">.</span><span class="n">global_step</span><span class="si">}</span><span class="s"> because all the allowed privacy budget (</span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">budget</span><span class="si">}</span><span class="s">) has been spent: </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">epsilon</span><span class="si">}</span><span class="s">."</span>
+            <span class="p">)</span>
+            <span class="c1"># Set this flat to True in the Trainer and the training will stop
+</span>            <span class="n">trainer</span><span class="p">.</span><span class="n">should_stop</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<p>Here’s how one could use it:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># hoose dataset
+</span><span class="n">datamodule</span> <span class="o">=</span> <span class="n">MyDataModule</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+
+<span class="c1"># Choose model
+</span><span class="n">model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="p">()</span>
+
+<span class="c1"># Create callback
+</span><span class="n">dp_cb</span> <span class="o">=</span> <span class="n">DifferentialPrivacy</span><span class="p">(</span><span class="n">budget</span><span class="o">=</span><span class="mf">0.232</span><span class="p">,</span> <span class="n">private_dataloader</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># Define trainer
+</span><span class="n">max_steps</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">(</span>
+    <span class="n">max_steps</span><span class="o">=</span><span class="n">max_steps</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="p">[</span><span class="n">dp_cb</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="c1"># Train as usual
+</span><span class="n">trainer</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">datamodule</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The nice thing about this is that the same <code class="language-plaintext highlighter-rouge">Callback</code> <em>should</em> work with any <code class="language-plaintext highlighter-rouge">lightning.pytorch</code> model. It is model agnostic. So you do not need to re-implement the same model twice, the normal one and the private one. You can just code any model once, then leverage this <code class="language-plaintext highlighter-rouge">Callback</code> to make them private.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#differential-privacy" class="page__taxonomy-item p-category" rel="tag">differential privacy</a><span class="sep">, </span>
+    
+      <a href="/tags/#dp" class="page__taxonomy-item p-category" rel="tag">dp</a><span class="sep">, </span>
+    
+      <a href="/tags/#privacy" class="page__taxonomy-item p-category" rel="tag">privacy</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item p-category" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2023-12-12T00:00:00+00:00">December 12, 2023</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Differential+Privacy%20%2Fblog%2Fdifferential-privacy%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fdifferential-privacy%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/blog/differential-privacy/" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/SANGEA/" class="pagination--pager" title="SANGEA: Scalable and Attributed Network Generation
+">Previous</a>
+    
+    
+      <a href="/blog/privacy-and-GDPR/" class="pagination--pager" title="Synthetic data, Privacy and GDPR
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+<div class="page__related">
+  
+  <h2 class="page__related-title">You May Also Enjoy</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/LLM-RAG/" rel="permalink">Deploy a very simple RAG+LLM application
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulg...</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/ML-project-repository/" rel="permalink">Ultimate guide for a Machine Learning repository
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          24 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/privacy-and-GDPR/" rel="permalink">Synthetic data, Privacy and GDPR
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/SANGEA/" rel="permalink">SANGEA: Scalable and Attributed Network Generation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">From: Euranova
+
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+    <ul class="social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitLab</a></li>
+          
+        
+      
+
+      
+        <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      
+    </ul>
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2024 Gianmarco Aversano.</div>
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

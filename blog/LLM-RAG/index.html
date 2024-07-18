@@ -1,0 +1,858 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Deploy a very simple RAG+LLM application - Gianmarco Aversano</title>
+<meta name="description" content="Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulgative.">
+
+
+  <meta name="author" content="Gianmarco Aversano">
+  
+  <meta property="article:author" content="Gianmarco Aversano">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Gianmarco Aversano">
+<meta property="og:title" content="Deploy a very simple RAG+LLM application">
+<meta property="og:url" content="/blog/LLM-RAG/">
+
+
+  <meta property="og:description" content="Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulgative.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-04-16T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="/blog/LLM-RAG/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Gianmarco Aversano Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<!-- Mathjax Support -->
+<!-- <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+    }
+  });
+</script>
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Gianmarco Aversano
+          <span class="site-subtitle">Ph.D., Data Scientist and A.I. Engineer.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/categories/"
+                
+                
+              >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/tags/"
+                
+                
+              >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/about/"
+                
+                
+              >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="/">
+        <img src="/assets/images/me.jpg" alt="Gianmarco Aversano" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="/" itemprop="url">Gianmarco Aversano</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Ph.D., Data Scientist and A.I. Engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitLab</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Deploy a very simple RAG+LLM application">
+    <meta itemprop="description" content="  Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulgative.">
+    <meta itemprop="datePublished" content="2024-04-16T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="/blog/LLM-RAG/" itemprop="url">Deploy a very simple RAG+LLM application
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <blockquote>
+  <p>Link to repo: <a href="https://github.com/svnv-svsv-jm/llm/blob/main/tutorials/simple.ipynb">LLM repo</a>. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulgative.</p>
+</blockquote>
+
+<p>Learn how to build a very simple RAG retrieving information from a folder, with any LLM, depending on your computing power.</p>
+
+<p>We will deploy a simply RAG + LLM in Python. I will show the most important bits of code that can be useful, using <code class="language-plaintext highlighter-rouge">langchain</code>. I won’t go into more detail for the actual containerized deployment.</p>
+
+<p>Once deployed, we will ask a question about a specific scientific paper: “<em>An AI Chatbot for Explaining Deep Reinforcement Learning Decisions of Service-oriented Systems</em>”.</p>
+
+<p>Specifically, we will ask a question whose answer is in the abstract, which reads:</p>
+
+<blockquote>
+  <p>“Deep Reinforcement Learning (DeepRL) is increasingly used to cope with the open-world assumption in service-oriented systems.”</p>
+</blockquote>
+
+<p>We will ask the LLM whether it is true that DeepRL is increasingly used to cope with the open-world assumption in service-oriented systems.</p>
+
+<p>Very simple. We will ask first the LLM, then the LLM with RAG, which has direct access to this paper, as we will set it up with a local folder as knowledge database.</p>
+
+<h2 id="rag">RAG</h2>
+
+<p>We set up the RAG using <code class="language-plaintext highlighter-rouge">langchain</code>. Here, we use the <code class="language-plaintext highlighter-rouge">DirectoryLoader</code>, where we indicate that every PDF file should be included (recursively). Download the mentioned paper above, and place it in this folder: <code class="language-plaintext highlighter-rouge">res/documents</code>.</p>
+
+<p>For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">os</span><span class="p">,</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+
+<span class="kn">from</span> <span class="nn">langchain_core.documents</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span> <span class="nn">langchain_community.document_loaders.directory</span> <span class="kn">import</span> <span class="n">DirectoryLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="n">DirectoryLoader</span><span class="p">(</span>
+    <span class="n">path</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s">'res'</span><span class="p">,</span> <span class="s">'documents'</span><span class="p">),</span>
+    <span class="n">glob</span><span class="o">=</span><span class="s">"*.pdf"</span><span class="p">,</span>
+    <span class="n">recursive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then, we can load the documents:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">docs</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="n">Document</span><span class="p">]</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="n">load</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Now we get ready to create our vector database, which is at the core of RAG. We set up a text splitter, with a specified chunk size and overlap.</p>
+
+<p>The chunk size indicates how much text (how many tokens) each vector should embed, and the overlap indicates how much text two given vectors may have in common.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain.text_splitter</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">chunked_docs</span> <span class="o">=</span> <span class="n">splitter</span><span class="p">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here indeed, we select the embedder, to create the vectors. And from that we create our database.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">HuggingFaceEmbeddings</span>
+<span class="kn">from</span> <span class="nn">langchain_community.vectorstores.faiss</span> <span class="kn">import</span> <span class="n">FAISS</span>
+
+<span class="c1"># For all model names, see: https://www.sbert.net/docs/pretrained_models.html
+</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">HuggingFaceEmbeddings</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s">"BAAI/bge-base-en-v1.5"</span><span class="p">)</span>
+<span class="n">db</span> <span class="o">=</span> <span class="n">FAISS</span><span class="p">.</span><span class="n">from_documents</span><span class="p">(</span><span class="n">chunked_docs</span><span class="p">,</span> <span class="n">embedding</span><span class="o">=</span><span class="n">embedding</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The retriever is also very important in RAG application. Given the user’s question, the retriever is responsible to find, in the vector database, the vectors that can be the most relevant to be retrieved as context for the LLM before it generates the answer. As LLMs have a limited/finite context window and number of tokens they can handle, it is useful to be able to access a possibly huge database and select what’s important.</p>
+
+<p>Here we choose for <code class="language-plaintext highlighter-rouge">search_type="similarity"</code>, which is the cosine similarity, but more complex similarity measures can be chosen or developed.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">retriever</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">as_retriever</span><span class="p">(</span><span class="n">search_type</span><span class="o">=</span><span class="s">"similarity"</span><span class="p">,</span> <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s">"k"</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="llm">LLM</h2>
+
+<p>Here the LLM part.</p>
+
+<p>We select an open-source LLM from HuggingFace. To do so, notice that you need the <code class="language-plaintext highlighter-rouge">HUGGINGFACE_TOKEN</code> environment variable.</p>
+
+<p>The most interesting thing bit here, is the use of <code class="language-plaintext highlighter-rouge">BitsAndBytesConfig</code>, which helps quantize the model. These LLM models can be huge and may crash your machine, so thsi can be useful. It works only on CUDA, though.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">BitsAndBytesConfig</span>
+
+<span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="n">is_available</span><span class="p">():</span>
+    <span class="n">bnb_config</span> <span class="o">=</span> <span class="n">BitsAndBytesConfig</span><span class="p">(</span>
+        <span class="n">load_in_4bit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">bnb_4bit_use_double_quant</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+        <span class="n">bnb_4bit_quant_type</span><span class="o">=</span><span class="s">"nf4"</span><span class="p">,</span>
+        <span class="n">bnb_4bit_compute_dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">bfloat16</span><span class="p">,</span>
+        <span class="c1"># llm_int8_enable_fp32_cpu_offload=True,
+</span>    <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">bnb_config</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"Using config: </span><span class="si">{</span><span class="n">bnb_config</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+<span class="n">model_name</span> <span class="o">=</span> <span class="s">"HuggingFaceH4/zephyr-7b-beta"</span>
+<span class="c1"># model_name = "mistralai/Mistral-7B-v0.1"
+# model_name = "Writer/palmyra-small" # Very small model, not sure this works well
+</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="p">,</span>
+    <span class="n">quantization_config</span><span class="o">=</span><span class="n">bnb_config</span><span class="p">,</span>
+    <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'HUGGINGFACE_TOKEN'</span><span class="p">],</span>
+<span class="p">)</span>
+
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">token</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="s">'HUGGINGFACE_TOKEN'</span><span class="p">])</span>
+</code></pre></div></div>
+
+<h2 id="pipeline">Pipeline</h2>
+
+<p>Here is the general huggingFace pipeline, created by passing our model (LLM) with the tokenizer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_community.llms.huggingface_pipeline</span> <span class="kn">import</span> <span class="n">HuggingFacePipeline</span>
+<span class="kn">from</span> <span class="nn">langchain.prompts</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+<span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">pipeline</span>
+<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+
+<span class="n">text_generation_pipeline</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenizer</span><span class="p">,</span>
+    <span class="n">task</span><span class="o">=</span><span class="s">"text-generation"</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">do_sample</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">repetition_penalty</span><span class="o">=</span><span class="mf">1.1</span><span class="p">,</span>
+    <span class="n">return_full_text</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">max_new_tokens</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">HuggingFacePipeline</span><span class="p">(</span><span class="n">pipeline</span><span class="o">=</span><span class="n">text_generation_pipeline</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="llm-without-rag">LLM without RAG</h3>
+
+<p>We create our LLM chain, consisting of the prompt + the LLM (and a <code class="language-plaintext highlighter-rouge">StrOutputParser</code> for convenience).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">prompt_template</span> <span class="o">=</span> <span class="s">"""
+&lt;|system|&gt;
+Answer the question based on your knowledge. Use the following context to help:
+
+{context}
+
+&lt;/s&gt;
+&lt;|user|&gt;
+{question}
+&lt;/s&gt;
+&lt;|assistant|&gt;
+
+"""</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">PromptTemplate</span><span class="p">(</span>
+    <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="s">"context"</span><span class="p">,</span> <span class="s">"question"</span><span class="p">],</span>
+    <span class="n">template</span><span class="o">=</span><span class="n">prompt_template</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">llm_chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="llm-with-rag">LLM with RAG</h3>
+
+<p>Here, we chain our RAG before the LLM chain built above.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">as_retriever</span><span class="p">()</span>
+
+<span class="n">rag_chain</span> <span class="o">=</span> <span class="p">{</span><span class="s">"context"</span><span class="p">:</span> <span class="n">retriever</span><span class="p">,</span> <span class="s">"question"</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span> <span class="o">|</span> <span class="n">llm_chain</span>
+</code></pre></div></div>
+
+<h2 id="question">Question</h2>
+
+<p>This will be our question:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">question</span> <span class="o">=</span> <span class="s">"Deep Reinforcement Learning (Deep RL) is increasingly used to cope with the open-world assumption in service-oriented systems. Is this true?"</span>
+</code></pre></div></div>
+
+<p>The sentence “<em>Deep Reinforcement Learning (Deep RL) is increasingly used to cope with the open-world assumption in service-oriented systems</em>” is the first sentence of the abstract of the paper the RAG is retrieving context from.</p>
+
+<p>Of course, the quality of the answers will also depend on the LLM model you chose.</p>
+
+<h2 id="answers">Answers</h2>
+
+<p>Withotu a RAG:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">llm_chain</span><span class="p">.</span><span class="n">invoke</span><span class="p">({</span><span class="s">"context"</span><span class="p">:</span> <span class="s">""</span><span class="p">,</span> <span class="s">"question"</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p>With a RAG:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rag_chain</span><span class="p">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here they are:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">model</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">HuggingFaceH4/zephyr-7b-beta</span>
+
+  <span class="na">question</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Deep</span><span class="nv"> </span><span class="s">Reinforcement</span><span class="nv"> </span><span class="s">Learning</span><span class="nv"> </span><span class="s">(Deep</span><span class="nv"> </span><span class="s">RL)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">increasingly</span><span class="nv"> </span><span class="s">used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">cope</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">open-world</span><span class="nv"> </span><span class="s">assumption</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">systems.</span><span class="nv"> </span><span class="s">Is</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">true?"</span>
+
+  <span class="na">answer-wo-rag</span><span class="pi">:</span> <span class="s2">"</span><span class="s">No,</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">Reinforcement</span><span class="nv"> </span><span class="s">Learning</span><span class="nv"> </span><span class="s">(Deep</span><span class="nv"> </span><span class="s">RL)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">necessarily</span><span class="nv"> </span><span class="s">increasing</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">use</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">cope</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">open-world</span><span class="nv"> </span><span class="s">assumption</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">systems.</span><span class="nv"> </span><span class="s">While</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">RL</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">powerful</span><span class="nv"> </span><span class="s">tool</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">learning</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">decision-making</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">dynamic</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">uncertain</span><span class="nv"> </span><span class="s">environments,</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">may</span><span class="nv"> </span><span class="s">not</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">best</span><span class="nv"> </span><span class="s">approach</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">all</span><span class="nv"> </span><span class="s">types</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">systems.</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">open-world</span><span class="nv"> </span><span class="s">assumption</span><span class="nv"> </span><span class="s">refers</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">situations</span><span class="nv"> </span><span class="s">where</span><span class="nv"> </span><span class="s">new,</span><span class="nv"> </span><span class="s">unseen</span><span class="nv"> </span><span class="s">events</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">inputs</span><span class="nv"> </span><span class="s">can</span><span class="nv"> </span><span class="s">occur,</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">requires</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">adapt</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">learn</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">fly.</span><span class="nv"> </span><span class="s">However,</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">specific</span><span class="nv"> </span><span class="s">requirements</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">constraints</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">each</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">will</span><span class="nv"> </span><span class="s">determine</span><span class="nv"> </span><span class="s">whether</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">RL</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">most</span><span class="nv"> </span><span class="s">appropriate</span><span class="nv"> </span><span class="s">solution.</span><span class="nv"> </span><span class="s">Therefore,</span><span class="nv"> </span><span class="s">while</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">RL</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">shown</span><span class="nv"> </span><span class="s">promise</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">some</span><span class="nv"> </span><span class="s">applications,</span><span class="nv"> </span><span class="s">its</span><span class="nv"> </span><span class="s">usage</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">systems</span><span class="nv"> </span><span class="s">should</span><span class="nv"> </span><span class="s">be</span><span class="nv"> </span><span class="s">evaluated</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">case-by-case</span><span class="nv"> </span><span class="s">basis."</span>
+
+  <span class="na">answer-w-rag</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Yes,</span><span class="nv"> </span><span class="s">according</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">provided</span><span class="nv"> </span><span class="s">context,</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">Reinforcement</span><span class="nv"> </span><span class="s">Learning</span><span class="nv"> </span><span class="s">(Deep</span><span class="nv"> </span><span class="s">RL)</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">increasingly</span><span class="nv"> </span><span class="s">being</span><span class="nv"> </span><span class="s">used</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">address</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">open-world</span><span class="nv"> </span><span class="s">assumption</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">service-oriented</span><span class="nv"> </span><span class="s">systems.</span><span class="nv"> </span><span class="s">This</span><span class="nv"> </span><span class="s">information</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">mentioned</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">abstract</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">also</span><span class="nv"> </span><span class="s">referenced</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">section</span><span class="nv"> </span><span class="s">discussing</span><span class="nv"> </span><span class="s">related</span><span class="nv"> </span><span class="s">work.</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">authors</span><span class="nv"> </span><span class="s">note</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">RL</span><span class="nv"> </span><span class="s">has</span><span class="nv"> </span><span class="s">been</span><span class="nv"> </span><span class="s">successfully</span><span class="nv"> </span><span class="s">applied</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">problems</span><span class="nv"> </span><span class="s">such</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">dynamic</span><span class="nv"> </span><span class="s">service</span><span class="nv"> </span><span class="s">composition,</span><span class="nv"> </span><span class="s">job</span><span class="nv"> </span><span class="s">scheduling,</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">offloading,</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">well</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">service</span><span class="nv"> </span><span class="s">adaptation,</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">further</span><span class="nv"> </span><span class="s">supports</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">claim</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">Deep</span><span class="nv"> </span><span class="s">RL</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">gaining</span><span class="nv"> </span><span class="s">popularity</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">context."</span>
+</code></pre></div></div>
+
+<p>As you can see, with RAG, the same model was confident in replying “Yes”, as the abstract of the paper that is in the RAG database says so.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#llm" class="page__taxonomy-item p-category" rel="tag">LLM</a><span class="sep">, </span>
+    
+      <a href="/tags/#rag" class="page__taxonomy-item p-category" rel="tag">RAG</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item p-category" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2024-04-16T00:00:00+00:00">April 16, 2024</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Deploy+a+very+simple+RAG%2BLLM+application%20%2Fblog%2FLLM-RAG%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2FLLM-RAG%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/blog/LLM-RAG/" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/ML-project-repository/" class="pagination--pager" title="Ultimate guide for a Machine Learning repository
+">Previous</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+<div class="page__related">
+  
+  <h2 class="page__related-title">You May Also Enjoy</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/ML-project-repository/" rel="permalink">Ultimate guide for a Machine Learning repository
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          31 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/privacy-and-GDPR/" rel="permalink">Synthetic data, Privacy and GDPR
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/differential-privacy/" rel="permalink">Differential Privacy
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/SANGEA/" rel="permalink">SANGEA: Scalable and Attributed Network Generation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">From: Euranova
+
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+    <ul class="social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitLab</a></li>
+          
+        
+      
+
+      
+        <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      
+    </ul>
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2024 Gianmarco Aversano.</div>
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

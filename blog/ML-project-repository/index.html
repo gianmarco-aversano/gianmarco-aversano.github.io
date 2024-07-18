@@ -1,0 +1,1842 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Ultimate guide for a Machine Learning repository - Gianmarco Aversano</title>
+<meta name="description" content="Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.">
+
+
+  <meta name="author" content="Gianmarco Aversano">
+  
+  <meta property="article:author" content="Gianmarco Aversano">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Gianmarco Aversano">
+<meta property="og:title" content="Ultimate guide for a Machine Learning repository">
+<meta property="og:url" content="/blog/ML-project-repository/">
+
+
+  <meta property="og:description" content="Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-02-14T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="/blog/ML-project-repository/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Gianmarco Aversano Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<!-- Mathjax Support -->
+<!-- <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+    }
+  });
+</script>
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Gianmarco Aversano
+          <span class="site-subtitle">Ph.D., Data Scientist and A.I. Engineer.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/categories/"
+                
+                
+              >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/tags/"
+                
+                
+              >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/about/"
+                
+                
+              >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="/">
+        <img src="/assets/images/me.jpg" alt="Gianmarco Aversano" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="/" itemprop="url">Gianmarco Aversano</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Ph.D., Data Scientist and A.I. Engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitLab</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Ultimate guide for a Machine Learning repository">
+    <meta itemprop="description" content="Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.">
+    <meta itemprop="datePublished" content="2024-02-14T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="/blog/ML-project-repository/" itemprop="url">Ultimate guide for a Machine Learning repository
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          31 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.</p>
+
+<p>During my career years, I’ve had to chance to learn different tools. Nothing too crazy, I try to follow basic conventions and best practices.</p>
+
+<p>But I’ve realized that, for many, none of this is evident.</p>
+
+<p>And I don’t want them to struggle like I did, so here I am sharing the solutions I’ve learned.</p>
+
+<p>As Python is the most popular programming language for ML, we’ll use that, which also means that we need to set up everything in a way that also respects Python development best practices.</p>
+
+<p>You may want to check out Cookiecutter, which comes with templates to set up new Python projects. You can even create your own. But let’s start from zero here.</p>
+
+<p>Also beware that I’m writing this piece under the hypothesis that you are on Linux/Mac. If you’re on Windows, just install <a href="https://learn.microsoft.com/en-us/windows/wsl/install">WSL2</a>: check out <a href="https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10">this guide</a>, too.</p>
+
+<p>Most of the code here can be found at: <a href="https://github.com/svnv-svsv-jm/init-new-project">my-template</a>.</p>
+
+<p>The target audience for this post is a little all over the place, you’ll find things that are easier and things that are less. Hopefully, I’ve been clear enough, but you should have at least some familiarity with Python, and know what a YAML file is, what Docker (roughly) is, etc.</p>
+
+<!-- By the end, your project will look something like:
+
+```bash
+>> tree .
+.
+├── Dockerfile
+├── LICENSE
+├── Makefile
+├── contributing.md
+├── README.md
+├── docker-compose.yml
+├── examples
+│   └──notebook.ipynb
+├── experiments
+│   └── README.md
+├── pyproject.toml
+├── scripts
+│   ├── docker-installation-steps.sh
+│   ├── entrypoint.sh
+│   ├── git-clean.sh
+│   └── pytest.sh
+├── src
+│   └── project_name
+│       ├── __init__.py
+│       └── config.py
+└── tests
+    ├── __init__.py
+    ├── conftest.py
+    ├── e2e
+    │   └── __init__.py
+    ├── integration
+    │   └── __init__.py
+    └── unit
+        └── __init__.py
+``` -->
+
+<h2 id="pre-requisites">Pre-requisites</h2>
+
+<p>First off, create a new folder and go into it.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir </span>new-cool-ml-prok
+<span class="nb">cd </span>new-cool-ml-prok
+</code></pre></div></div>
+
+<p>Neat.</p>
+
+<p>Now open this folder with <a href="https://code.visualstudio.com/">VSCode</a>, which is recommended over PyCharm.</p>
+
+<p>You may also want to install the following VSCode extensions:</p>
+
+<ul>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.python">Python</a>: pretty mandatory. This should also automatically install Pylance.</li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter">Black formatter</a>: prettu much needed, install it then on VSCode, in Settings, check the box “Editor: Format On Save”.</li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker">Mypy</a>: not only this will force you to code in a readable way, but will often spot bugs early while you’re still coding.</li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=ms-python.pylint">Pylint</a>: it will spot, while coding, violations of Python coding best practices. It will help you improve your code quality.</li>
+  <li><a href="https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml">TOML</a>: in order to have well-colored <code class="language-plaintext highlighter-rouge">.toml</code> files while editing them (not really needed).</li>
+</ul>
+
+<p>Also, in VSCoce settings, activate the “Editor: Word Wrap” option, and other similar ones. This will allow you to visualize correctly even long lines of code.</p>
+
+<h2 id="virtual-environment">Virtual environment</h2>
+
+<p>We now need a virtual environment. Check out <a href="https://github.com/pyenv/pyenv">Pyenv</a> and never go back to anything else. Make sure that it is correctly installed and that you have the following lines:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PYENV_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.pyenv"</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$PYENV_ROOT</span><span class="s2">/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv init <span class="nt">--path</span><span class="si">)</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>at the end of your <code class="language-plaintext highlighter-rouge">~/.bashrc</code> (Linux/Ubuntu) or <code class="language-plaintext highlighter-rouge">~/.bash_profile</code> (Mac) or <code class="language-plaintext highlighter-rouge">~/.zshrc</code> / <code class="language-plaintext highlighter-rouge">~/.zprofile</code> (normal people). If you’re not using Oh-My-Zsh, please ask yourself some serious questions.</p>
+
+<p>Now, create a virtual environment with a desired Python version:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pyenv <span class="nb">install</span> &lt;version&gt; <span class="c"># desired python version, something like 3.10.10 or 3.12.0</span>
+pyenv virtualenv &lt;version&gt; &lt;some-name&gt; <span class="c"># e.g. pyenv install 3.10.10 cool-proj</span>
+pyenv shell &lt;some-name&gt;
+</code></pre></div></div>
+
+<p>In VSCode, open any <code class="language-plaintext highlighter-rouge">.py</code> file, then in bottom bar (usually on the bottom right) you should be able to select a Python interpreter. Select the environment you just created. If you can’t see it, start typing its name, or restart VSCode.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>We need to create the project’s metadata. So install Poetry:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip
+pip <span class="nb">install </span>poetry
+poetry init
+</code></pre></div></div>
+
+<p>You’ll be prompted for some project metadata, such as project name, etc. You can also just smash “Enter” and leave almost everything blank. Poetry will create the <code class="language-plaintext highlighter-rouge">pyproject.toml</code> file, which is very important. It contains all the project’s information.</p>
+
+<p>This file should look something like this:</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[tool.poetry]</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"project-name"</span> <span class="c"># choose a nice project name</span>
+<span class="py">version</span> <span class="p">=</span> <span class="s">"0.1.0"</span> <span class="c"># select a version number</span>
+<span class="py">description</span> <span class="p">=</span> <span class="s">"Description."</span> <span class="c"># please describe it</span>
+<span class="py">authors</span> <span class="p">=</span> <span class="p">[</span><span class="s">"Name &lt;address@email.com&gt;"</span><span class="p">]</span>
+<span class="py">license</span> <span class="p">=</span> <span class="s">"LICENSE"</span> <span class="c"># make sure this file exists</span>
+<span class="py">readme</span> <span class="p">=</span> <span class="s">"README.md"</span> <span class="c"># make sure this file exists</span>
+<span class="py">packages</span> <span class="p">=</span> <span class="p">[</span><span class="err">{</span> <span class="py">include</span> <span class="p">=</span> <span class="s">"project_name"</span><span class="p">,</span> <span class="py">from</span> <span class="p">=</span> <span class="s">"src"</span> <span class="err">}</span><span class="p">]</span> <span class="c"># read belows</span>
+<span class="py">include</span> <span class="p">=</span> <span class="p">[</span><span class="s">"*.py"</span><span class="p">,</span> <span class="s">"src/**/*.json"</span><span class="p">,</span> <span class="s">"src/**/*.toml"</span><span class="p">]</span> <span class="c"># on this later</span>
+<span class="py">exclude</span> <span class="p">=</span> <span class="nn">["test/*"]</span> <span class="c"># on this later</span>
+
+<span class="nn">[build-system]</span>
+<span class="py">requires</span> <span class="p">=</span> <span class="py">["poetry-core&gt;</span><span class="p">=</span><span class="mf">1.0</span><span class="err">.</span><span class="mi">0</span><span class="s">", "</span><span class="err">cython</span><span class="s">"]</span><span class="err">
+</span><span class="py">build-backend</span> <span class="p">=</span> <span class="s">"poetry.core.masonry.api"</span>
+</code></pre></div></div>
+
+<p>Rather self-explicative. Now create the following files:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">src/project_name/__init__.py</code> (package creation file);</li>
+  <li><code class="language-plaintext highlighter-rouge">contributing.md</code> (you can place any guidelines for how other developers can contribute to your project here).</li>
+</ul>
+
+<p>At this point, your repository looks something like this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&gt;&gt;</span> tree <span class="nb">.</span>
+<span class="nb">.</span>
+├── LICENSE
+├── README.md
+├── contributing.md
+├── pyproject.toml
+├── src
+    └── project_name
+        └── __init__.py
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">README.md</code> file should contain installation instructions for your package, and how it can be used. Don’t be shy to provide examples and/or links to other documentation. Without any of these two things, you may have coded the best thing ever, but it’ll be USELESS.</p>
+
+<h2 id="dependencies">Dependencies</h2>
+
+<p>This is what your <code class="language-plaintext highlighter-rouge">pyproject.toml</code> should look like:</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[tool.poetry]</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"project-name"</span> <span class="c"># choose a nice project name</span>
+<span class="py">version</span> <span class="p">=</span> <span class="s">"0.1.0"</span> <span class="c"># select a version number</span>
+<span class="py">description</span> <span class="p">=</span> <span class="s">"Description."</span> <span class="c"># please describe it</span>
+<span class="py">authors</span> <span class="p">=</span> <span class="p">[</span><span class="s">"Name &lt;address@email.com&gt;"</span><span class="p">]</span>
+<span class="py">license</span> <span class="p">=</span> <span class="s">"LICENSE"</span> <span class="c"># make sure this file exists</span>
+<span class="py">readme</span> <span class="p">=</span> <span class="s">"README.md"</span> <span class="c"># make sure this file exists</span>
+<span class="py">packages</span> <span class="p">=</span> <span class="p">[</span><span class="err">{</span> <span class="py">include</span> <span class="p">=</span> <span class="s">"project_name"</span><span class="p">,</span> <span class="py">from</span> <span class="p">=</span> <span class="s">"src"</span> <span class="err">}</span><span class="p">]</span> <span class="c"># read belows</span>
+<span class="py">include</span> <span class="p">=</span> <span class="p">[</span><span class="s">"*.py"</span><span class="p">,</span> <span class="s">"src/**/*.json"</span><span class="p">,</span> <span class="s">"src/**/*.toml"</span><span class="p">]</span> <span class="c"># on this later</span>
+<span class="py">exclude</span> <span class="p">=</span> <span class="nn">["test/*"]</span> <span class="c"># on this later</span>
+
+<span class="nn">[build-system]</span>
+<span class="py">requires</span> <span class="p">=</span> <span class="py">["poetry-core&gt;</span><span class="p">=</span><span class="mf">1.0</span><span class="err">.</span><span class="mi">0</span><span class="s">", "</span><span class="err">cython</span><span class="s">"]</span><span class="err">
+</span><span class="py">build-backend</span> <span class="p">=</span> <span class="s">"poetry.core.masonry.api"</span>
+
+<span class="c"># Specify Python version(s) and real dependencies in this section</span>
+<span class="nn">[tool.poetry.dependencies]</span>
+<span class="py">python</span> <span class="p">=</span> <span class="py">"&gt;</span><span class="p">=</span><span class="mf">3.8</span><span class="p">,</span><span class="err">&lt;</span><span class="mf">3.11</span><span class="s">"</span><span class="err">
+</span><span class="py">jupyter</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">jupyterlab_server</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">jupyterlab</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pyrootutils</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">loguru</span> <span class="p">=</span> <span class="s">"*"</span>
+
+<span class="c"># Here, specify development dependencies, which won't be part of the actual final dependency list</span>
+<span class="c"># but that you need, well, to develop your project</span>
+<span class="nn">[tool.poetry.dev-dependencies]</span>
+<span class="nn">black</span> <span class="o">=</span> <span class="p">{</span> <span class="py">extras</span> <span class="p">=</span> <span class="nn">["jupyter"]</span><span class="p">,</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"*"</span> <span class="p">}</span>
+<span class="py">flake8</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">ipython</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">isort</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">mypy</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pylint</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-cov</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-mock</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-pylint</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-mypy</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-testmon</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">pytest-xdist</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">nbmake</span> <span class="p">=</span> <span class="s">"*"</span>
+</code></pre></div></div>
+
+<p>And now let me show you why we need Poetry and not plain <code class="language-plaintext highlighter-rouge">pip</code>. Poetry lets you specify different depndency versions, and different sources (the flag <code class="language-plaintext highlighter-rouge">--extra-url</code> rings a bell?) for each dependency.</p>
+
+<p>Imagine we want to install Keras and PyTorch, but we have a Mac, and our friends have Windows and/or Linux. Some of us have a GPU, others don’t. These things mean each person will need a different version of these two popular ML packages, from different sources.</p>
+
+<p>How to solve this? As follows:</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[tool.poetry.dependencies]</span>
+<span class="py">python</span> <span class="p">=</span> <span class="py">"&gt;</span><span class="p">=</span><span class="mf">3.8</span><span class="p">,</span><span class="err">&lt;</span><span class="mf">3.11</span><span class="s">"</span><span class="err">
+</span><span class="c"># ... other dependencies ...</span>
+<span class="py">tensorflow-io-gcs-filesystem</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="err">{</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"&lt;0.32.0"</span><span class="p">,</span> <span class="py">platform</span> <span class="p">=</span> <span class="s">"win32"</span> <span class="err">}</span><span class="p">,</span>
+    <span class="err">{</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"*"</span><span class="p">,</span> <span class="py">platform</span> <span class="p">=</span> <span class="s">"linux"</span> <span class="err">}</span><span class="p">,</span>
+    <span class="err">{</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"*"</span><span class="p">,</span> <span class="py">platform</span> <span class="p">=</span> <span class="s">"darwin"</span> <span class="err">}</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="py">keras</span> <span class="p">=</span> <span class="s">"*"</span>
+<span class="py">torch</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="err">{</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"^2.0.0"</span><span class="p">,</span> <span class="py">source</span> <span class="p">=</span> <span class="s">"pytorch"</span><span class="p">,</span> <span class="py">platform</span> <span class="p">=</span> <span class="s">"linux"</span> <span class="err">}</span><span class="p">,</span>
+    <span class="err">{</span> <span class="py">version</span> <span class="p">=</span> <span class="s">"^2.0.0"</span><span class="p">,</span> <span class="py">source</span> <span class="p">=</span> <span class="s">"pypi"</span><span class="p">,</span> <span class="py">platform</span> <span class="p">=</span> <span class="s">"darwin"</span> <span class="err">}</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c"># ... more stuff ...</span>
+
+<span class="nn">[[tool.poetry.source]]</span>
+<span class="py">name</span> <span class="p">=</span> <span class="s">"pytorch"</span>
+<span class="py">url</span> <span class="p">=</span> <span class="s">"https://download.pytorch.org/whl/cu121"</span>
+<span class="py">priority</span> <span class="p">=</span> <span class="s">"explicit"</span> <span class="c"># means this URL will be checked for only for the packages where it is explicitly specified</span>
+</code></pre></div></div>
+
+<p>What happens here is that we install <code class="language-plaintext highlighter-rouge">tensorflow-io-gcs-filesystem&lt;0.32.0</code> if we are on Windows (Tensorflow’s higher versions do not support Windows at the time of writing), otherwise we install any (<code class="language-plaintext highlighter-rouge">"*"</code>) version.</p>
+
+<p>Now PyTorch. This package can be painful to install. This is what usually works: install the desired version from PyPi if we are on Mac, install it from <code class="language-plaintext highlighter-rouge">"https://download.pytorch.org"</code> if we are on Linux. In our example, we chose the GPU version for CUDA 12.1 (see <code class="language-plaintext highlighter-rouge">"/whl/cu121"</code>).</p>
+
+<p>Now that we have declared our desired dependencies, we need to resolve them. For this, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>poetry lock
+</code></pre></div></div>
+
+<p>which will produce a <code class="language-plaintext highlighter-rouge">poetry.lock</code> file. This file is our dependency solution. Now, to install the dependencies, run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>poetry <span class="nb">install</span>
+</code></pre></div></div>
+
+<p>You will see stuff being installed, but also upgrade or downgraded or uninstalled. This is cool and this command will always sync the dependencies you have currently installed in your virtual environment with the ones declared in the <code class="language-plaintext highlighter-rouge">pyproject.toml</code> file. This is not supported by plain <code class="language-plaintext highlighter-rouge">pip install -r requirements.txt</code>.</p>
+
+<h3 id="requirementstxt">requirements.txt</h3>
+
+<p>Why not the <code class="language-plaintext highlighter-rouge">requirements.txt</code>? Poetry finds a platform-independent dependency resolution. If you do <code class="language-plaintext highlighter-rouge">pip install -r requirements.txt</code> and then <code class="language-plaintext highlighter-rouge">pip freeze &gt; requirements.txt</code>, you end up with what worked on YOUR MACHINE. When you do <code class="language-plaintext highlighter-rouge">pip freeze &gt; requirements.txt</code>, you cannot know if <code class="language-plaintext highlighter-rouge">pip</code> will run successfully on another machine. So please forget about it.</p>
+
+<h2 id="testing">Testing</h2>
+
+<p>We’ve declared a ton of dependencies in the TOML file. Let’s use them. Especially PyTest.</p>
+
+<p>Crate the following file <code class="language-plaintext highlighter-rouge">tests/conftest.py</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># tests/conftest.py
+</span><span class="s">"""This file is run by PyTest as first file.
+Define testing "fixtures" here.
+"""</span>
+<span class="kn">import</span> <span class="nn">pytest</span><span class="p">,</span> <span class="n">os</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+<span class="kn">import</span> <span class="nn">pyrootutils</span>
+
+<span class="c1"># Using pyrootutils, we find the root directory of this project and make sure it is our working directory
+</span><span class="n">root</span> <span class="o">=</span> <span class="n">pyrootutils</span><span class="p">.</span><span class="n">setup_root</span><span class="p">(</span>
+    <span class="n">search_from</span><span class="o">=</span><span class="s">"."</span><span class="p">,</span>
+    <span class="n">indicator</span><span class="o">=</span><span class="p">[</span><span class="s">".git"</span><span class="p">,</span> <span class="s">"pyproject.toml"</span><span class="p">],</span>
+    <span class="n">pythonpath</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">dotenv</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">cwd</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Example of a fixture, which are values we can pass to all tests
+</span><span class="o">@</span><span class="n">pytest</span><span class="p">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s">"session"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">data_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">"""Path where to find data. Reading this value from an environment variable if defined."""</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"DATA_LOC"</span><span class="p">,</span> <span class="s">".data"</span><span class="p">)</span>
+
+<span class="c1"># Example of a fixture, which are values we can pass to all tests
+</span><span class="o">@</span><span class="n">pytest</span><span class="p">.</span><span class="n">fixture</span><span class="p">(</span><span class="n">scope</span><span class="o">=</span><span class="s">"session"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">resources_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="s">"""Path where to resources for the tests."""</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"RESOURCES_LOC"</span><span class="p">,</span> <span class="s">"tests/res"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>PyTest will load this file before running the tests. We have also called <code class="language-plaintext highlighter-rouge">pyrootutils.setup_root</code>, which helps us find the root directory of this project, and set that as current working directory.</p>
+
+<p>In this file, you can create “fixture”, that is variables that can be automatically passed to any test you want. Here, we defined a <code class="language-plaintext highlighter-rouge">data_path</code> fixture, telling our tests where they can find data, and a <code class="language-plaintext highlighter-rouge">resources_path</code>, telling our tests where to find resources that can be needed for the tests (text file, images, etc.). You will see later that now we can create tests and if they request an input argument with the same name, PyTest will give it to them (e.g. <code class="language-plaintext highlighter-rouge">def test_blala(data_path: str)</code>).</p>
+
+<p>Now we need to create the tests. The structure of the <code class="language-plaintext highlighter-rouge">tests/</code> directory should mimic the structure of the <code class="language-plaintext highlighter-rouge">src/</code> directory. So it is easy to find the test of a specific file in <code class="language-plaintext highlighter-rouge">src/</code>. Let’s create a function, then test it.</p>
+
+<p>We are going to create a neural network, which we will then train. Here, we will only define a general Multi-Layer Perceptron network that can be trained on both continuous tabular data or image data. Here, however, we will only create the neural network architecture, no training procedure will be defined. On that later.</p>
+
+<p>Create this file: <code class="language-plaintext highlighter-rouge">src/project_name/nn.py</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># src/project_name/nn.py
+</span>
+<span class="c1"># Use the `__all__` keyword so not to export everything when people import this module
+</span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">"MLP"</span><span class="p">,</span> <span class="s">"fc_block"</span><span class="p">]</span>
+
+<span class="c1"># stop printing, use this logger, you'll see
+</span><span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># always use typing, everything should be clear and explicit
+# or not even you will understand your code
+</span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="c1"># now the data science stuff
+</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="k">def</span> <span class="nf">fc_block</span><span class="p">(</span>
+    <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">out_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">normalize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+    <span class="n">batch_norm_eps</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">leaky_relu</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="n">negative_slope</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="n">dropout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">]:</span>
+    <span class="s">"""Creates a small fully-connected neural block.
+    Rather than hardcoding, we can create a general block.
+    Each block is just a `torch.nn.Linear` module plus ReLU, normalization, etc.
+
+    Args:
+        in_features (int):
+            Input dimension.
+        out_features (int):
+            Output dimension.
+        normalize (bool, optional):
+            Whether to use Batch 1D normalization. Defaults to True.
+        negative_slope (float, optional):
+            Negative slope for Leaky ReLU layers. Defaults to 0.0.
+        batch_norm_eps (float, optional):
+            Epsilon for Batch 1D normalization. Defaults to 0.5.
+        dropout (bool, optional):
+            Whether to add a Dropout layer.
+    Returns:
+        List[torch.nn.Module]:
+            List of torch modules, to be then turned into a `torch.nn.Sequential` module.
+    """</span>
+    <span class="n">layers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">normalize</span><span class="p">:</span>
+        <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="n">batch_norm_eps</span><span class="p">))</span>  <span class="c1"># type: ignore
+</span>    <span class="k">if</span> <span class="n">leaky_relu</span><span class="p">:</span>
+        <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">LeakyReLU</span><span class="p">(</span><span class="n">negative_slope</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>  <span class="c1"># type: ignore
+</span>    <span class="k">else</span><span class="p">:</span>
+        <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">ReLU</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">dropout</span><span class="p">:</span>
+        <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Dropout</span><span class="p">())</span>
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MLP</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="s">"""MLP network. Avoid hardcoding and create a general network.
+    Have generalized constructor.
+    """</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">in_features</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">out_features</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span>
+        <span class="n">hidden_dims</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">hidden_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="n">n_layers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">last_activation</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="c1"># inputs for the function above
+</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="s">"""
+        Args:
+            in_features (int):
+                Input dimension or shape.
+            out_features (Union[int, Sequence[int]]):
+                Output dimension or shape. In case you're working with images,
+                you may want to pass the image shape: e.g. (C,H,W), which
+                stands for (number of color channgels, height in pixels, width in pixels).
+            hidden_dims (Sequence[int], optional):
+                Sequence of hidden dimensions. Defaults to [].
+            hidden_size (int):
+                Hidden layers' dimensions. Use either this and `n_layers` or `hidden_dims`.
+            n_layers (int):
+                Number of hidden layers. Use this in conjunction with `hidden_size` parameter.
+            last_activation (torch.nn.Module, optional):
+                Last activation for the MLP. Defaults to None.
+            **kwargs (optional):
+                See function :func:`~fc_block`
+        """</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="c1"># Sanitize
+</span>        <span class="n">in_features</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">in_features</span><span class="p">)</span> <span class="c1"># cast to int
+</span>        <span class="c1"># We now need to create a list of int values
+</span>        <span class="c1"># If hidden_dims is not provided, we check if hidden_size is
+</span>        <span class="c1"># If also hidden_size is not provided, we initialize hidden_dims to default value
+</span>        <span class="c1"># If it is, then we use it with n_layers to create a list of int values
+</span>        <span class="k">if</span> <span class="n">hidden_dims</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">hidden_size</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">hidden_dims</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hidden_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">hidden_size</span><span class="p">]</span> <span class="o">*</span> <span class="n">n_layers</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hidden_dims</span><span class="p">):</span>
+                <span class="n">hidden_dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>  <span class="c1"># type: ignore
+</span>        <span class="c1"># We now need to make sure that out_features is a list of int
+</span>        <span class="c1"># As we allow users to input also just an int
+</span>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">out_features</span> <span class="o">=</span> <span class="p">[</span><span class="n">out_features</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">out_features</span><span class="p">):</span>
+                <span class="n">out_features</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>  <span class="c1"># type: ignore
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">out_features</span> <span class="o">=</span> <span class="n">out_features</span>
+        <span class="n">out_shape</span> <span class="o">=</span> <span class="p">[</span><span class="n">out_features</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out_features</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="n">out_features</span>
+        <span class="c1"># Set up: we create now the list of torch.nn.Modules
+</span>        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">layers_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">in_features</span><span class="p">,</span> <span class="o">*</span><span class="n">hidden_dims</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">hidden_dims</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">layers_dims</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="n">layers</span> <span class="o">+=</span> <span class="n">fc_block</span><span class="p">(</span><span class="n">layers_dims</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">layers_dims</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">layers_dims</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">prod</span><span class="p">(</span><span class="n">out_shape</span><span class="p">))))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">prod</span><span class="p">(</span><span class="n">out_shape</span><span class="p">))))</span>
+        <span class="k">if</span> <span class="n">last_activation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">layers</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">last_activation</span><span class="p">)</span>
+        <span class="c1"># Here is our final model
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s">"Initialized </span><span class="si">{</span><span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="s">"""Econdes input tensor to output tensor of predefined shape (see above)."""</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s">"input_tensor: </span><span class="si">{</span><span class="n">input_tensor</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="n">output_tensor</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">model</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s">"output_tensor: </span><span class="si">{</span><span class="n">output_tensor</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output_tensor</span>
+</code></pre></div></div>
+
+<p>That was a lot of code.</p>
+
+<p>As you may also have noticed, there are some <code class="language-plaintext highlighter-rouge">logger.trace()</code> and <code class="language-plaintext highlighter-rouge">logger.debug()</code> statements in there. Rather then put in a lot of <code class="language-plaintext highlighter-rouge">print</code> statements when debugging, and then having to delete them all when we’re done. We can leverage Python’s logger with the following advantages:</p>
+
+<ul>
+  <li>the print message will also contain the line of code they are coming from;</li>
+  <li>they can be left there, you will only see what they print when running in debug mode.</li>
+</ul>
+
+<p>Now, should we test this MLP module? Let’s go. Create this file:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># tests/project_name/test_nn.py
+</span><span class="kn">import</span> <span class="nn">pytest</span><span class="p">,</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">project_name.nn</span> <span class="kn">import</span> <span class="n">MLP</span>
+
+<span class="k">def</span> <span class="nf">test_mlp_module</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s">"""Check network can be initialized, and outputs tensors of expected shape."""</span>
+    <span class="c1"># Create a neural network consuming inputs of size 100,
+</span>    <span class="c1"># return a tensor of size 2, going from 100 to 50 to 25 to 10 to 2
+</span>    <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+    <span class="c1"># Create a random input tensor of size 100
+</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">((</span><span class="mi">100</span><span class="p">,))</span>
+    <span class="c1"># Run the MLP, and check output size
+</span>    <span class="n">o</span> <span class="o">=</span> <span class="n">mlp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">o</span><span class="p">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s">"Wrong size, expected </span><span class="si">{</span><span class="mi">2</span><span class="si">}</span><span class="s">, got </span><span class="si">{</span><span class="n">o</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s">"</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s">"DEBUG"</span><span class="p">)</span>
+    <span class="n">pytest</span><span class="p">.</span><span class="n">main</span><span class="p">([</span><span class="n">__file__</span><span class="p">,</span> <span class="s">"-x"</span><span class="p">,</span> <span class="s">"-s"</span><span class="p">,</span> <span class="s">"--mypy"</span><span class="p">,</span> <span class="s">"--pylint"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Here is our test. What if we want more of it? Let’s parameterize it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># tests/project_name/test_nn.py
+</span><span class="kn">import</span> <span class="nn">pytest</span><span class="p">,</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">project_name.nn</span> <span class="kn">import</span> <span class="n">MLP</span>
+
+<span class="o">@</span><span class="n">pytest</span><span class="p">.</span><span class="n">mark</span><span class="p">.</span><span class="n">parametrize</span><span class="p">(</span>
+    <span class="s">"in_features, out_features, hidden_dims"</span><span class="p">,</span>
+    <span class="p">[</span>
+        <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span> <span class="c1"># Run number 0
+</span>        <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">100</span><span class="p">]),</span> <span class="c1"># Run number 1
+</span>    <span class="p">]</span>
+<span class="p">)</span>
+<span class="k">def</span> <span class="nf">test_mlp_module</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s">"""Check network can be initialized, and outputs tensors of expected shape."""</span>
+    <span class="c1"># Create a neural network
+</span>    <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">,</span> <span class="n">hidden_dims</span><span class="p">)</span>
+    <span class="c1"># Create a random input tensor of size in_features
+</span>    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">rand</span><span class="p">((</span><span class="n">in_features</span><span class="p">,))</span>
+    <span class="c1"># Run the MLP, and check output size
+</span>    <span class="n">o</span> <span class="o">=</span> <span class="n">mlp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">o</span><span class="p">.</span><span class="n">numel</span><span class="p">()</span> <span class="o">==</span> <span class="n">out_features</span><span class="p">,</span> <span class="sa">f</span><span class="s">"Wrong size, expected </span><span class="si">{</span><span class="n">out_features</span><span class="si">}</span><span class="s">, got </span><span class="si">{</span><span class="n">o</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="si">}</span><span class="s">"</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s">"DEBUG"</span><span class="p">)</span>
+    <span class="n">pytest</span><span class="p">.</span><span class="n">main</span><span class="p">([</span><span class="n">__file__</span><span class="p">,</span> <span class="s">"-x"</span><span class="p">,</span> <span class="s">"-s"</span><span class="p">,</span> <span class="s">"--mypy"</span><span class="p">,</span> <span class="s">"--pylint"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Now this is gonna run more than once (twice), each time with a different set of inputs.</p>
+
+<p>To run it, you can simply run this fine <code class="language-plaintext highlighter-rouge">python tests/project_name/test_nn.py</code>.</p>
+
+<h2 id="training">Training</h2>
+
+<p>We have tested our neural net behaves as expected. But all it does is just transform an input of a certain shape, to an output of another shape. We now need to train it to solve a task. But we have not defined a training loop. We have to.</p>
+
+<p>Unlike Keras, which is a high-level libray relying on Tensorflow for the Tensor operations, PyTorch is a low-level libray for Deep Learning. The dualism Keras vs PyTorch makes zero sense. While I think you still must learn plain PyTorch, plain PyTorch requires a lot of coding, especially if you want to develop a model that is also easy to use and re-train for other people. Unless you’re really experienced, you’d better off using high-level libraries that come with pre-defined building blocks and a clear API that makes your code easy to use for the others.</p>
+
+<p>As said, all we’ve done is define a MLP architecture, there is no information about how to train it. So now we are going to define a training loop, and we are going to attach all the training procedures to MLP model itself. This way, other people can use it very simply and clearly, by just calling a <code class="language-plaintext highlighter-rouge">.fit()</code> method.</p>
+
+<blockquote>
+  <p>PyTorch is my favorite Deep Learning framework, but people’s coding skills are, in general, good enough to have fun with PyTorch, but not good enough to produce usable code with it… and plain PyTorch does not focus on code sharing and reproducibilty. And it should not. So we’ll use something else. We’ll use Lightning.</p>
+</blockquote>
+
+<p>Let’s create a class that not only implements our MLP, but also defines its training loop using Lightning.</p>
+
+<p>Create this file.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># src/project_name/classifier.py
+</span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Classifier"</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">lightning.pytorch</span> <span class="k">as</span> <span class="n">pl</span>
+<span class="kn">from</span> <span class="nn">torchmetrics</span> <span class="kn">import</span> <span class="n">Accuracy</span><span class="p">,</span> <span class="n">Metric</span>
+
+<span class="kn">from</span> <span class="nn">.nn</span> <span class="kn">import</span> <span class="n">MLP</span>
+
+
+<span class="k">class</span> <span class="nc">Classifier</span><span class="p">(</span><span class="n">pl</span><span class="p">.</span><span class="n">LightningModule</span><span class="p">):</span>
+    <span class="s">"""General classifier, using our MLP module."""</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">num_classes</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">loss</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"nll"</span><span class="p">,</span>
+        <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-2</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">()</span>
+        <span class="c1"># we create our MLP
+</span>        <span class="n">kwargs</span><span class="p">[</span><span class="s">"out_features"</span><span class="p">]</span> <span class="o">=</span> <span class="n">num_classes</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">layers</span> <span class="o">=</span> <span class="n">MLP</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">num_classes</span> <span class="o">=</span> <span class="n">num_classes</span>
+        <span class="c1"># but also a learning rate
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="c1"># and a loss function
+</span>        <span class="n">task</span> <span class="o">=</span> <span class="s">"multiclass"</span> <span class="k">if</span> <span class="n">num_classes</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="s">"binary"</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">loss</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="c1"># consider using LogSoftmax with NLLLoss instead of Softmax with CrossEntropyLoss
+</span>            <span class="k">if</span> <span class="n">loss</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"nll"</span><span class="p">,</span> <span class="s">"nllloss"</span><span class="p">,</span> <span class="s">"nl_loss"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">loss</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"bce"</span><span class="p">,</span> <span class="s">"bceloss"</span><span class="p">,</span> <span class="s">"bce_loss"</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">BCELoss</span><span class="p">()</span>
+                <span class="n">task</span> <span class="o">=</span> <span class="s">"binary"</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="p">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">NLLLoss</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nb">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s">"Unrecognized input for loss: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="si">}</span><span class="s">."</span><span class="p">)</span>
+        <span class="c1"># we can also define some useful metrics for reporting while training our model
+</span>        <span class="bp">self</span><span class="p">.</span><span class="n">accuracy</span><span class="p">:</span> <span class="n">Metric</span> <span class="o">=</span> <span class="n">Accuracy</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">num_classes</span><span class="o">=</span><span class="n">num_classes</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">configure_optimizers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="s">"""Here is our optimization configuration."""</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">Adam</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="p">.</span><span class="n">lr</span><span class="p">)</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">lr_scheduler</span><span class="p">.</span><span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">optimizer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s">"optimizer"</span><span class="p">:</span> <span class="n">optimizer</span><span class="p">,</span>
+            <span class="s">"scheduler"</span><span class="p">:</span> <span class="n">scheduler</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Union</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">ty</span><span class="p">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">ty</span><span class="p">.</span><span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="s">"""
+        Args:
+            x (ty.Union[torch.Tensor, ty.Tuple[torch.Tensor, ty.Any]]):
+                Input data. Can be either a tuple of tensors, or a tensor.
+
+        Returns:
+            torch.Tensor:
+                Output tensor.
+        """</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span> <span class="k">else</span> <span class="n">x</span>
+        <span class="k">assert</span> <span class="n">torch</span><span class="p">.</span><span class="n">is_tensor</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="sa">f</span><span class="s">"x must be a tensor but found of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s">"</span>  <span class="c1"># type: ignore
+</span>        <span class="n">x_vectorized</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">output</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">layers</span><span class="p">(</span><span class="n">x_vectorized</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span>
+
+    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span>  <span class="c1"># type: ignore  # pylint: disable=arguments-differ
+</span>        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">batch</span><span class="p">:</span> <span class="n">ty</span><span class="p">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">],</span>
+        <span class="n">batch_nb</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>  <span class="c1"># pylint: disable=unused-argument
+</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="s">"""
+        Args:
+            batch (ty.Tuple[torch.Tensor, torch.Tensor]):
+                Tuple of (input, label) tensors.
+            batch_nb (int):
+                Batch ID.
+
+        Returns:
+            torch.Tensor:
+                Value of the loss function.
+        """</span>
+        <span class="c1"># get data: x (input) and y (label)
+</span>        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">batch</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># this is our forward pass defined above
+</span>        <span class="c1"># now we evaluate the loss
+</span>        <span class="n">loss</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">loss</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="c1"># we also log useful metrics to monitor our training
+</span>        <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">accuracy</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"loss/train"</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">log</span><span class="p">(</span><span class="s">"acc/train"</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">prog_bar</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss</span>
+</code></pre></div></div>
+
+<p>We may also define a <code class="language-plaintext highlighter-rouge">validation_step()</code> and a <code class="language-plaintext highlighter-rouge">test_step()</code>, which will be the same but with <code class="language-plaintext highlighter-rouge">loss/train</code> replaced by <code class="language-plaintext highlighter-rouge">loss/val</code> and <code class="language-plaintext highlighter-rouge">loss/test</code>. Same for <code class="language-plaintext highlighter-rouge">acc/train</code>.</p>
+
+<p>Now, this <code class="language-plaintext highlighter-rouge">Classifier</code> class not only defines our <code class="language-plaintext highlighter-rouge">MLP</code> architecture, but also shows how to train it. To a certain extent, while plain PyTorch is for tensor operations and neural netowrks (in terms of plain achitecture), Lightning allows us to create tasks: the training procedure and inference step of a neural network.</p>
+
+<h3 id="testing-the-training-procedure-of-a-neural-network">Testing the training procedure of a neural network</h3>
+
+<p>Of course, we can also test that our <code class="language-plaintext highlighter-rouge">Classifier</code> trains correctly. Here, we will not check that we train the best classifier ever, we will just make sure that the code runs fine, both for training and for inference, and that the loss decreases during training.</p>
+
+<p>Create this file:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># tests/project_name/test_classifier.py
+</span><span class="kn">import</span> <span class="nn">pytest</span><span class="p">,</span> <span class="n">sys</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>  <span class="c1"># pylint: disable=unused-import
+</span>
+<span class="kn">import</span> <span class="nn">torch</span>  <span class="c1"># pylint: disable=unused-import
+</span><span class="kn">import</span> <span class="nn">lightning.pytorch</span> <span class="k">as</span> <span class="n">pl</span>
+<span class="kn">from</span> <span class="nn">lightning.pytorch.tuner</span> <span class="kn">import</span> <span class="n">Tuner</span>
+
+<span class="kn">from</span> <span class="nn">project_name.datasets</span> <span class="kn">import</span> <span class="n">MNISTDataModule</span>
+<span class="kn">from</span> <span class="nn">torchvision.datasets</span> <span class="kn">import</span> <span class="n">MNIST</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms</span> <span class="k">as</span> <span class="n">tfs</span>
+
+<span class="kn">from</span> <span class="nn">project_name.models</span> <span class="kn">import</span> <span class="n">Classifier</span>
+
+<span class="c1"># Remember the "data_path" fixture? Here we use it
+# PyTest will pass it to any test that requests it
+</span><span class="k">def</span> <span class="nf">test_mnist_classifier</span><span class="p">(</span><span class="n">data_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="s">"""Test Classifier model can be trained."""</span>
+    <span class="n">transforms</span><span class="p">:</span> <span class="n">tfs</span><span class="p">.</span><span class="n">Compose</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">Compose</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">tfs</span><span class="p">.</span><span class="n">ToTensor</span><span class="p">(),</span>
+                <span class="n">tfs</span><span class="p">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.1307</span><span class="p">,),</span> <span class="p">(</span><span class="mf">0.3081</span><span class="p">,)),</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">MNIST</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">train</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">transforms</span><span class="p">)</span>
+    <span class="c1"># datamodule
+</span>    <span class="n">datamodule</span> <span class="o">=</span> <span class="n">MNISTDataModule</span><span class="p">(</span><span class="n">data_path</span><span class="p">)</span>
+    <span class="c1"># model
+</span>    <span class="n">model</span> <span class="o">=</span> <span class="n">Classifier</span><span class="p">()</span>
+    <span class="c1"># check code runs ok
+</span>    <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">(</span><span class="n">fast_dev_run</span><span class="o">=</span><span class="bp">True</span><span class="p">).</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">datamodule</span><span class="p">)</span>
+    <span class="c1"># trainer
+</span>    <span class="n">trainer</span> <span class="o">=</span> <span class="n">pl</span><span class="p">.</span><span class="n">Trainer</span><span class="p">()</span>
+    <span class="c1"># metrics before training
+</span>    <span class="n">outputs</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loader</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+    <span class="n">loss_start</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s">"loss/val"</span><span class="p">]</span>
+    <span class="c1"># find best learning rate
+</span>    <span class="n">Tuner</span><span class="p">(</span><span class="n">trainer</span><span class="p">).</span><span class="n">lr_find</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span>
+        <span class="n">datamodule</span><span class="o">=</span><span class="n">datamodule</span><span class="p">,</span>
+        <span class="n">max_lr</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="n">min_lr</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">,</span>
+        <span class="n">update_attr</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># train
+</span>    <span class="n">trainer</span><span class="p">.</span><span class="n">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">datamodule</span><span class="p">)</span>
+    <span class="c1"># metrics after training
+</span>    <span class="n">outputs</span> <span class="o">=</span> <span class="n">trainer</span><span class="p">.</span><span class="n">validate</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">loader</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+    <span class="n">loss_end</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="s">"loss/val"</span><span class="p">]</span>
+    <span class="c1"># test metrics have improved
+</span>    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s">"Loss: </span><span class="si">{</span><span class="n">loss_end</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s"> &lt; </span><span class="si">{</span><span class="n">loss_start</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">loss_end</span> <span class="o">&lt;</span> <span class="n">loss_start</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="s">"DEBUG"</span><span class="p">)</span>
+    <span class="n">pytest</span><span class="p">.</span><span class="n">main</span><span class="p">([</span><span class="n">__file__</span><span class="p">,</span> <span class="s">"-x"</span><span class="p">,</span> <span class="s">"-s"</span><span class="p">,</span> <span class="s">"--pylint"</span><span class="p">,</span> <span class="s">"--mypy"</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Of course, you can test for more, you can also try to overfit one batch. For now, let’s keep it like this.</p>
+
+<h2 id="running-experiments-training-models-evaluate-them-etc">Running experiments: training models, evaluate them, etc.</h2>
+
+<p>Now that we have at least one model available, we can actually train it on a dataset, save it, then load it again and evaluate it. All of these steps can be further developed with little effort now that our model is also tested.</p>
+
+<p>Of course, we could write a notebook and/or a script that imports our model and trains it on some dataset. The problem with this is repoducibility and experiment tracking:</p>
+
+<ul>
+  <li>We want to make sure that the same script runs for different combinations of hyper-parameters, while still remembering what values we chose for them in each run.</li>
+  <li>Do hyper-parameter optimization (HPO) out of the box.</li>
+  <li>If we can also visualize what’s going on while the model is training, that’d be nice.</li>
+</ul>
+
+<p>While I think everyone should learn how to use <a href="https://mlflow.org/docs/latest/index.html">MLFlow</a> and what it does, I think there is another tool and complements it, which is <a href="https://hydra.cc/docs/intro/">Hydra</a>.</p>
+
+<p>Hydra allows you to create configuration files for your ML experiments. For example, you can create the following file that configures the hyper-parameters for a specific Python class (in our case, it will be ethe <code class="language-plaintext highlighter-rouge">Classifier</code> class):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">_target_</span><span class="pi">:</span> <span class="s">project_name.models.Classifier</span>
+<span class="na">in_features</span><span class="pi">:</span> <span class="m">15</span>
+<span class="na">num_classes</span><span class="pi">:</span> <span class="m">2</span>
+<span class="na">hidden_dims</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">256</span><span class="pi">,</span> <span class="nv">256</span><span class="pi">,</span> <span class="nv">256</span><span class="pi">,</span> <span class="nv">256</span><span class="pi">]</span>
+</code></pre></div></div>
+
+<p>We chose some default values. The values are random, we’d need to change them according to whatever we need to run. They can also be overriden on the fly when we run an experiment, or you can manually edit them and run the experiment again.</p>
+
+<p>Either way, Hydra will automatically the configuration being used by the current experiment in a log folder, so you can always go back to it and find it (and run the same experiment again if you want).</p>
+
+<p>For example, take a look at this:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>experiments_logs/&lt;model-name&gt;/&lt;dataset-name&gt;/fit/multiruns/2023-03-22/09-27-28/0
+├── .hydra
+│   ├── config.yaml
+│   ├── hydra.yaml
+│   └── overrides.yaml
+├── mlflow
+│   ├── 0
+│   │   └── meta.yaml
+│   └── 1
+│       ├── 481411259582403785c073586554050d
+│       │   ├── meta.yaml
+│       │   ├── metrics
+│       │   │   ├── accuracy
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── auroc
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── epoch
+│       │   │   ├── loss
+│       │   │   │   ├── train
+│       │   │   │   └── val
+│       │   │   ├── lr-Adam
+│       │   │   └── recall
+│       │   │       ├── train
+│       │   │       └── val
+│ <span class="c"># ... The MLFlow stuff is huge, cutting it here</span>
+└── tensorboard
+    ├── checkpoints
+    │   ├── <span class="nv">epoch</span><span class="o">=</span>32-step<span class="o">=</span>3432.ckpt
+    │   ├── <span class="nv">epoch</span><span class="o">=</span>34-step<span class="o">=</span>3640.ckpt
+    │   ├── <span class="nv">epoch</span><span class="o">=</span>35-step<span class="o">=</span>3744.ckpt
+    │   └── last.ckpt
+    ├── events.out.tfevents.1679477262.machine.1.0
+    └── hparams.yaml
+</code></pre></div></div>
+
+<p>With the correct Hydra configuration, I was able to have Hydra creating all of this for each experiment that I ran. Let’s break it down.</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">experiments_logs/&lt;model-name&gt;/&lt;dataset-name&gt;/fit/multiruns/2023-03-22/09-27-28/0</code>: I was able to save my experiments in an <code class="language-plaintext highlighter-rouge">experiments_logs</code> folder, where then I would go: <code class="language-plaintext highlighter-rouge">&lt;model-name&gt;/&lt;dataset-name&gt;/&lt;fit-or-evaluate&gt;/multiruns/&lt;date&gt;/&lt;time&gt;/&lt;run-id&gt;</code>, which helped me log as much as I could about each experiment. Why the “multiruns”? You’ll see below.</li>
+  <li><code class="language-plaintext highlighter-rouge">.hydra/</code>: this folder contains the configuration that we used for the run in <code class="language-plaintext highlighter-rouge">config.yaml</code>, some Hydra-specific configuraiton only in <code class="language-plaintext highlighter-rouge">hydra.yaml</code>, and any overriden parameter information in <code class="language-plaintext highlighter-rouge">overrides.yaml</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">mlflow/</code>: MLFlow collects a lot of stuff, that it then needs to visualize everything correctly. Many of the things it contains is redundant.</li>
+  <li><code class="language-plaintext highlighter-rouge">tensorboard/</code>: I was also using <a href="https://www.tensorflow.org/tensorboard">Tensorboard</a>, too. And I was saving my <code class="language-plaintext highlighter-rouge">checkpoints/</code> in that folder.</li>
+</ul>
+
+<p>As said, Hydra lets you do HPO. Which means that you can set up your config as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># @package _global_</span>
+
+<span class="na">defaults</span><span class="pi">:</span> <span class="c1"># You can load config from other files, too.</span>
+  <span class="pi">-</span> <span class="na">extras</span><span class="pi">:</span> <span class="s">default.yaml</span>
+  <span class="pi">-</span> <span class="na">paths</span><span class="pi">:</span> <span class="s">default.yaml</span>
+  <span class="pi">-</span> <span class="na">hydra</span><span class="pi">:</span> <span class="s">default.yaml</span>
+  <span class="pi">-</span> <span class="na">callbacks</span><span class="pi">:</span> <span class="s">default.yaml</span>
+  <span class="pi">-</span> <span class="na">logger</span><span class="pi">:</span> <span class="s">default.yaml</span>
+  <span class="pi">-</span> <span class="na">datamodule</span><span class="pi">:</span> <span class="s">mnist.yaml</span>
+  <span class="pi">-</span> <span class="na">model</span><span class="pi">:</span> <span class="s">classifier.yaml</span>
+  <span class="pi">-</span> <span class="na">trainer</span><span class="pi">:</span> <span class="s">auto.yaml</span>
+  <span class="pi">-</span> <span class="na">override hydra/sweeper</span><span class="pi">:</span> <span class="s">optuna</span>
+  <span class="pi">-</span> <span class="na">override hydra/sweeper/sampler</span><span class="pi">:</span> <span class="s">tpe</span>
+  <span class="c1"># - override hydra/launcher: ray</span>
+  <span class="pi">-</span> <span class="s">_self_</span>
+
+<span class="na">hydra</span><span class="pi">:</span>
+  <span class="na">mode</span><span class="pi">:</span> <span class="s">MULTIRUN</span>
+  <span class="na">sweeper</span><span class="pi">:</span>
+    <span class="na">direction</span><span class="pi">:</span> <span class="s">minimize</span>
+    <span class="na">n_trials</span><span class="pi">:</span> <span class="m">30</span>
+    <span class="na">n_jobs</span><span class="pi">:</span> <span class="m">1</span>
+    <span class="na">params</span><span class="pi">:</span>
+      <span class="na">model.latent_dim</span><span class="pi">:</span> <span class="s">interval(4, 64)</span>
+      <span class="na">model.weight_decay</span><span class="pi">:</span> <span class="s">interval(0.001, 0.5)</span>
+      <span class="na">model.num_layers</span><span class="pi">:</span> <span class="s">interval(1, 8)</span>
+      <span class="na">model.hidden_size</span><span class="pi">:</span> <span class="s">interval(32, 256)</span>
+      <span class="na">model.heads</span><span class="pi">:</span> <span class="s">interval(2, 8)</span>
+<span class="na">optimize_metric</span><span class="pi">:</span> <span class="s">loss/train</span>
+
+<span class="na">stage</span><span class="pi">:</span> <span class="s">fit</span>
+<span class="na">tag</span><span class="pi">:</span> <span class="s">classifier/${get_data_name:${datamodule}}/${stage}</span>
+</code></pre></div></div>
+
+<p>Here, you tell Hydra to go <code class="language-plaintext highlighter-rouge">mode: MULTIRUN</code>, which means it has to create multiple runs of the same experiment, but each time try a different combination of values for the parameters listed under <code class="language-plaintext highlighter-rouge">params:</code>.
+Besides, with the line <code class="language-plaintext highlighter-rouge">- override hydra/sweeper: optuna</code>, we tell Hydra to use <a href="https://optuna.org/">Optuna</a>, which means that Hydra won’t try HP values randomly or do a Cartesian exploration, but will perform Bayesian Optimization (BO).</p>
+
+<p>As you can see, we also indicate <code class="language-plaintext highlighter-rouge">direction: minimize</code>, meaning that BO will choose the next HP config based on an estimation of where it thinks it will find a better value of the metric we want to optimizer for.</p>
+
+<p>In my config, I indicate this metric as <code class="language-plaintext highlighter-rouge">optimize_metric: loss/train</code>, but this was a custom keyworkd that I created.</p>
+
+<p>All in all, what this configuraion does is to train the <code class="language-plaintext highlighter-rouge">Classifier</code> multiple times, each time with a different set of HP values, with the objective of minimizing the final training loss. It will also save and log each run, so that you can re-run it, and tell you which run was the best one.</p>
+
+<h3 id="the-experiment-scripts">The experiment scripts</h3>
+
+<p>The above configuration needs to be tied to a Python script, that can consume the configuration and start the training. Place this script in a <code class="language-plaintext highlighter-rouge">experiments/</code> folder. This script can be something like:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">typing</span> <span class="k">as</span> <span class="n">ty</span>
+<span class="kn">import</span> <span class="nn">pyrootutils</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">hydra</span>
+<span class="kn">from</span> <span class="nn">omegaconf</span> <span class="kn">import</span> <span class="n">OmegaConf</span><span class="p">,</span> <span class="n">DictConfig</span>
+
+<span class="c1"># Module that contains a basic PyTorch Lightning training loop
+</span><span class="kn">from</span> <span class="nn">my_project.pipeline</span> <span class="kn">import</span> <span class="n">runner</span>
+<span class="c1"># Hydra/OmegaConf resolvers, see below
+</span><span class="kn">from</span> <span class="nn">my_project.resolvers</span> <span class="kn">import</span> <span class="n">get_data_name</span><span class="p">,</span> <span class="n">get_model_name</span><span class="p">,</span> <span class="n">to_int</span>
+
+<span class="n">ROOT</span> <span class="o">=</span> <span class="n">pyrootutils</span><span class="p">.</span><span class="n">setup_root</span><span class="p">(</span>
+    <span class="n">search_from</span><span class="o">=</span><span class="n">__file__</span><span class="p">,</span>
+    <span class="n">indicator</span><span class="o">=</span><span class="p">[</span><span class="s">".git"</span><span class="p">,</span> <span class="s">"pyproject.toml"</span><span class="p">],</span>
+    <span class="n">pythonpath</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">dotenv</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># I install Hydra/OmegaConf resolvers to create experiment tags
+# based on the model I train and the dataset I choose
+</span><span class="n">OmegaConf</span><span class="p">.</span><span class="n">register_new_resolver</span><span class="p">(</span><span class="s">"get_data_name"</span><span class="p">,</span> <span class="n">get_data_name</span><span class="p">)</span>
+<span class="n">OmegaConf</span><span class="p">.</span><span class="n">register_new_resolver</span><span class="p">(</span><span class="s">"get_model_name"</span><span class="p">,</span> <span class="n">get_model_name</span><span class="p">)</span>
+<span class="n">OmegaConf</span><span class="p">.</span><span class="n">register_new_resolver</span><span class="p">(</span><span class="s">"to_int"</span><span class="p">,</span> <span class="n">to_int</span><span class="p">)</span>
+
+<span class="o">@</span><span class="n">hydra</span><span class="p">.</span><span class="n">main</span><span class="p">(</span>
+    <span class="n">version_base</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">config_path</span><span class="o">=</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">ROOT</span><span class="p">,</span> <span class="s">"configs"</span><span class="p">),</span>
+    <span class="n">config_name</span><span class="o">=</span><span class="s">"test"</span><span class="p">,</span>  <span class="c1"># change using the flag `--config-name`
+</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">cfg</span><span class="p">:</span> <span class="n">DictConfig</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ty</span><span class="p">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="s">"""Train model. You can pass a different configuration from the command line as follows:
+    &gt;&gt;&gt; python main.py --config-name &lt;name&gt;
+    """</span>
+    <span class="k">assert</span> <span class="n">cfg</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span>
+    <span class="c1"># The runner reads the configuration, runs the training and returns
+</span>    <span class="c1"># a "pipeline" object, just a wrapper around what the runner does
+</span>    <span class="c1"># so that I can then grab the logged metrics and return the one
+</span>    <span class="c1"># we want to run HPO for
+</span>    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">runner</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">cfg</span><span class="p">)</span>
+    <span class="c1"># Grab the metric (e.g. "optimize_metric: loss/train", see above)
+</span>    <span class="n">output</span> <span class="o">=</span> <span class="n">pipeline</span><span class="p">.</span><span class="n">get_metric_to_optimize</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">:</span>
+    <span class="s">"""You can pass a different configuration from the command line as follows:
+    &gt;&gt;&gt; python main.py --config-name &lt;name&gt;
+    """</span>
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>The training script (the content of that <code class="language-plaintext highlighter-rouge">runner</code> module) can look like anything you want, as long as you’re able to read the configuration and return the HPO metric.</p>
+
+<h2 id="examples-and-tutorials">Examples and tutorials</h2>
+
+<p>As your project grows bigger, you may want to create an <code class="language-plaintext highlighter-rouge">examples/</code> or <code class="language-plaintext highlighter-rouge">tutorials/</code> folder some notebooks inside, showcasing the important functionalities of your code.</p>
+
+<p>You should then paste a link to this folder in the repo’s <code class="language-plaintext highlighter-rouge">README.md</code>. (As general guideline, your <code class="language-plaintext highlighter-rouge">README.md</code> should mention everything (directly or linking to it). Everything that is not somehow mentioned there, does not exist.)</p>
+
+<p>You can also test these notebooks! So you’re sure that they run smoothly, as they will probably be the first thing people landing on your repository will try out.</p>
+
+<p>To test them, make sure you have installed <code class="language-plaintext highlighter-rouge">pytest</code> and <code class="language-plaintext highlighter-rouge">pytest-testmon</code>, then run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pytest <span class="nt">--testmon</span> <span class="nt">--nbmake</span> <span class="nt">--overwrite</span> <span class="s2">"./examples"</span>
+</code></pre></div></div>
+
+<h2 id="cicd">CI/CD</h2>
+
+<p>You may want to use a CI/CD pipeline to automate important steps such as: testing, lint checkcs, creating releases, creating documentation, publishing your project to Pypi, etc.</p>
+
+<p>This is different depending on whether you’re using Gitlab or Github.</p>
+
+<p>On Gitlab, all you have to do is to create a <code class="language-plaintext highlighter-rouge">..gitlab-ci.yml</code> file at the root directory of your project, then populate this file with keywords that Gitlab understands.</p>
+
+<p>For example:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">pytest</span><span class="pi">:</span>
+  <span class="na">parallel</span><span class="pi">:</span>
+    <span class="na">matrix</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">IMAGE</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">python:3.10"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">python:3.9"</span><span class="pi">]</span>
+  <span class="na">image</span><span class="pi">:</span> <span class="s">$IMAGE</span>
+  <span class="na">stage</span><span class="pi">:</span> <span class="s">test</span>
+  <span class="na">only</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">merge_requests</span>
+  <span class="na">before_script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">apt-get update -qy</span> <span class="c1"># Update package lists</span>
+    <span class="pi">-</span> <span class="s">apt-get install -y &lt;anything-you-may-need&gt;</span>
+    <span class="pi">-</span> <span class="s">pip install --upgrade pip virtualenv</span>
+    <span class="pi">-</span> <span class="s">virtualenv .venv</span>
+    <span class="pi">-</span> <span class="s">source .venv/bin/activate</span>
+    <span class="pi">-</span> <span class="s">make install</span>
+  <span class="na">script</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">make test</span>
+</code></pre></div></div>
+
+<p>As you can see, this job will run our tests for two Python versions.</p>
+
+<p>But actually, you cannot really see it as the most important commands are hidden behind <code class="language-plaintext highlighter-rouge">make</code> recipes:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">make install</code> to install the project’s in the virtual environment;</li>
+  <li><code class="language-plaintext highlighter-rouge">make test</code> to run the tests.</li>
+</ul>
+
+<p>Using a <code class="language-plaintext highlighter-rouge">Makefile</code> is not strictly mandatory, but it does simplify things, as these installation and test commands may be long and tedious. You’d rather avoid having to write them multiple times. Plus, if for example the installation process changes, you have to remember all the places where it is coded and update them all.</p>
+
+<p>By writing these processes under a <code class="language-plaintext highlighter-rouge">make</code> recipe, and then calling these recipes rather than those long commands, you can code faster and are less error prone.</p>
+
+<p>For the sake of this example, the following <code class="language-plaintext highlighter-rouge">Makefile</code> is needed:</p>
+
+<pre><code class="language-Makefile">help:
+    @cat Makefile
+
+.EXPORT_ALL_VARIABLES:
+
+# create an .env file to override the default settings
+-include .env
+export $(shell sed 's/=.*//' .env)
+
+# Variables
+PYTHON_EXEC?=python -m
+EXAMPLE_DIR:=./examples
+
+# Installation
+install-init:
+    $(PYTHON_EXEC) pip install --upgrade pip
+    $(PYTHON_EXEC) pip install --upgrade poetry
+    $(PYTHON_EXEC) poetry self update
+
+install: install-init
+    $(PYTHON_EXEC) poetry install --no-cache
+
+# Tests
+mypy:
+    $(PYTHON_EXEC) mypy tests
+
+pytest:
+    $(PYTHON_EXEC) pytest -x --testmon --pylint --cov-fail-under 95
+
+pytest-nbmake:
+    $(PYTHON_EXEC) pytest -x --testmon --nbmake --overwrite "$(EXAMPLE_DIR)"
+
+test: mypy pytest pytest-nbmake
+</code></pre>
+
+<p>A couple of useful things are happing in this <code class="language-plaintext highlighter-rouge">Makefile</code>: the use of <code class="language-plaintext highlighter-rouge">.EXPORT_ALL_VARIABLES:</code>, which makes sure that all variables are inherited by any commands/recipes we run; the <code class="language-plaintext highlighter-rouge">-include .env</code> line(s), which potentially reads a <code class="language-plaintext highlighter-rouge">.env</code> file so that if any of those variable is also declared also there, the value in the <code class="language-plaintext highlighter-rouge">.env</code> file will take precedence. Actually, this will work only for variables declared with the <code class="language-plaintext highlighter-rouge">?=</code> sign.</p>
+
+<blockquote>
+  <p>The <code class="language-plaintext highlighter-rouge">.env</code> file should not be committed.</p>
+</blockquote>
+
+<p>This is useful when the <code class="language-plaintext highlighter-rouge">Makefile</code> may need different values for those variables, depending on which user or on which machine you’re onto. By having different <code class="language-plaintext highlighter-rouge">.env</code> files, you can customize the <code class="language-plaintext highlighter-rouge">make</code> recipes without having to change the <code class="language-plaintext highlighter-rouge">Makefile</code> itself.</p>
+
+<p>For example, someone may want to replace the <code class="language-plaintext highlighter-rouge">PYTHON_EXEC</code> variable’s value with <code class="language-plaintext highlighter-rouge">poetry run</code> or <code class="language-plaintext highlighter-rouge">pyenv exec</code> or <code class="language-plaintext highlighter-rouge">python3 -m</code>. Whatever floats their boat.</p>
+
+<h2 id="docker">Docker</h2>
+
+<p>Docker is also an important element in a ML repo. Providing a Docker container to run your experiments further helps faciliate reproducibility.</p>
+
+<p>A good enough Docker image for a ML repository may look like this:</p>
+
+<div class="language-Dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Dockerfile</span>
+<span class="k">FROM</span><span class="s"> python:3.10.10</span>
+
+<span class="k">ARG</span><span class="s"> PROJECT_NAME</span>
+
+<span class="c"># Create workdir and copy dependency files</span>
+<span class="k">RUN </span><span class="nb">mkdir</span> <span class="nt">-p</span> /workdir
+<span class="k">COPY</span><span class="s"> . /workdir</span>
+
+<span class="c"># Change shell to be able to easily activate virtualenv</span>
+<span class="k">SHELL</span><span class="s"> ["/bin/bash", "-c"]</span>
+<span class="k">WORKDIR</span><span class="s"> /workdir</span>
+
+<span class="c"># Install project</span>
+<span class="k">RUN </span>apt-get update <span class="nt">-qy</span>  <span class="o">&amp;&amp;</span><span class="se">\
+</span>    apt-get <span class="nb">install</span> <span class="nt">-y</span> apt-utils gosu make
+<span class="k">RUN </span>pip <span class="nb">install</span> <span class="nt">--upgrade</span> pip virtualenv <span class="o">&amp;&amp;</span><span class="se">\
+</span>    virtualenv .venv <span class="o">&amp;&amp;</span><span class="se">\
+</span>    <span class="nb">source</span> .venv/bin/activate <span class="o">&amp;&amp;</span><span class="se">\
+</span>    make <span class="nb">install</span>
+
+<span class="c"># TensorBoard</span>
+<span class="k">EXPOSE</span><span class="s"> 6006</span>
+<span class="c"># Jupyter Notebook</span>
+<span class="k">EXPOSE</span><span class="s"> 8888</span>
+
+<span class="c"># Set entrypoint and default container command</span>
+<span class="k">ENTRYPOINT</span><span class="s"> ["/workdir/scripts/entrypoint.sh"]</span>
+</code></pre></div></div>
+
+<p>It basically does the same steps as in the CI/CD. Plus, the following:</p>
+
+<ul>
+  <li>exposes some ports that we may use (see below);</li>
+  <li>uses a script as entrypoint.</li>
+</ul>
+
+<p>Let’s see why.</p>
+
+<h3 id="docker-compose">docker-compose</h3>
+
+<p>We can leverage <code class="language-plaintext highlighter-rouge">docker-compose</code> to create useful services/containers for your project:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose.yaml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+
+<span class="na">x-common-variables</span><span class="pi">:</span> <span class="nl">&amp;common-variables</span>
+  <span class="na">LOCAL_USER_ID</span><span class="pi">:</span> <span class="s">${LOCAL_USER_ID}</span>
+  <span class="na">LOCAL_USER</span><span class="pi">:</span> <span class="s">${LOCAL_USER}</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">dev-container</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">${IMAGE}</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">dev-${UNIQUE-0}</span>
+    <span class="na">entrypoint</span><span class="pi">:</span> <span class="s">/workdir/scripts/entrypoint.sh</span>
+    <span class="c1"># Overrides default command so things don't shut down after the process ends.</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">/bin/sh -c "while sleep 1000; do :; done"</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/workdir</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">&lt;&lt;</span><span class="pi">:</span> <span class="nv">*common-variables</span>
+    <span class="na">runtime</span><span class="pi">:</span> <span class="s">nvidia</span>
+    <span class="na">deploy</span><span class="pi">:</span>
+      <span class="na">resources</span><span class="pi">:</span>
+        <span class="na">reservations</span><span class="pi">:</span>
+          <span class="na">devices</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">driver</span><span class="pi">:</span> <span class="s">nvidia</span>
+              <span class="na">capabilities</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">gpu</span><span class="pi">]</span>
+              <span class="na">device_ids</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">1"</span><span class="pi">]</span>
+        <span class="na">limits</span><span class="pi">:</span>
+          <span class="na">cpus</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">memory</span><span class="pi">:</span> <span class="s">32G</span>
+
+  <span class="na">notebook</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">${IMAGE}</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">notebook-${UNIQUE-0}</span>
+    <span class="na">entrypoint</span><span class="pi">:</span> <span class="s">/workdir/scripts/entrypoint.sh</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">/${PROJECT_NAME}/bin/python -m jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token='' --NotebookApp.password=''</span>
+    <span class="na">ports</span><span class="pi">:</span> <span class="c1">#server:container</span>
+      <span class="pi">-</span> <span class="s">${PORT_JUPY-8888}:8888</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/workdir</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">&lt;&lt;</span><span class="pi">:</span> <span class="nv">*common-variables</span>
+    <span class="na">runtime</span><span class="pi">:</span> <span class="s">nvidia</span>
+    <span class="na">deploy</span><span class="pi">:</span>
+      <span class="na">resources</span><span class="pi">:</span>
+        <span class="na">reservations</span><span class="pi">:</span>
+          <span class="na">devices</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="na">driver</span><span class="pi">:</span> <span class="s">nvidia</span>
+              <span class="na">capabilities</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">gpu</span><span class="pi">]</span>
+              <span class="na">device_ids</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">1"</span><span class="pi">]</span>
+        <span class="na">limits</span><span class="pi">:</span>
+          <span class="na">cpus</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">memory</span><span class="pi">:</span> <span class="s">8G</span>
+
+  <span class="na">tensorboard</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">${IMAGE}</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">tensorboard-${UNIQUE-0}</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">/${PROJECT_NAME}/bin/tensorboard --logdir=. --port=6006 --host 0.0.0.0</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${PORT_TB-6007}:6006</span> <span class="c1">#server:container</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/workdir</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="nv">*common-variables</span>
+    <span class="na">deploy</span><span class="pi">:</span>
+      <span class="na">resources</span><span class="pi">:</span>
+        <span class="na">limits</span><span class="pi">:</span>
+          <span class="na">cpus</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">memory</span><span class="pi">:</span> <span class="s">8G</span>
+
+  <span class="na">mlflow</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">${IMAGE}</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mlflow-${UNIQUE-0}</span>
+    <span class="na">command</span><span class="pi">:</span> <span class="s">bash -c "source /${PROJECT_NAME}/bin/activate &amp;&amp; mlflow ui --host 0.0.0.0 --port 5000 --backend-store-uri ${MLFLOW_BACKEND_STORE_URI-file://workdir/lightning_logs}"</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">${PORT_MLFLOW-5002}:5000</span> <span class="c1">#server:container</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">./:/workdir</span>
+    <span class="na">environment</span><span class="pi">:</span> <span class="nv">*common-variables</span>
+    <span class="na">deploy</span><span class="pi">:</span>
+      <span class="na">resources</span><span class="pi">:</span>
+        <span class="na">limits</span><span class="pi">:</span>
+          <span class="na">cpus</span><span class="pi">:</span> <span class="m">1</span>
+          <span class="na">memory</span><span class="pi">:</span> <span class="s">8G</span>
+</code></pre></div></div>
+
+<p>This long <code class="language-plaintext highlighter-rouge">docker-compose.yaml</code> file creates:</p>
+
+<ul>
+  <li>A dev container: <a href="https://code.visualstudio.com/docs/devcontainers/containers">see here</a>.</li>
+  <li>A Jupyter notebook container, to run code directly on the project’s Docker image.</li>
+  <li>A Tensorboard and MLFlow container, for ML experiment tracking. These two needs access to a port, which is why we exposed some ports in the <code class="language-plaintext highlighter-rouge">Dockerfile</code>.</li>
+</ul>
+
+<p>The <code class="language-plaintext highlighter-rouge">docker-compose.yaml</code> file also gives approriate resources to the containers, and access to GPU (assuming you have one).</p>
+
+<p>Now, what is that entrypoint script?</p>
+
+<p>As you want to run code inside the container, while being able to edit the code and have it updated instantly, in the container, we may want to mount the project’s folder on the contaier (at <code class="language-plaintext highlighter-rouge">/workdir</code>). This is useful also because as we run scripts in the container, those scripts will produce some output files.</p>
+
+<p>This has an issue though. A permission-related one. The container does not have yourself as user. And it should not. It may run as <code class="language-plaintext highlighter-rouge">root</code> or any other user. When files are created from inside the container, they will not belong to you, but to the container’s user.</p>
+
+<p>This will cause painful issues. There are some solutions, but none is as elegant and truly efficient as the following.</p>
+
+<p>You may have noticed that in the <code class="language-plaintext highlighter-rouge">Dockerfile</code> we <code class="language-plaintext highlighter-rouge">apt-get install -y gosu</code>. What our entrypoint script does, is to create a new user on the fly, when the container is run. The user that it creates will be the user running the container. Then, it will execute whatever it has to, using <code class="language-plaintext highlighter-rouge">gosu</code>, under your user ID.</p>
+
+<p>Let’s take a look at the entrypoint script:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="c"># This script is supposed to be run in the Docker image of the project</span>
+<span class="nb">set</span> <span class="nt">-ex</span>
+<span class="c"># Add local user: either use the LOCAL_USER_ID if passed in at runtime or fallback</span>
+<span class="c"># export $(grep -v '^#' .env | xargs)</span>
+<span class="nv">DEFAULT_USER</span><span class="o">=</span><span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>
+<span class="nv">DEFAULT_ID</span><span class="o">=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span>
+<span class="nb">echo</span> <span class="s2">"DEFAULT_USER=</span><span class="k">${</span><span class="nv">DEFAULT_USER</span><span class="k">}</span><span class="s2">"</span>
+<span class="nv">USER</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">LOCAL_USER</span>:<span class="k">${</span><span class="nv">DEFAULT_USER</span><span class="k">}}</span><span class="s2">"</span>
+<span class="nv">USER_ID</span><span class="o">=</span><span class="s2">"</span><span class="k">${</span><span class="nv">LOCAL_USER_ID</span>:<span class="k">${</span><span class="nv">DEFAULT_ID</span><span class="k">}}</span><span class="s2">"</span>
+
+<span class="nb">echo</span> <span class="s2">"USER: </span><span class="nv">$USER</span><span class="s2"> -- UID: </span><span class="nv">$USER_ID</span><span class="s2">"</span>
+<span class="c"># umask 022 # by default, all newly created files have open permissions</span>
+<span class="nv">VENV</span><span class="o">=</span>/venv
+<span class="nv">ACTIVATE</span><span class="o">=</span><span class="s2">"source </span><span class="nv">$VENV</span><span class="s2">/bin/activate"</span>
+
+<span class="c"># If $USER is empty, pretend to be root</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$USER</span> <span class="o">=</span> <span class="s2">""</span> <span class="o">]]</span> <span class="o">||</span> <span class="o">[[</span> <span class="nt">-z</span> <span class="nv">$USER</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nv">USER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$DEFAULT_USER</span><span class="s2">"</span>
+    <span class="nv">USER_ID</span><span class="o">=</span><span class="s2">"</span><span class="nv">$DEFAULT_ID</span><span class="s2">"</span>
+<span class="k">fi</span>
+
+<span class="c"># Check who we are and based on that decide what to do</span>
+<span class="k">if</span> <span class="o">[[</span> <span class="nv">$USER</span> <span class="o">=</span> <span class="s2">"root"</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="c"># If root, just install</span>
+    bash <span class="nt">-c</span> <span class="s2">"</span><span class="nv">$ACTIVATE</span><span class="s2"> || echo 'Something went wrong.'"</span>
+<span class="k">else</span>
+    <span class="c"># If not root, create user (and give them root powers?)</span>
+    useradd <span class="nt">--shell</span> /bin/bash <span class="nt">-u</span> <span class="nv">$USER_ID</span> <span class="nt">-o</span> <span class="nt">-c</span> <span class="s2">""</span> <span class="nt">-m</span> <span class="nv">$USER</span>
+    <span class="c"># echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" &gt;&gt; /etc/sudoers</span>
+    <span class="c"># echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | tee /etc/sudoers.d/$USER</span>
+    <span class="nb">sudo</span> <span class="nt">-H</span> <span class="nt">-u</span> <span class="nv">$USER</span> bash <span class="nt">-c</span> <span class="s1">'echo "Running as USER=$USER, with UID=$UID"'</span>
+    <span class="nb">sudo</span> <span class="nt">-H</span> <span class="nt">-u</span> <span class="nv">$USER</span> bash <span class="nt">-c</span> <span class="s2">"echo </span><span class="se">\"</span><span class="nv">$ACTIVATE</span><span class="se">\"</span><span class="s2"> &gt;&gt; </span><span class="se">\$</span><span class="s2">HOME/.bashrc"</span>
+<span class="k">fi
+
+</span><span class="nb">exec </span>gosu <span class="nv">$USER</span> <span class="s2">"</span><span class="nv">$@</span><span class="s2">"</span>
+</code></pre></div></div>
+
+<p>Now, when running docker commands, you can do something like:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">LOCAL_USER</span><span class="o">=</span><span class="si">$(</span><span class="nb">whoami</span><span class="si">)</span>
+<span class="nb">export </span><span class="nv">LOCAL_USER_ID</span><span class="o">=</span><span class="si">$(</span><span class="nb">id</span> <span class="nt">-u</span><span class="si">)</span>
+docker run <span class="nt">--rm</span> <span class="nt">--network</span><span class="o">=</span>host <span class="nt">--volume</span> <span class="si">$(</span>PWD<span class="si">)</span>:/workdir <span class="se">\</span>
+    <span class="nt">-e</span> LOCAL_USER <span class="nt">-e</span> LOCAL_USER_ID <span class="se">\</span>
+    <span class="nt">-t</span> &lt;image-name&gt; bash &lt;my-command&gt;
+</code></pre></div></div>
+
+<p>We pass our username and user ID to the container (the flags <code class="language-plaintext highlighter-rouge">-e LOCAL_USER_ID -e LOCAL_USER</code>), which will be consumed by the entrypoint script to create this user (ourselves) in the container.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>With this set up, you should now know enough to be able to properly set up your Machine Learning project and have a fruitful collaboration with your fellows.</p>
+
+<p>As this is just a guide, with probably no code snippet that runs out of the box, I also recommend you to take a look at <a href="https://github.com/svnv-svsv-jm/init-new-project">my working template</a>.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#machine-learning" class="page__taxonomy-item p-category" rel="tag">machine learning</a><span class="sep">, </span>
+    
+      <a href="/tags/#ml" class="page__taxonomy-item p-category" rel="tag">ml</a><span class="sep">, </span>
+    
+      <a href="/tags/#python" class="page__taxonomy-item p-category" rel="tag">python</a><span class="sep">, </span>
+    
+      <a href="/tags/#repository" class="page__taxonomy-item p-category" rel="tag">repository</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item p-category" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2024-02-14T00:00:00+00:00">February 14, 2024</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Ultimate+guide+for+a+Machine+Learning+repository%20%2Fblog%2FML-project-repository%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2FML-project-repository%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/blog/ML-project-repository/" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/privacy-and-GDPR/" class="pagination--pager" title="Synthetic data, Privacy and GDPR
+">Previous</a>
+    
+    
+      <a href="/blog/LLM-RAG/" class="pagination--pager" title="Deploy a very simple RAG+LLM application
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+<div class="page__related">
+  
+  <h2 class="page__related-title">You May Also Enjoy</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/LLM-RAG/" rel="permalink">Deploy a very simple RAG+LLM application
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulg...</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/privacy-and-GDPR/" rel="permalink">Synthetic data, Privacy and GDPR
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/differential-privacy/" rel="permalink">Differential Privacy
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/SANGEA/" rel="permalink">SANGEA: Scalable and Attributed Network Generation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">From: Euranova
+
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+    <ul class="social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitLab</a></li>
+          
+        
+      
+
+      
+        <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      
+    </ul>
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2024 Gianmarco Aversano.</div>
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>

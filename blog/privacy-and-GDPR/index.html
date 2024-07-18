@@ -1,0 +1,774 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.26.2 by Michael Rose
+  Copyright 2013-2024 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Synthetic data, Privacy and GDPR - Gianmarco Aversano</title>
+<meta name="description" content="">
+
+
+  <meta name="author" content="Gianmarco Aversano">
+  
+  <meta property="article:author" content="Gianmarco Aversano">
+  
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Gianmarco Aversano">
+<meta property="og:title" content="Synthetic data, Privacy and GDPR">
+<meta property="og:url" content="/blog/privacy-and-GDPR/">
+
+
+  <meta property="og:description" content="">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2024-01-06T00:00:00+00:00">
+
+
+
+
+
+
+<link rel="canonical" href="/blog/privacy-and-GDPR/">
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+
+  <link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Gianmarco Aversano Feed">
+
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css"></noscript>
+
+
+
+<!-- Mathjax Support -->
+<!-- <script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+    }
+  });
+</script>
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single" dir="ltr">
+    <nav class="skip-links">
+  <ul>
+    <li><a href="#site-nav" class="screen-reader-shortcut">Skip to primary navigation</a></li>
+    <li><a href="#main" class="screen-reader-shortcut">Skip to content</a></li>
+    <li><a href="#footer" class="screen-reader-shortcut">Skip to footer</a></li>
+  </ul>
+</nav>
+
+    
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        
+        <a class="site-title" href="/">
+          Gianmarco Aversano
+          <span class="site-subtitle">Ph.D., Data Scientist and A.I. Engineer.</span>
+        </a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a
+                href="/posts/"
+                
+                
+              >Posts</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/categories/"
+                
+                
+              >Categories</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/tags/"
+                
+                
+              >Tags</a>
+            </li><li class="masthead__menu-item">
+              <a
+                href="/about/"
+                
+                
+              >About</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <span class="visually-hidden">Toggle search</span>
+          <i class="fas fa-search"></i>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="https://schema.org/Person" class="h-card">
+
+  
+    <div class="author__avatar">
+      <a href="/">
+        <img src="/assets/images/me.jpg" alt="Gianmarco Aversano" itemprop="image" class="u-photo">
+      </a>
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name p-name" itemprop="name">
+      <a class="u-url" rel="me" href="/" itemprop="url">Gianmarco Aversano</a>
+    </h3>
+    
+      <div class="author__bio p-note" itemprop="description">
+        <p>Ph.D., Data Scientist and A.I. Engineer.</p>
+
+      </div>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer me"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">Email</span></a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fas fa-fw fa-link" aria-hidden="true"></i><span class="label">LinkedIn</span></a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitHub</span></a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer me" itemprop="sameAs"><i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">GitLab</span></a></li>
+          
+        
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs" rel="nofollow noopener noreferrer me">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Synthetic data, Privacy and GDPR">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="2024-01-06T00:00:00+00:00">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">
+            <a href="/blog/privacy-and-GDPR/" itemprop="url">Synthetic data, Privacy and GDPR
+</a>
+          </h1>
+          
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          7 minute read
+        
+      </span>
+    
+  </p>
+
+
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <!--<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+<script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\(","\\)"] ],
+        }
+    });
+</script>-->
+
+<p>Are you afraid that the data you share or that is collected about you will become public property? Then keep reading.</p>
+
+<p>I was reading <a href="https://arxiv.org/pdf/2312.05114.pdf">this intereting paper</a> when I had the idea of writing this post. This is something I was already aware, but now that an official study about it came out, I got convinced I had to talk about it here.</p>
+
+<p>I won’t discuss the validity of that work, I have my personal opinion on its shortcomings and hypothesis, but it still worth reading.</p>
+
+<p>This post will try to vulgarize concepts that can be hard to grasp for those who are not in the field.</p>
+
+<h2 id="what-is-the-problem">What is the problem?</h2>
+
+<p>We know that third-party entities acquire data. About us. Often times, we are promised that our data will be anonymized. But, unfortunately, this is not enough.</p>
+
+<p>I report here two main reasons for this:</p>
+
+<ol>
+  <li>the anonymization was bad, not done correctly;</li>
+  <li>people in charge of the anonymization have no idea how good their anonymization is.</li>
+</ol>
+
+<p>while nowadays it is easy to solve (1) and make sure to use the latest techniques, problem (2) is still an issue today.</p>
+
+<p>That is, no one actually knows if the anonymized data is truly anonymous. Most companies apply techniques that are popular, they could apply them even further, but the more they do this, the less useful their collected data become. The more private your data is, the less useful it is to them. This is called the <strong>privacy-utility trade-off</strong>. They have ways to understand if the data is becoming <em>useless</em>, but there is no agreed way to check if the anonymized data is actually <em>private</em>.</p>
+
+<p>Thus, there is no “Truly Anonymous Synthetic Data”.</p>
+
+<p>What’s worse, is that, at the time of writing, the current GDPR regulations say NOTHING about synthetic data. They basically only restrict the original sensitive private data storage and sharing, but nothing about the fake data that is create using that original sensitive private data.</p>
+
+<h2 id="what-is-the-current-solution">What is the current solution?</h2>
+
+<p>Today, as explained in <a href="https://arxiv.org/pdf/2312.05114.pdf">Ganev et al.</a>, there are some companies that offer anonymization service, such as: Gretel, Tonic, MOSTLY AI, Hazy, Aindo, DataCebo, Syntegra, YData, Synthesized, Replica Analytics, and Statice. What they do is amazing.</p>
+
+<p>These companies do more than anonymizing data: they are able to create fake data (synthetic data), that are still useful. For example, the government wants to analyze a hospital’s patient data to understand if cancer rates are going up. The hospital does not want to compromise patients’ privacy, but would like to help the government run their analysis. To do this, the hospital can create synthetic data from the original patient data, using the latest AI techniques. These synthetic data will not contain any real patient, but will still be useful to run statistcs and analysis.</p>
+
+<p>Now the problem is that, while all is good in principle, no one really knows if this fake data is secure. It is not impossible that some malicious person will be able to reconstruct the original private data from the fake data.</p>
+
+<p>In order to understand if such a risk exists, some companies (like the ones mentioned above) calculate some metrics on the fake data. These metrics should tell you if the fake data is useful but still private (privacy-utility trade-off). However, there is no final scientific evidence that these metrics actually work…</p>
+
+<p>To calcualte these metrics, they divide the original private data into two: train data and test data. They create synthetic data using the train data only, and use the test data later to test all is good.</p>
+
+<p>Let’s report them here:</p>
+
+<ul>
+  <li>
+    <p><strong>Identical Match Share (IMS)</strong> is a privacy metric that captures the proportion of identical copies between train and synthetic records. The test passes if that proportion is smaller or equal to the one between train and test datasets.</p>
+  </li>
+  <li>
+    <p><strong>Distance to Closest Records (DCR)</strong> also compares the two sets of distances. It looks at the overall distribution of the distances to the nearest neighbors or closest records.</p>
+  </li>
+  <li>
+    <p><strong>Nearest Neighbor Distance Ratio (NNDR)</strong> is very similar to DCR, but the nearest neighbors’ distances are divided by the distance to the second nearest neighbor. The idea is to add further protection for outliers by computing relative rather than absolute distances.</p>
+  </li>
+  <li>
+    <p><strong>Similarity Filter (SF)</strong> is similar in spirit to the privacy metrics, but rather than just measuring similarity, it excludes or filters out individual synthetic data points if they are identical or too close to train ones. Essentially, SF aims to ensure that no synthetic record is overly similar to a train one.</p>
+  </li>
+  <li>
+    <p><strong>Outlier Filter (OF)</strong> focuses on the outliers; it removes synthetic records that could be considered outliers with respect to the train data.</p>
+  </li>
+</ul>
+
+<p>These metrics have some drawbacks. Your fake data may have good scores under these metrics, but still be bad fake data. Or viceversa.</p>
+
+<h2 id="what-else-could-be-done">What else could be done?</h2>
+
+<p>As said, the usage of the above metrics has no scientific foundation. Companies use them because they look good. And they do look very good. But are they enough?</p>
+
+<p>I had the chance myself to work on a privacy-related project, where I came across a very intersting work called <a href="https://openreview.net/pdf?id=Zxm0kNe3u7">MACE</a>, and was in contact with the authors to extend their work to graph data.</p>
+
+<p>This works scientifically proves that their method effectively estimates if the synthetic data are private or not, and can also calcuate a concrete value for the risk (e.g. “your fake data has a 78% risk of being de-anonymized”).</p>
+
+<p>But for some reason, this new proposed technique is still being ignored. I have actually implemented it in Python. Reach out to me if interested.</p>
+
+<p>Remember, when producing fake data, we divide the original private data into two: train data and test data. We create synthetic data using the train data only, and use the test data later to check all is good. The test data plays the role of representing similar data to the train one, but that is not necessarily the private data. It helps us answer the question: if I make my fake data available, and imagine that this test data is also publicly available, is it possible to predict anything about the train data, which I never shared?</p>
+
+<p>To answer this question, this method checks if the synthetic data has some relationship with the train data that is not equal to the relationship it has with the test data.</p>
+
+<p><img src="https://raw.githubusercontent.com/gianmarco-aversano/gianmarco-aversano.github.io/main/assets/images/mace.png" class="img-responsive" alt="mace" width="500" /></p>
+
+<p>In the picture here, we see that the name <em>query</em> is used. This can be a broad term, that we need to define.</p>
+
+<p>Imagine this fake data is now public, and imagine you are the data owner and shared it with some third-party company. Let’s re-use the hospital example above. And imagine that the test data are patient data that are publicly available (these patients shared it themselves).</p>
+
+<p>Anyone could thus interact with our fake data, and this public data. They could, for example, take one public record and measure the distance from the each record in the fake data. There will be one fake record that is the closest to this public one. We do not know if it is very close, but at least one fake record will be closer that the other fake ones.</p>
+
+<p>These anyones can repeat this and report this distance value for each public record. This can be the orange curve in the above Figure.</p>
+
+<p>Now, they don’t have access to the train data, but you do. The question is: on average, would this distance from fake to train records be the same? More generally, would these anyones observe any difference in the reported values if they were to report values on the train data? To answer this question, you as data owner can check these values and report them. Let’s imagine that they are the blue curve in the figure above.</p>
+
+<p>Are the two curves the same or different? And how different are they?</p>
+
+<p>Without diving to much in the mathematics of how to come up with an exact number (e.g. 50% or 80% risk), this is how one can tell whether their synthetic fake data are private or not.</p>
+
+<h3 id="any-drawback-to-this">Any drawback to this?</h3>
+
+<p>Yes.</p>
+
+<p>You need a lot of data. You need to make sure that this test data you have is sufficient to prepresent any public data that malicious people can find.</p>
+
+<p>You also need to think of meaningful interactions that they can have with the fake and/or public data. Above, I reported the example of a distance, but other interactions are possible.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>Protecting our privacy is still an open and important discussion. This post’s objective is to shed light on the matter and enable you to do now your own research about it.</p>
+
+<p>It is true that current approaches have their shortcomings, but it is still the best we can do, until something better comes out.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/tags/#differential-privacy" class="page__taxonomy-item p-category" rel="tag">differential privacy</a><span class="sep">, </span>
+    
+      <a href="/tags/#gdpr" class="page__taxonomy-item p-category" rel="tag">GDPR</a><span class="sep">, </span>
+    
+      <a href="/tags/#generative-ai" class="page__taxonomy-item p-category" rel="tag">generative ai</a><span class="sep">, </span>
+    
+      <a href="/tags/#privacy" class="page__taxonomy-item p-category" rel="tag">privacy</a><span class="sep">, </span>
+    
+      <a href="/tags/#synthetic-data" class="page__taxonomy-item p-category" rel="tag">synthetic data</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> Categories: </strong>
+    <span itemprop="keywords">
+    
+      <a href="/categories/#blog" class="page__taxonomy-item p-category" rel="tag">blog</a>
+    
+    </span>
+  </p>
+
+
+        
+
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> Updated:</strong> <time class="dt-published" datetime="2024-01-06T00:00:00+00:00">January 6, 2024</time></p>
+
+      </footer>
+
+      <section class="page__share">
+  
+
+  <a href="https://twitter.com/intent/tweet?text=Synthetic+data%2C+Privacy+and+GDPR%20%2Fblog%2Fprivacy-and-GDPR%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=%2Fblog%2Fprivacy-and-GDPR%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/blog/privacy-and-GDPR/" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/blog/differential-privacy/" class="pagination--pager" title="Differential Privacy
+">Previous</a>
+    
+    
+      <a href="/blog/ML-project-repository/" class="pagination--pager" title="Ultimate guide for a Machine Learning repository
+">Next</a>
+    
+  </nav>
+
+    </div>
+
+    
+  </article>
+
+  
+  
+    
+<div class="page__related">
+  
+  <h2 class="page__related-title">You May Also Enjoy</h2>
+  <div class="grid__wrapper">
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/LLM-RAG/" rel="permalink">Deploy a very simple RAG+LLM application
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          5 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+  Link to repo: LLM repo. Check it out to know more about dependencies, Python version, and all other technical information. This page will be mostly divulg...</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/ML-project-repository/" rel="permalink">Ultimate guide for a Machine Learning repository
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          24 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">Alright so if you landed here it’s because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/differential-privacy/" rel="permalink">Differential Privacy
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          9 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">
+
+</p>
+  </article>
+</div>
+
+    
+      
+      
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/blog/SANGEA/" rel="permalink">SANGEA: Scalable and Attributed Network Generation
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 minute read
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">From: Euranova
+
+</p>
+  </article>
+</div>
+
+    
+  </div>
+</div>
+
+  
+  
+</div>
+
+      
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><form class="search-content__form" onkeydown="return event.key != 'Enter';" role="search">
+    <label class="sr-only" for="search">
+      Enter your search term...
+    </label>
+    <input type="search" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+  </form>
+  <div id="results" class="results"></div></div>
+
+      </div>
+    
+
+    <div id="footer" class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+    <ul class="social-icons">
+      
+
+      
+        
+          
+            <li><a href="mailto:Gianmarco.Aversano1990@gmail.com" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> Email</a></li>
+          
+        
+          
+            <li><a href="https://www.linkedin.com/in/gianmarco-aversano/" rel="nofollow noopener noreferrer"><i class="fas fa-fw fa-link" aria-hidden="true"></i> LinkedIn</a></li>
+          
+        
+          
+            <li><a href="https://github.com/svnv-svsv-jm" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://gitlab.com/GianmarcoAversano1" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitLab</a></li>
+          
+        
+      
+
+      
+        <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+      
+    </ul>
+  </div>
+
+  <div class="page__footer-copyright">&copy; 2024 Gianmarco Aversano.</div>
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
