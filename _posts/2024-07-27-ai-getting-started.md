@@ -128,6 +128,19 @@ For more, you can visit websites such as [this](https://www.w3schools.com/sql/).
 
 ### Python
 
-Python
+Python is a high-level, interpreted programming language known for its readability, simplicity, and versatility. It was created by Guido van Rossum and first released in 1991. Python's design philosophy emphasizes code readability and ease of use, making it an excellent choice for both beginners and experienced developers. It supports multiple programming paradigms, including procedural, object-oriented, and functional programming.
 
-[TO BE CONTINUED]
+Python is an interpreted language, meaning code is executed line by line, which facilitates debugging and development.
+Variable types are determined at runtime, allowing more flexibility in writing code.
+
+```python
+x = 10   # x is an integer
+x = "Hello"  # x is now a string
+```
+
+It is available on multiple operating systems, including Windows, macOS, and Linux, ensuring code portability across platforms.
+
+Today, Python is the most popular programming language for Data Science, Machine Learning and Deep Learning.
+Many Python framworks exist for almost anything.
+
+> [TO BE CONTINUED]
