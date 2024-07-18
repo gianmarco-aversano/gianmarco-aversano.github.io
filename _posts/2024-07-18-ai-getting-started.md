@@ -10,6 +10,12 @@ tags:
 
 <!-- {%- include mathjax.html -%} -->
 
+> This post is work in progress...
+>
+> After reading this post you will not be an A.I. expert, this post just covers some basic concepts.
+>
+> Want to contribute to this post? Create a Pull Request [here](https://github.com/gianmarco-aversano/gianmarco-aversano.github.io).
+
 Recently, I got a message from a friend asking me where one could get acquainted with the following concepts:
 
 - Characteristics and sources of Big Data
@@ -21,12 +27,14 @@ Recently, I got a message from a friend asking me where one could get acquainted
   (Word2vec, GloVe), sentiment analysis
 - Text Mining, Large Language Models and Generative Al
 - Cloud computing
-- GDPR, Differential privacy (I already made a post about it on this blog)
+- GDPR, Differential privacy (I already made a post about it on [this blog](https://gianmarco-aversano.github.io/blog/differential-privacy/))
 - A.I. ethics: fairness, transparency, security, privacy, safety, explainability, accountability, human oversight, trustworthiness, and long-term impacts
 
-And I realized that (1) I do not have any handy fancy resource to share with them and (2) so I'll just write it myself.
+And I realized that I do not have any handy fancy resource to share with them, so I'll just write it myself.
 
-This post's target audience is people that do not work in or study any form of A.I., yet wish to grasp the basic concepts. But I may share links of or mention more detailed stuff.
+This post's target audience is people that do not work in or study any form of A.I., yet wish to grasp the basic concepts.
+
+I may share links of or mention more detailed stuff, either to outsource sections of this post or refer the reader to more in-depth documentation.
 
 ## Big Data
 
@@ -135,12 +143,43 @@ Variable types are determined at runtime, allowing more flexibility in writing c
 
 ```python
 x = 10   # x is an integer
+x = 1.0 # x is a float
 x = "Hello"  # x is now a string
 ```
 
-It is available on multiple operating systems, including Windows, macOS, and Linux, ensuring code portability across platforms.
+You can also specify type, but just for readabilty:
+
+```python
+x: int  = 10   # x is an integer
+x: float = 1.0 # x is a float
+x: str = "Hello"  # x is now a string
+```
 
 Today, Python is the most popular programming language for Data Science, Machine Learning and Deep Learning.
-Many Python framworks exist for almost anything.
+Many Python frameworks exist for almost anything, so of course they also exist for Machine Learning: [Scikit-Learn](https://scikit-learn.org/stable/), [Keras](https://keras.io/), [Lightning](https://lightning.ai/docs/pytorch/stable/) (listed in order of complexity).
+
+Here is a code snippet to train an [Image GPT](https://cdn.openai.com/papers/Generative_Pretraining_from_Pixels_V2.pdf) model on the [Fashion MNIST](https://github.com/zalandoresearch/fashion-mnist) dataset.
+
+```python
+import pytorch_lightning as pl
+from pl_bolts.datamodules import FashionMNISTDataModule
+from pl_bolts.models.vision import ImageGPT
+model = ImageGPT(datamodule=FashionMNISTDataModule(PATH))
+pl.Trainer(accelerator="auto").fit(model)
+```
+
+To learn more about Python, I recommend you get started with a serious bootcamp or online tutorial. This post cannot cover all the ground for you. But feel free to reach out.
+
+## Analysis and design of systems for Data Mining, Business Intelligence, Big Data, Data Warehouse, Data Lake e Data Mesh
+
+Each of these systems serves a different purpose within the realm of data management and analytics, even if they often intersect and interact.
+
+### Data Mining
+
+Data Mining is usually referred to the process of discovering patterns, correlations, and insights from large datasets. Example of data mining applications are: market analysis, [fraud detection](https://www.fraud.com/post/fraud-detection#:~:text=Fraud%20detection%20is%20the%20process%20of%20identifying%20and%20mitigating%20fraudulent,suspicious%20activities%20indicative%20of%20fraud.), [customer segmentation](https://www.forbes.com/advisor/business/customer-segmentation/), predictive maintenance.
+
+So first of all you need a data source, like a database, data warehouses, data lakes, etc. Once you have that, you may want to use Python ([Numpy](https://numpy.org/), [Pandas](https://pandas.pydata.org/)) or SQL (or more complex stuff such [Spark](https://spark.apache.org/)).
+
+Some processes that you'll do with these tools are: data processing, i.e. clean and transform data (handling missing values, normalization), or even train a Machine Learning model (classification, clustering, regression, association rule learning, anomaly detection). This depends on what you want to achieved.
 
 > [TO BE CONTINUED]
