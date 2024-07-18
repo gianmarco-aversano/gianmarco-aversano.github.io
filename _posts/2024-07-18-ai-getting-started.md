@@ -21,7 +21,7 @@ Recently, I got a message from a friend asking me where one could get acquainted
 - Characteristics and sources of Big Data
 - Programming languages (R, Python, Matlab, Stata, SAS, SQL, etc.)
 - Analysis and design of systems for Data Mining, Business Intelligence, Big Data, Data
-  Warehouse, Data Lake e Data Mesh
+  Warehouse, Data Lake and Data Mesh
 - Fundamentals of cryptography and blockchain
 - Fundamentals of Natural Language Processing: [bag-of-words](https://ataspinar.com/2016/01/21/sentiment-analysis-with-bag-of-words/#:~:text=In%20this%20bag%2Dof%2Dwords,will%20be%20classified%20as%20positive), word embedding
   (Word2vec, GloVe), sentiment analysis
@@ -170,16 +170,45 @@ pl.Trainer(accelerator="auto").fit(model)
 
 To learn more about Python, I recommend you get started with a serious bootcamp or online tutorial. This post cannot cover all the ground for you. But feel free to reach out.
 
-## Analysis and design of systems for Data Mining, Business Intelligence, Big Data, Data Warehouse, Data Lake e Data Mesh
+## Analysis and design of systems for Data Mining, Business Intelligence, Big Data, Data Warehouse, Data Lake and Data Mesh
 
 Each of these systems serves a different purpose within the realm of data management and analytics, even if they often intersect and interact.
-
-### Data Mining
 
 Data Mining is usually referred to the process of discovering patterns, correlations, and insights from large datasets. Example of data mining applications are: market analysis, [fraud detection](https://www.fraud.com/post/fraud-detection#:~:text=Fraud%20detection%20is%20the%20process%20of%20identifying%20and%20mitigating%20fraudulent,suspicious%20activities%20indicative%20of%20fraud.), [customer segmentation](https://www.forbes.com/advisor/business/customer-segmentation/), predictive maintenance.
 
 So first of all you need a data source, like a database, data warehouses, data lakes, etc. Once you have that, you may want to use Python ([Numpy](https://numpy.org/), [Pandas](https://pandas.pydata.org/)) or SQL (or more complex stuff such [Spark](https://spark.apache.org/)).
 
 Some processes that you'll do with these tools are: data processing, i.e. clean and transform data (handling missing values, normalization), or even train a Machine Learning model (classification, clustering, regression, association rule learning, anomaly detection). This depends on what you want to achieved.
+
+Data mining is a critical component of business intelligence (BI). Once all the valuable information has been extracted from the data, businesses turn it into actionable knowledge – in other words, business intelligence.
+
+This knowledge helps organizations make data-driven decisions not only to improve operations, increase revenue, and drive growth, but also to reduce risks and detect fraud, errors, and inconsistencies that can potentially lead to profit loss and reputation damage. Different industries use data mining in different contexts, but the goal is the same: to better understand customers and the business.
+
+Examples:
+
+- Service providers, such as telecom and utility companies, use data mining to predict ‘churn’, the terms they use for when a customer leaves their company to get their phone/gas/broadband from another provider. They collate billing information, customer services interactions, website visits, and other metrics to give each customer a probability score, then target offers and incentives to customers whom they perceive to be at a higher risk of churning. For example, if a customer has a history of calling customer service with complaints, the service provider can offer them a discount or other incentives to keep them from leaving. This not only helps businesses retain customers but also helps them save on customer acquisition costs.
+- Some of the most well-known data mining applications are in e-commerce. E-commerce companies use data mining to analyze customer behavior and create personalized, real-time recommendations. By analyzing customer purchase history, e-commerce companies can recommend products that are most relevant to the customer's interests. One of the most famous of these is, of course, Amazon, which uses sophisticated mining techniques to drive their, "People who viewed that product, also liked this" functionality. This not only helps increase customer satisfaction but also helps businesses increase revenue through cross-selling and upselling.
+
+There are many data mining techniques that businesses use to analyze their data. Some of the common ones are:
+
+- **Classification**: Categorizes data into predefined groups based on specific criteria.
+- **Clustering**: Groups similar data points together based on their similarity.
+- **Regression**: Predicts the value of one variable based on another variable.
+- **Association Rules**: Identifies relationships between different variables in large datasets.
+- **Sequence Mining**: Identifies patterns and sequences in data that occur frequently.
+- **Text Mining**: Extracts relevant information and patterns from unstructured text data.
+- **Anomaly Detection**: Identifies unusual patterns or outliers in data that deviate from expected norms.
+- **Dimensionality Reduction**: Reduces the number of variables in a dataset while retaining key information.
+- **Feature Selection**: Identifies the most important variables or features in a dataset.
+- **Neural Networks**: Models complex relationships between variables using a system inspired by the human brain.
+
+Data mining can be an incredibly powerful tool for businesses, but it's not without its challenges. Here are some common data mining pitfalls that businesses may face:
+
+- Data quality is a key challenge in data mining as incomplete, inconsistent, or erroneous data can lead to incorrect conclusions.
+- Data privacy and security is a concern as businesses need to follow best practices and comply with regulations to prevent sensitive data from being leaked or hacked.
+- Technical expertise is required for data mining, and finding and hiring skilled data scientists and analysts can be a challenge.
+- The volume of data being generated can be overwhelming and lead to longer processing times and higher costs.
+- Interpretation of data mining results can be challenging as patterns and relationships may not be immediately clear and require further analysis.
+- Overfitting can occur if the model used is too complex and based on too few examples, leading to incorrect conclusions.
 
 > [TO BE CONTINUED]
