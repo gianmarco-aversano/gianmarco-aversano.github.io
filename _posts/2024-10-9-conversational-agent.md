@@ -72,7 +72,7 @@ db = FAISS.from_documents(chunked_docs, embedding=embedding)
 retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 4})
 ```
 
-Now we had the history of the conversation to the RAG:
+Now we add the history of the conversation to the RAG:
 
 ```python
 from langchain_core.prompts import ChatPromptTemplate
