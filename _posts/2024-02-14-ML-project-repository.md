@@ -23,7 +23,7 @@ You may want to check out Cookiecutter, which comes with templates to set up new
 
 Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, just install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install): check out [this guide](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10), too.
 
-Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
+> Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
 
 The target audience for this post is a little all over the place, you'll find things that are easier and things that are less. Hopefully, I've been clear enough, but you should have at least some familiarity with Python, and know what a YAML file is, what Docker (roughly) is, etc.
 
@@ -74,7 +74,7 @@ cd new-cool-ml-prok
 
 Neat.
 
-Now open this folder with [VSCode](https://code.visualstudio.com/), which is recommended over PyCharm.
+Now open this folder with [VSCode](https://code.visualstudio.com/), which is recommended.
 
 You may also want to install the following VSCode extensions:
 
@@ -88,55 +88,47 @@ Also, in VSCoce settings, activate the "Editor: Word Wrap" option, and other sim
 
 ## Virtual environment
 
-We now need a virtual environment. Check out [Pyenv](https://github.com/pyenv/pyenv) and never go back to anything else. Make sure that it is correctly installed and that you have the following lines:
-
-```bash
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-```
-
-at the end of your `~/.bashrc` (Linux/Ubuntu) or `~/.bash_profile` (Mac) or `~/.zshrc` / `~/.zprofile` (normal people). If you're not using Oh-My-Zsh, please ask yourself some serious questions.
+We now need a virtual environment. Check out [uv](https://github.com/astral-sh/uv) and never go back to anything else. Make sure that it is correctly installed.
 
 Now, create a virtual environment with a desired Python version:
 
 ```bash
-pyenv install <version> # desired python version, something like 3.10.10 or 3.12.0
-pyenv virtualenv <version> <some-name> # e.g. pyenv install 3.10.10 cool-proj
-pyenv shell <some-name>
+uv python install 3.12
+uv venv .venv --python=3.12
+source .venv/bin/activate
 ```
 
 In VSCode, open any `.py` file, then in bottom bar (usually on the bottom right) you should be able to select a Python interpreter. Select the environment you just created. If you can't see it, start typing its name, or restart VSCode.
 
 ## Getting started
 
-We need to create the project's metadata. So install Poetry:
-
-```bash
-pip install --upgrade pip
-pip install poetry
-poetry init
-```
-
-You'll be prompted for some project metadata, such as project name, etc. You can also just smash "Enter" and leave almost everything blank. Poetry will create the `pyproject.toml` file, which is very important. It contains all the project's information.
+We need to create the project's metadata. We need to create the `pyproject.toml` file, which is very important. It contains all the project's information.
 
 This file should look something like this:
 
 ```toml
-[tool.poetry]
+[project]
 name = "project-name" # choose a nice project name
 version = "0.1.0" # select a version number
 description = "Description." # please describe it
 authors = ["Name <address@email.com>"]
 license = "LICENSE" # make sure this file exists
 readme = "README.md" # make sure this file exists
-packages = [{ include = "project_name", from = "src" }] # read belows
-include = ["*.py", "src/**/*.json", "src/**/*.toml"] # on this later
-exclude = ["test/*"] # on this later
+
+[tool.hatch.build.targets.sdist]
+include = ["src/*"]
+exclude = ["tests/*"] # on this later
+
+[tool.hatch.build.targets.wheel]
+include = ["src/*"]
+exclude = ["tests/*"] # on this later
+
+[tool.hatch.build.targets.wheel.sources]
+"src/project_name" = "project_name"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "cython"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 ```
 
 Rather self-explicative. Now create the following files:
@@ -162,102 +154,106 @@ The `README.md` file should contain installation instructions for your package, 
 
 ## Dependencies
 
-This is what your `pyproject.toml` should look like:
+This is what your `pyproject.toml` should look something like:
 
 ```toml
-[tool.poetry]
-name = "project-name" # choose a nice project name
-version = "0.1.0" # select a version number
-description = "Description." # please describe it
-authors = ["Name <address@email.com>"]
-license = "LICENSE" # make sure this file exists
-readme = "README.md" # make sure this file exists
-packages = [{ include = "project_name", from = "src" }] # read belows
-include = ["*.py", "src/**/*.json", "src/**/*.toml"] # on this later
-exclude = ["test/*"] # on this later
+[tool.hatch.build.targets.sdist]
+include = ["src/*"]
+
+[tool.hatch.build.targets.wheel]
+include = ["src/*"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src/project_name" = "project_name"
 
 [build-system]
-requires = ["poetry-core>=1.0.0", "cython"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-# Specify Python version(s) and real dependencies in this section
-[tool.poetry.dependencies]
-python = ">=3.8,<3.11"
-jupyter = "*"
-jupyterlab_server = "*"
-jupyterlab = "*"
-pyrootutils = "*"
-loguru = "*"
-
-# Here, specify development dependencies, which won't be part of the actual final dependency list
-# but that you need, well, to develop your project
-[tool.poetry.dev-dependencies]
-black = { extras = ["jupyter"], version = "*" }
-flake8 = "*"
-ipython = "*"
-isort = "*"
-mypy = "*"
-pylint = "*"
-pytest = "*"
-pytest-cov = "*"
-pytest-mock = "*"
-pytest-pylint = "*"
-pytest-mypy = "*"
-pytest-testmon = "*"
-pytest-xdist = "*"
-nbmake = "*"
-```
-
-And now let me show you why we need Poetry and not plain `pip`. Poetry lets you specify different depndency versions, and different sources (the flag `--extra-url` rings a bell?) for each dependency.
-
-Imagine we want to install Keras and PyTorch, but we have a Mac, and our friends have Windows and/or Linux. Some of us have a GPU, others don't. These things mean each person will need a different version of these two popular ML packages, from different sources.
-
-How to solve this? As follows:
-
-```toml
-[tool.poetry.dependencies]
-python = ">=3.8,<3.11"
-# ... other dependencies ...
-tensorflow-io-gcs-filesystem = [
-    { version = "<0.32.0", platform = "win32" },
-    { version = "*", platform = "linux" },
-    { version = "*", platform = "darwin" },
-]
-keras = "*"
-torch = [
-    { version = "^2.0.0", source = "pytorch", platform = "linux" },
-    { version = "^2.0.0", source = "pypi", platform = "darwin" },
+[project]
+name = "project_name"
+version = "0.1.0"
+description = ""
+authors = [{ name = "Gianmarco Aversano" }]
+requires-python = ">=3.10,<3.12"
+readme = "README.md"
+license = "LICENSE"
+dependencies = [
+    "pyrootutils",
+    "loguru",
+    "wget~=3.2",
+    "tqdm",
+    "matplotlib",
+    "pyvista>=0.42.3,<0.43",
+    "aenum>=3.1.15,<4",
+    "numpy",
+    "scikit-learn>=1.2.1,<2",
+    "pandas>=2.1.1,<3",
+    "lightning>=2.0.9.post0,<3",
+    "torch",
+    "gpytorch~=1.11",
 ]
 
-# ... more stuff ...
+[dependency-groups]
+dev = [
+    "ipykernel",
+    "jupyter",
+    "jupyter-contrib-nbextensions",
+    "ipywidgets",
+    "black[jupyter]",
+    "ipython",
+    "isort",
+    "mypy",
+    "pylint",
+    "pytest",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-pylint",
+    "pytest-mypy",
+    "pytest-testmon",
+    "pytest-xdist",
+    "nbmake",
+]
 
-[[tool.poetry.source]]
+[tool.uv]
+
+[[tool.uv.index]]
 name = "pytorch"
 url = "https://download.pytorch.org/whl/cu121"
-priority = "explicit" # means this URL will be checked for only for the packages where it is explicitly specified
+explicit = true
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch", marker = "sys_platform == 'linux'" },
+    { index = "pypi", marker = "sys_platform == 'darwin'" },
+]
 ```
 
-What happens here is that we install `tensorflow-io-gcs-filesystem<0.32.0` if we are on Windows (Tensorflow's higher versions do not support Windows at the time of writing), otherwise we install any (`"*"`) version.
+And now let me show you why we need `uv` and not plain `pip`. `uv` lets you specify different depndency versions, and different sources (the flag `--extra-url` rings a bell?) for each dependency.
 
-Now PyTorch. This package can be painful to install. This is what usually works: install the desired version from PyPi if we are on Mac, install it from `"https://download.pytorch.org"` if we are on Linux. In our example, we chose the GPU version for CUDA 12.1 (see `"/whl/cu121"`).
+Imagine we want to install PyTorch, but we have a Mac, and our friends have Windows and/or Linux. Some of us have a GPU, others don't. These things mean each person will need a different version of these two popular ML packages, from different sources.
+
+How to solve this? Look above!
+
+PyTorch. This package can be painful to install. This is what usually works: install the desired version from PyPi if we are on Mac, install it from `"https://download.pytorch.org"` if we are on Linux. In our example, we chose the GPU version for CUDA 12.1 (see `"/whl/cu121"`).
 
 Now that we have declared our desired dependencies, we need to resolve them. For this, run:
 
 ```bash
-poetry lock
+uv lock
 ```
 
-which will produce a `poetry.lock` file. This file is our dependency solution. Now, to install the dependencies, run:
+which will produce a `uv.lock` file. This file is our dependency solution. Now, to install the dependencies, run:
 
 ```bash
-poetry install
+uv sync
 ```
 
 You will see stuff being installed, but also upgrade or downgraded or uninstalled. This is cool and this command will always sync the dependencies you have currently installed in your virtual environment with the ones declared in the `pyproject.toml` file. This is not supported by plain `pip install -r requirements.txt`.
 
 ### requirements.txt
 
-Why not the `requirements.txt`? Poetry finds a platform-independent dependency resolution. If you do `pip install -r requirements.txt` and then `pip freeze > requirements.txt`, you end up with what worked on YOUR MACHINE. When you do `pip freeze > requirements.txt`, you cannot know if `pip` will run successfully on another machine. So please forget about it.
+Why not the `requirements.txt`? `uv` finds a platform-independent dependency resolution. If you do `pip install -r requirements.txt` and then `pip freeze > requirements.txt`, you end up with what worked on YOUR MACHINE. You cannot know if `pip` will run successfully on another machine. So please forget about it.
 
 ## Testing
 
@@ -520,6 +516,18 @@ if __name__ == "__main__":
 Now this is gonna run more than once (twice), each time with a different set of inputs.
 
 To run it, you can simply run this fine `python tests/project_name/test_nn.py`.
+
+### TDD
+
+Please use Test-Driven Development. What is it?
+
+Before touching what's under `src/`, create a simple test that you'd like the new code to pass. The test must be clear and functions as both documentation and proof that that code that you will write will work.
+
+So, write a (small) test, then write enough code to pass it. If the test passes, you cannot write more source code and are forced to improve/extend the test before doing so.
+
+This is a very short introduction to TDD, but if you stick to these principles you'll already write code that "just works". This will also force you to make the right code design choices.
+
+> You can also play a game in order to learn TDD: pair up with a partner code, one of you write a test and the other has to write the code to pass it. The tester will see that there will be multiple source code solutions that can (by)pass their test(s). This will teach both of you how to write tests.
 
 ## Training
 
@@ -918,7 +926,7 @@ For example:
 pytest:
   parallel:
     matrix:
-      - IMAGE: ["python:3.10", "python:3.9"]
+      - IMAGE: ["python:3.10", "python:3.11", "python:3.12"]
   image: $IMAGE
   stage: test
   only:
@@ -926,68 +934,93 @@ pytest:
   before_script:
     - apt-get update -qy # Update package lists
     - apt-get install -y <anything-you-may-need>
-    - pip install --upgrade pip virtualenv
-    - virtualenv .venv
-    - source .venv/bin/activate
-    - make install
+    - pip install uv
+    - just install
   script:
-    - make test
+    - just test
 ```
 
 As you can see, this job will run our tests for two Python versions.
 
-But actually, you cannot really see it as the most important commands are hidden behind `make` recipes:
+But actually, you cannot really see it as the most important commands are hidden behind `just` recipes:
 
-- `make install` to install the project's in the virtual environment;
-- `make test` to run the tests.
+- `just install` to install the project's in the virtual environment;
+- `just test` to run the tests.
 
-Using a `Makefile` is not strictly mandatory, but it does simplify things, as these installation and test commands may be long and tedious. You'd rather avoid having to write them multiple times. Plus, if for example the installation process changes, you have to remember all the places where it is coded and update them all.
+Using a `justfile` is not strictly mandatory, but it does simplify things, as these installation and test commands may be long and tedious. You'd rather avoid having to write them multiple times. Plus, if for example the installation process changes, you have to remember all the places where it is coded and update them all.
 
-By writing these processes under a `make` recipe, and then calling these recipes rather than those long commands, you can code faster and are less error prone.
+By writing these processes under a `just` recipe, and then calling these recipes rather than those long commands, you can code faster and are less error prone.
 
-For the sake of this example, the following `Makefile` is needed:
+For the sake of this example, the following `justfile` is needed:
 
-```Makefile
-help:
-    @cat Makefile
+```justfile
+set shell := ["bash", "-c"]
+set dotenv-load
 
-.EXPORT_ALL_VARIABLES:
+default:
+    @just --list
 
-# create an .env file to override the default settings
--include .env
-export $(shell sed 's/=.*//' .env)
 
-# Variables
-PYTHON_EXEC?=python -m
-EXAMPLE_DIR:=./examples
+# ----------------
+# default settings
+# ----------------
+# project
+PROJECT_NAME := "project_name"
+EXAMPLE_DIR := "./examples"
+LOGS_DIR := "./logs"
+# python
+PYTHON_EXEC := "uv run"
+PYTHONVERSION := "3.12"
+ENVNAME := "venv"
+COV_FAIL_UNDER := "100"
+# docker
+IMAGE := PROJECT_NAME
 
-# Installation
-install-init:
-    $(PYTHON_EXEC) pip install --upgrade pip
-    $(PYTHON_EXEC) pip install --upgrade poetry
-    $(PYTHON_EXEC) poetry self update
 
-install: install-init
-    $(PYTHON_EXEC) poetry install --no-cache
+# -----------
+# utilities
+# -----------
+init-directories:
+    mkdir -p {{LOGS_DIR}}
 
-# Tests
+
+# -----------
+# install project's dependencies
+# -----------
+install:
+    uv sync
+
+lock:
+    uv lock
+
+
+# -----------
+# testing
+# -----------
+init-tests: init-directories
+
 mypy:
-    $(PYTHON_EXEC) mypy tests
+    {{PYTHON_EXEC}} mypy --cache-fine-grained tests
+    {{PYTHON_EXEC}} mypy --cache-fine-grained src
 
-pytest:
-    $(PYTHON_EXEC) pytest -x --testmon --pylint --cov-fail-under 95
+pylint:
+    {{PYTHON_EXEC}} pylint src
 
-pytest-nbmake:
-    $(PYTHON_EXEC) pytest -x --testmon --nbmake --overwrite "$(EXAMPLE_DIR)"
+unit-test: init-tests
+    {{PYTHON_EXEC}} pytest -m "not integtest" -x --testmon --junitxml=unit-tests.xml --cov=src/ --cov-fail-under {{COV_FAIL_UNDER}} --cov-report xml:unit-tests-cov.xml
 
-test: mypy pytest pytest-nbmake
+integ-test: init-tests
+    {{PYTHON_EXEC}} pytest -m "integtest" -x --testmon --junitxml=integ-tests.xml --cov=src/ --cov-report xml:integ-tests-cov.xml
+
+nbmake: init-tests
+    {{PYTHON_EXEC}} pytest --nbmake --overwrite {{EXAMPLE_DIR}}
+
+test: pylint mypy unit-test nbmake
+
+tests: test
 ```
 
-A couple of useful things are happing in this `Makefile`: the use of `.EXPORT_ALL_VARIABLES:`, which makes sure that all variables are inherited by any commands/recipes we run; the `-include .env` line(s), which potentially reads a `.env` file so that if any of those variable is also declared also there, the value in the `.env` file will take precedence. Actually, this will work only for variables declared with the `?=` sign.
-
 > The `.env` file should not be committed.
-
-This is useful when the `Makefile` may need different values for those variables, depending on which user or on which machine you're onto. By having different `.env` files, you can customize the `make` recipes without having to change the `Makefile` itself.
 
 For example, someone may want to replace the `PYTHON_EXEC` variable's value with `poetry run` or `pyenv exec` or `python3 -m`. Whatever floats their boat.
 
@@ -999,7 +1032,7 @@ A good enough Docker image for a ML repository may look like this:
 
 ```Dockerfile
 # Dockerfile
-FROM python:3.10.10
+FROM python:3.12
 
 ARG PROJECT_NAME
 
@@ -1014,10 +1047,10 @@ WORKDIR /workdir
 # Install project
 RUN apt-get update -qy  &&\
     apt-get install -y apt-utils gosu make
-RUN pip install --upgrade pip virtualenv &&\
-    virtualenv .venv &&\
+RUN pip install --upgrade pip uv &&\
+    uv venv .venv &&\
     source .venv/bin/activate &&\
-    make install
+    just install
 
 # TensorBoard
 EXPOSE 6006
