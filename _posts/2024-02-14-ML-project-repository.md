@@ -79,12 +79,11 @@ Now open this folder with [VSCode](https://code.visualstudio.com/), which is rec
 You may also want to install the following VSCode extensions:
 
 - [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python): pretty mandatory. This should also automatically install Pylance.
-- [Black formatter](https://marketplace.visualstudio.com/items?itemName=ms-python.black-formatter): prettu much needed, install it then on VSCode, in Settings, check the box "Editor: Format On Save".
 - [Mypy](https://marketplace.visualstudio.com/items?itemName=ms-python.mypy-type-checker): not only this will force you to code in a readable way, but will often spot bugs early while you're still coding.
-- [Pylint](https://marketplace.visualstudio.com/items?itemName=ms-python.pylint): it will spot, while coding, violations of Python coding best practices. It will help you improve your code quality.
+- [Ruff](https://github.com/astral-sh/ruff): it will spot, while coding, violations of Python coding best practices. It will help you improve your code quality. It will also format your code.
 - [TOML](https://marketplace.visualstudio.com/items?itemName=tamasfe.even-better-toml): in order to have well-colored `.toml` files while editing them (not really needed).
 
-Also, in VSCoce settings, activate the "Editor: Word Wrap" option, and other similar ones. This will allow you to visualize correctly even long lines of code.
+Also, in VSCoce settings, activate the `"Editor: Word Wrap"` option, and other similar ones. This will allow you to visualize correctly even long lines of code.
 
 ## Virtual environment
 
@@ -196,15 +195,8 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "ipykernel",
-    "jupyter",
-    "jupyter-contrib-nbextensions",
-    "ipywidgets",
-    "black[jupyter]",
-    "ipython",
-    "isort",
     "mypy",
-    "pylint",
+    "ruff",
     "pytest",
     "pytest-cov",
     "pytest-mock",
@@ -914,7 +906,7 @@ pytest --testmon --nbmake --overwrite "./examples"
 
 ## CI/CD
 
-You may want to use a CI/CD pipeline to automate important steps such as: testing, lint checkcs, creating releases, creating documentation, publishing your project to Pypi, etc.
+You may want to use a CI/CD pipeline to automate important steps such as: testing, lint checks, creating releases, creating documentation, publishing your project to Pypi, etc.
 
 This is different depending on whether you're using Gitlab or Github.
 
@@ -1003,8 +995,9 @@ mypy:
     {{PYTHON_EXEC}} mypy --cache-fine-grained tests
     {{PYTHON_EXEC}} mypy --cache-fine-grained src
 
-pylint:
-    {{PYTHON_EXEC}} pylint src
+ruff:
+    {{PYTHON_EXEC}} ruff check --fix .
+    {{PYTHON_EXEC}} ruff format .
 
 unit-test: init-tests
     {{PYTHON_EXEC}} pytest -m "not integtest" -x --testmon --junitxml=unit-tests.xml --cov=src/ --cov-fail-under {{COV_FAIL_UNDER}} --cov-report xml:unit-tests-cov.xml
@@ -1015,7 +1008,7 @@ integ-test: init-tests
 nbmake: init-tests
     {{PYTHON_EXEC}} pytest --nbmake --overwrite {{EXAMPLE_DIR}}
 
-test: pylint mypy unit-test nbmake
+test: ruff mypy unit-test nbmake
 
 tests: test
 ```
