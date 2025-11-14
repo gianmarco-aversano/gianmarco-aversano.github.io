@@ -1,6 +1,29 @@
-# Test-Driven Development
+---
+title: "TDD: Test-Driven Development"
+categories:
+  - blog
+tags:
+  - TDD
+  - Test-Driven Development
+---
 
-There is no robust, bug-free code without good tests. Tests make sure that any problems are caught before they reach PROD.
+This blog post is a (hopefully short) collection of quick thoughts that come to my mind when I think about TDD. Too many times, people are skeptical about it or refrain from doing it always for the wrong reasons. And it is very easy to tell, just from reading someone's code, if they used TDD or not.
+
+Some of the symptoms:
+
+- code is hard to import and to use;
+- functions are too long;
+- classes for everything;
+- unreachable code;
+- unhandled cases;
+- and so much more!
+
+Thus, I decided to write this article. Hopefully it will be useful to someone.
+
+## Introduction
+
+There is no robust, bug-free code without good tests.
+Tests make sure that any problems are caught before they reach PROD.
 
 Test-Driven Development (TDD) is an approach where tests are written before the actual code.
 
@@ -228,3 +251,22 @@ Example: this function accepts an `int`... What if I input `None`? What if I inp
 Input coverage is very important: test the function against anything that it can accept, and design behavior when something non-expected is inputed.
 
 The function `call_me()` receives a `str` value, but internally it also reads from a database: then try inputting any `str` value, non-`str` values but also mock the database to return valid and non-expected data. What do I want this function to do if the databse returns a table with an extra column? What if a column is missing? What if it is empty? What if a `float` column today returns a `str`?
+
+## Code coverage
+
+Code coverage is a metric that tells you how much of your code is tested.
+True, it does not tell you how good your tests are, but can be used to spot areas of your code that are untested.
+What if they contain a typo? What happens if I run them?
+This is why you should cover all your code with tests (`100%` coverage).
+
+As said, `100%` coverage only tells you that all your code is tested, not if it is tested well. So `100%` coverage should be the starting point of testing, not the goal.
+
+Many people say: _Why should I cover everything? Coverage is just a metric, if the most important pathways are covered, why should I test everything?_
+
+The answer to this question is another question: if _the most important pathways are covered_, then I could safely remove the uncovered lines, right?
+
+Silence. Normally, this is something that is common to hear from developers who just do not want to test, and prefer to see bugs after code is deployed and then go back to it and change it.
+
+Personally, I feel better when I deploy codeafter I ran out of ideas about how to test it, not before.
+
+Plus, if you do TDD, it will be very hard for you to have uncovered code.
