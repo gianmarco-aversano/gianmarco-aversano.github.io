@@ -289,4 +289,4 @@ They never reply. Or they say: but they are being run, in production! At this po
 
 Tip: if you do TDD, it will be very hard for you to have uncovered code.
 
-What's more, code coverage makes code reviews easier. If your code is `100%` covered, then I do not have to wrorry for silly things. I can just read your tests and check if they make sense, if they truly prove the new functionalities have been successfully implemented. I may even not read the source code, I will know, just from the tests, that all is well.
+What's more, code coverage makes code reviews easier. If your code is `100%` covered, then I do not have to worry for silly things. I can just read your tests and check if they make sense, if they truly prove the new functionalities have been successfully implemented. I may even not read the source code, I will know, just from the tests, that all is well.
