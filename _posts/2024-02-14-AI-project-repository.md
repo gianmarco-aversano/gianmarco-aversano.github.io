@@ -5,27 +5,27 @@ categories:
 tags:
   - machine learning
   - ml
+  - ai
   - python
   - repository
 ---
 
-Alright so if you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
+<!-- [my-template](https://github.com/svnv-svsv-jm/init-new-project) -->
 
-During my career years, I've had to chance to learn different tools. Nothing too crazy, I try to follow basic conventions and best practices.
+> DISCALIMER: This post was written before the era of LLMs and is based off a repository that was written long, long ago. I have recently updated it, but smells from the past may still be around.
 
-But I've realized that, for many, none of this is evident.
+If you landed here it's because you want to set up a new repository for a machine learning (ML) project. And probably are not sure how to do it.
 
-And I don't want them to struggle like I did, so here I am sharing the solutions I've learned.
+During my career, I've had to chance to learn different tools. Nothing too crazy, I try to follow basic conventions and best practices. But I've realized that, for many, none of this is evident. And I don't want them to struggle like I did, so here I am sharing the solutions I've learned.
 
 As Python is the most popular programming language for ML, we'll use that, which also means that we need to set up everything in a way that also respects Python development best practices.
 
-You may want to check out Cookiecutter, which comes with templates to set up new Python projects. You can even create your own. But let's start from zero here.
+Let's start from zero here.
 
-Also beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, just install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install): check out [this guide](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10), too.
-
-> Most of the code here can be found at: [my-template](https://github.com/svnv-svsv-jm/init-new-project).
+> Beware that I'm writing this piece under the hypothesis that you are on Linux/Mac. If you're on Windows, just install [WSL2](https://learn.microsoft.com/en-us/windows/wsl/install): check out [this guide](https://www.omgubuntu.co.uk/how-to-install-wsl2-on-windows-10), too.
 
 The target audience for this post is a little all over the place, you'll find things that are easier and things that are less. Hopefully, I've been clear enough, but you should have at least some familiarity with Python, and know what a YAML file is, what Docker (roughly) is, etc.
+
 
 <!-- By the end, your project will look something like:
 
@@ -34,7 +34,8 @@ The target audience for this post is a little all over the place, you'll find th
 .
 ├── Dockerfile
 ├── LICENSE
-├── Makefile
+├── justfile
+├── uv.lock
 ├── contributing.md
 ├── README.md
 ├── docker-compose.yml
@@ -51,16 +52,11 @@ The target audience for this post is a little all over the place, you'll find th
 ├── src
 │   └── project_name
 │       ├── __init__.py
-│       └── config.py
 └── tests
-    ├── __init__.py
     ├── conftest.py
     ├── e2e
-    │   └── __init__.py
     ├── integration
-    │   └── __init__.py
     └── unit
-        └── __init__.py
 ``` -->
 
 ## Pre-requisites
@@ -106,6 +102,9 @@ We need to create the project's metadata. We need to create the `pyproject.toml`
 This file should look something like this:
 
 ```toml
+# ----------------
+# Project
+# ----------------
 [project]
 name = "project-name" # choose a nice project name
 version = "0.1.0" # select a version number
@@ -114,20 +113,12 @@ authors = ["Name <address@email.com>"]
 license = "LICENSE" # make sure this file exists
 readme = "README.md" # make sure this file exists
 
-[tool.hatch.build.targets.sdist]
-include = ["src/*"]
-exclude = ["tests/*"] # on this later
-
-[tool.hatch.build.targets.wheel]
-include = ["src/*"]
-exclude = ["tests/*"] # on this later
-
-[tool.hatch.build.targets.wheel.sources]
-"src/project_name" = "project_name"
-
+# ----------------
+# Build System
+# ----------------
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.9.9,<0.10.0"]
+build-backend = "uv_build"
 ```
 
 Rather self-explicative. Now create the following files:
@@ -156,19 +147,16 @@ The `README.md` file should contain installation instructions for your package, 
 This is what your `pyproject.toml` should look something like:
 
 ```toml
-[tool.hatch.build.targets.sdist]
-include = ["src/*"]
-
-[tool.hatch.build.targets.wheel]
-include = ["src/*"]
-
-[tool.hatch.build.targets.wheel.sources]
-"src/project_name" = "project_name"
-
+# ----------------
+# Build System
+# ----------------
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.9.9,<0.10.0"]
+build-backend = "uv_build"
 
+# ----------------
+# Project
+# ----------------
 [project]
 name = "project_name"
 version = "0.1.0"
@@ -180,17 +168,8 @@ license = "LICENSE"
 dependencies = [
     "pyrootutils",
     "loguru",
-    "wget~=3.2",
-    "tqdm",
-    "matplotlib",
-    "pyvista>=0.42.3,<0.43",
-    "aenum>=3.1.15,<4",
-    "numpy",
-    "scikit-learn>=1.2.1,<2",
-    "pandas>=2.1.1,<3",
     "lightning>=2.0.9.post0,<3",
     "torch",
-    "gpytorch~=1.11",
 ]
 
 [dependency-groups]
@@ -243,7 +222,7 @@ uv sync
 
 You will see stuff being installed, but also upgrade or downgraded or uninstalled. This is cool and this command will always sync the dependencies you have currently installed in your virtual environment with the ones declared in the `pyproject.toml` file. This is not supported by plain `pip install -r requirements.txt`.
 
-### requirements.txt
+### ~~requirements.txt~~
 
 Why not the `requirements.txt`? `uv` finds a platform-independent dependency resolution. If you do `pip install -r requirements.txt` and then `pip freeze > requirements.txt`, you end up with what worked on YOUR MACHINE. You cannot know if `pip` will run successfully on another machine. So please forget about it.
 
@@ -305,7 +284,7 @@ from loguru import logger
 
 # always use typing, everything should be clear and explicit
 # or not even you will understand your code
-from typing import List, Union, Any, Sequence, Tuple, Dict
+from typing import Any, Sequence
 
 # now the data science stuff
 import numpy as np
@@ -319,7 +298,7 @@ def fc_block(
     leaky_relu: bool = False,
     negative_slope: float = 0.0,
     dropout: bool = False,
-) -> List[torch.nn.Module]:
+) -> list[torch.nn.Module]:
     """Creates a small fully-connected neural block.
     Rather than hardcoding, we can create a general block.
     Each block is just a `torch.nn.Linear` module plus ReLU, normalization, etc.
@@ -327,21 +306,27 @@ def fc_block(
     Args:
         in_features (int):
             Input dimension.
+
         out_features (int):
             Output dimension.
+
         normalize (bool, optional):
             Whether to use Batch 1D normalization. Defaults to True.
+
         negative_slope (float, optional):
             Negative slope for Leaky ReLU layers. Defaults to 0.0.
+
         batch_norm_eps (float, optional):
             Epsilon for Batch 1D normalization. Defaults to 0.5.
+
         dropout (bool, optional):
             Whether to add a Dropout layer.
+
     Returns:
-        List[torch.nn.Module]:
+        list[torch.nn.Module]:
             List of torch modules, to be then turned into a `torch.nn.Sequential` module.
     """
-    layers: List[torch.nn.Module] = []
+    layers: list[torch.nn.Module] = []
     layers.append(torch.nn.Linear(in_features, out_features))
     if normalize:
         layers.append(torch.nn.BatchNorm1d(out_features, batch_norm_eps))  # type: ignore
@@ -361,7 +346,7 @@ class MLP(torch.nn.Module):
     def __init__(
         self,
         in_features: int,
-        out_features: Union[int, Sequence[int]],
+        out_features: int | Sequence[int],
         hidden_dims: Sequence[int] = None,
         hidden_size: int = None,
         n_layers: int = 3,
@@ -372,24 +357,31 @@ class MLP(torch.nn.Module):
         Args:
             in_features (int):
                 Input dimension or shape.
-            out_features (Union[int, Sequence[int]]):
+            
+            out_features (int | Sequence[int]):
                 Output dimension or shape. In case you're working with images,
                 you may want to pass the image shape: e.g. (C,H,W), which
                 stands for (number of color channgels, height in pixels, width in pixels).
+            
             hidden_dims (Sequence[int], optional):
                 Sequence of hidden dimensions. Defaults to [].
+            
             hidden_size (int):
                 Hidden layers' dimensions. Use either this and `n_layers` or `hidden_dims`.
+            
             n_layers (int):
                 Number of hidden layers. Use this in conjunction with `hidden_size` parameter.
+            
             last_activation (torch.nn.Module, optional):
                 Last activation for the MLP. Defaults to None.
+            
             **kwargs (optional):
                 See function :func:`~fc_block`
         """
         super().__init__()
         # Sanitize
         in_features = int(in_features) # cast to int
+        
         # We now need to create a list of int values
         # If hidden_dims is not provided, we check if hidden_size is
         # If also hidden_size is not provided, we initialize hidden_dims to default value
@@ -402,6 +394,7 @@ class MLP(torch.nn.Module):
         else:
             for i, h in enumerate(hidden_dims):
                 hidden_dims[i] = int(h)  # type: ignore
+        
         # We now need to make sure that out_features is a list of int
         # As we allow users to input also just an int
         if isinstance(out_features, int):
@@ -411,6 +404,7 @@ class MLP(torch.nn.Module):
                 out_features[i] = int(h)  # type: ignore
         self.out_features = out_features
         out_shape = [out_features] if isinstance(out_features, int) else out_features
+        
         # Set up: we create now the list of torch.nn.Modules
         layers = []
         layers_dims = [in_features, *hidden_dims]
@@ -422,6 +416,7 @@ class MLP(torch.nn.Module):
             layers.append(torch.nn.Linear(in_features, int(np.prod(out_shape))))
         if last_activation is not None:
             layers.append(last_activation)
+        
         # Here is our final model
         self.model = torch.nn.Sequential(*layers)
         logger.debug(f"Initialized {self.model}")
@@ -458,8 +453,10 @@ def test_mlp_module() -> None:
     # Create a neural network consuming inputs of size 100,
     # return a tensor of size 2, going from 100 to 50 to 25 to 10 to 2
     mlp = MLP(100, 2, [50, 25, 10])
+    
     # Create a random input tensor of size 100
     x = torch.rand((100,))
+    
     # Run the MLP, and check output size
     o = mlp(x)
     assert o.numel() == 2, f"Wrong size, expected {2}, got {o.size()}"
@@ -467,7 +464,7 @@ def test_mlp_module() -> None:
 if __name__ == "__main__":
     logger.remove()
     logger.add(sys.stderr, level="DEBUG")
-    pytest.main([__file__, "-x", "-s", "--mypy", "--pylint"])
+    pytest.main([__file__, "-x", "-s"])
 ```
 
 Here is our test. What if we want more of it? Let's parameterize it.
@@ -493,8 +490,10 @@ def test_mlp_module() -> None:
     """Check network can be initialized, and outputs tensors of expected shape."""
     # Create a neural network
     mlp = MLP(in_features, out_features, hidden_dims)
+    
     # Create a random input tensor of size in_features
     x = torch.rand((in_features,))
+    
     # Run the MLP, and check output size
     o = mlp(x)
     assert o.numel() == out_features, f"Wrong size, expected {out_features}, got {o.size()}"
@@ -502,7 +501,7 @@ def test_mlp_module() -> None:
 if __name__ == "__main__":
     logger.remove()
     logger.add(sys.stderr, level="DEBUG")
-    pytest.main([__file__, "-x", "-s", "--mypy", "--pylint"])
+    pytest.main([__file__, "-x", "-s"])
 ```
 
 Now this is gonna run more than once (twice), each time with a different set of inputs.
@@ -525,7 +524,7 @@ This is a very short introduction to TDD, but if you stick to these principles y
 
 We have tested our neural net behaves as expected. But all it does is just transform an input of a certain shape, to an output of another shape. We now need to train it to solve a task. But we have not defined a training loop. We have to.
 
-Unlike Keras, which is a high-level libray relying on Tensorflow for the Tensor operations, PyTorch is a low-level libray for Deep Learning. The dualism Keras vs PyTorch makes zero sense. While I think you still must learn plain PyTorch, plain PyTorch requires a lot of coding, especially if you want to develop a model that is also easy to use and re-train for other people. Unless you're really experienced, you'd better off using high-level libraries that come with pre-defined building blocks and a clear API that makes your code easy to use for the others.
+Unlike Keras, which is a high-level libray for the Tensor operations, PyTorch is a low-level libray for Deep Learning. The dualism Keras vs PyTorch makes zero sense. While I think you still must learn plain PyTorch, plain PyTorch requires a lot of coding, especially if you want to develop a model that is also easy to use and re-train for other people. Unless you're really experienced, you'd better off using high-level libraries that come with pre-defined building blocks and a clear API that makes your code easy to use for the others.
 
 As said, all we've done is define a MLP architecture, there is no information about how to train it. So now we are going to define a training loop, and we are going to attach all the training procedures to MLP model itself. This way, other people can use it very simply and clearly, by just calling a `.fit()` method.
 
@@ -710,7 +709,7 @@ def test_mnist_classifier(data_path: str) -> None:
 if __name__ == "__main__":
     logger.remove()
     logger.add(sys.stderr, level="DEBUG")
-    pytest.main([__file__, "-x", "-s", "--pylint", "--mypy"])
+    pytest.main([__file__, "-x", "-s"])
 ```
 
 Of course, you can test for more, you can also try to overfit one batch. For now, let's keep it like this.
@@ -1025,9 +1024,7 @@ A good enough Docker image for a ML repository may look like this:
 
 ```Dockerfile
 # Dockerfile
-FROM python:3.12
-
-ARG PROJECT_NAME
+FROM ghcr.io/astral-sh/uv:ubuntu
 
 # Create workdir and copy dependency files
 RUN mkdir -p /workdir
@@ -1039,9 +1036,9 @@ WORKDIR /workdir
 
 # Install project
 RUN apt-get update -qy  &&\
-    apt-get install -y apt-utils gosu make
-RUN pip install --upgrade pip uv &&\
-    uv venv .venv &&\
+    apt-get install -y apt-utils gosu curl &&\
+    curl -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
+RUN uv venv .venv --python=3.13 &&\
     source .venv/bin/activate &&\
     just install
 
